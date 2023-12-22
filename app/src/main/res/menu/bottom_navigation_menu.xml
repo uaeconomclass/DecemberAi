@@ -1,18 +1,28 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_lessons"
+        android:checkable="false"
+        android:enabled="true"
         android:icon="@android:drawable/ic_menu_compass"
-        android:title="Уроки" />
+        android:title="Уроки"
+        android:visible="true" />
     <item
         android:id="@+id/menu_practice"
+        android:icon="@android:drawable/ic_menu_compass"
         android:title="Практика"
-        android:icon="@drawable/ic_practice" />
+        android:visible="true" />
     <item
         android:id="@+id/menu_progress"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_compass"
         android:title="Прогресс"
-        android:icon="@drawable/ic_progress" />
+        android:visible="true"
+        app:showAsAction="always" />
     <item
         android:id="@+id/menu_profile"
+        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_compass"
         android:title="Профиль"
-        android:icon="@drawable/ic_profile" />
+        android:visible="true" />
 </menu>
