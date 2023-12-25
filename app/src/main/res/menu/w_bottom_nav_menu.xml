@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:title="Лекции"
+        android:icon="@drawable/baseline_account_balance_24"
+        android:id="@+id/button_lessons"/>
+    <item
+        android:title="Практики"
+        android:icon="@drawable/baseline_add_reaction_24"
+        android:id="@+id/button_practice"/>
+    <item
+        android:title="Прогресс"
+        android:icon="@drawable/baseline_airline_stops_24"
+        android:id="@+id/button_progress"/>
+    <item
+        android:title="Профиль"
+        android:icon="@drawable/baseline_account_box_24"
+        android:id="@+id/button_profile"/>
+</menu>

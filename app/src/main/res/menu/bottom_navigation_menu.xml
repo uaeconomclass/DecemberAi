@@ -2,26 +2,27 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_lessons"
+        android:checkable="false"
         android:enabled="true"
+        android:icon="@android:drawable/ic_menu_compass"
         android:title="Уроки"
-        android:visible="true"
-        app:showAsAction="always" />
+        android:visible="true" />
     <item
         android:id="@+id/menu_practice"
-        android:enabled="true"
+        android:icon="@android:drawable/ic_menu_compass"
         android:title="Практика"
-        android:visible="true"
-        app:showAsAction="always" />
+        android:visible="true" />
     <item
         android:id="@+id/menu_progress"
         android:enabled="true"
+        android:icon="@android:drawable/ic_menu_compass"
         android:title="Прогресс"
         android:visible="true"
         app:showAsAction="always" />
     <item
         android:id="@+id/menu_profile"
         android:enabled="true"
+        android:icon="@android:drawable/ic_menu_compass"
         android:title="Профиль"
-        android:visible="true"
-        app:showAsAction="always" />
+        android:visible="true" />
 </menu>

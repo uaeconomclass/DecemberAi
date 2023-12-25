@@ -10,6 +10,7 @@
         android:theme="@style/Theme.DecemberAi">
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,12 +19,7 @@
             </intent-filter>
         </activity>
 
-        <!-- Новая активность -->
-        <activity
-            android:name=".SecondActivity"
-            android:exported="true">
-            <!-- Не забудьте добавить соответствующий intent-filter, если это должна быть активность для запуска -->
-        </activity>
+
 
     </application>
 
