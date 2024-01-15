@@ -6,23 +6,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:title="Home"
-        android:icon="@drawable/baseline_add_home_24"/>
+        android:icon="@drawable/baseline_dashboard_24"/>
     <item
-        android:id="@+id/btn_Dashboard"
+        android:id="@+id/btn_lessons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Dashboard"
-        android:icon="@drawable/baseline_add_home_24"/>
+        android:title="Lessons"
+        android:icon="@drawable/baseline_campaign_24"/>
     <item
-        android:id="@+id/btn_Notification"
+        android:id="@+id/btn_practice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Notification"
-        android:icon="@drawable/baseline_add_home_24"/>
+        android:title="Practice"
+        android:icon="@drawable/baseline_business_center_24"/>
     <item
-        android:id="@+id/btn_Item"
+        android:id="@+id/btn_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:title="Item"
-        android:icon="@drawable/baseline_add_home_24"/>
+        android:title="Account"
+        android:icon="@drawable/baseline_assignment_ind_24"/>
 </menu>
