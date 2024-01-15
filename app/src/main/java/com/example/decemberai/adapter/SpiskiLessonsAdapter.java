@@ -39,8 +39,8 @@ public class SpiskiLessonsAdapter extends RecyclerView.Adapter<SpiskiLessonsAdap
 
 
     @Override
-    public void onBindViewHolder(@NonNull SpiskiLessonsAdapter.SpiskiLessonsViewHolder holder, int position) { // создали holder на основе вложенного класса CategoryViewHolder
-            holder.spiskiLessonsTitle.setText(spiskiLessons.get(position).getTitle());// через объект holder обращаемся к  categoryTitle и устанавливаем текст для этого поля
+    public void onBindViewHolder(@NonNull SpiskiLessonsAdapter.SpiskiLessonsViewHolder holder, int position) { // создали holder на основе вложенного класса SpiskiLessonsViewHolder
+            holder.spiskiLessonsTitle.setText(spiskiLessons.get(position).getTitle());// через объект holder обращаемся к  spiskiLessonsTitle и устанавливаем текст для этого поля
     }
 
     @Override
