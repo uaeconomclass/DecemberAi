@@ -32,15 +32,6 @@ public class MainActivity extends AppCompatActivity {
     // Навигационное меню ч1 Конец -------------------------------------------------------------------
 
 
-    // Установка списков текстов для Lessons ч1 Начало -------------------------------------------------
-
-    RecyclerView spiskiLessonsRecycler;
-    SpiskiLessonsAdapter spiskiLessonsAdapter;
-
-    // Установка списков текстов для Lessons ч1 Конец -------------------------------------------------
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,20 +69,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     // Навигационное меню ч2 Конец ---------------------------------------------------------------------
-
-
-    // Установка списков текстов для Lessons ч2 Начало -------------------------------------------------
-
-        List<SpiskiLessons> spiskiLessonsList = new ArrayList<>();
-        spiskiLessonsList.add(new SpiskiLessons(133, "Игры"));
-        spiskiLessonsList.add(new SpiskiLessons(233, "Сайты"));
-        spiskiLessonsList.add(new SpiskiLessons(333, "Языки"));
-        spiskiLessonsList.add(new SpiskiLessons(433, "Прочее"));
-
-        setSpiskiLessonsRecycler(spiskiLessonsList);
-
-    // Установка списков текстов для Lessons ч2 Конец -------------------------------------------------
-
 
 
     }
@@ -146,18 +123,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Навигационное меню ч3 конец ---------------------------------------------------------------------
 
-    // Установка списков текстов для Lessons ч3 Начало -------------------------------------------------
-
-    private void setSpiskiLessonsRecycler(List<SpiskiLessons> categoryList){
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
-        spiskiLessonsRecycler = findViewById(R.id.spiskiLessonsRecycler);
-        spiskiLessonsRecycler.setLayoutManager(layoutManager);
-
-        spiskiLessonsAdapter = new SpiskiLessonsAdapter(this, categoryList);
-        spiskiLessonsRecycler.setAdapter(spiskiLessonsAdapter);
-    }
-
-    // Установка списков текстов для Lessons ч3 Конец -------------------------------------------------
 
 
 
