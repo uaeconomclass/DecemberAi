@@ -15,7 +15,7 @@ import com.example.decemberai.model.SpiskiPractice;
 
 import java.util.List;
 
-public class SpiskiPracticeAdapter {
+public class SpiskiPracticeAdapter extends RecyclerView.Adapter<SpiskiPracticeAdapter.SpiskiPracticeViewHolder> {
 
     Context context; // Сюда передадим Страницу на которой все должно быть выведено
     List<SpiskiPractice> spiskiPractice;// Сюда передадим Список всех категорий что должны быть выведены

@@ -22,6 +22,7 @@ import java.util.List;
 public class LessonsFragment extends Fragment {
 
     // Установка списков текстов для Lessons ч1 Начало -------------------------------------------------
+    // Еще Нужны файлы SpiskiLessons.java, SpiskiLessonsAdapter.java, spiski_lessons_adapter.xml
     RecyclerView spiskiLessonsRecycler; // Объект на основе класса RecyclerView
     SpiskiLessonsAdapter spiskiLessonsAdapter;// Объект на основе класса SpiskiLessonsAdapter
 
