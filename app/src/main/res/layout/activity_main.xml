@@ -16,11 +16,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/bottom_navigation"
-
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bn_menu"
         android:layout_alignParentBottom="true"
-        tools:ignore="PrivateResourse">
+        tools:ignore="PrivateResourse"
+        android:background="@color/app_light_grey"
+        app:itemTextColor="@color/bottom_nav_color"
+        app:itemIconTint="@color/bottom_nav_color"
+        >
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

@@ -5,24 +5,29 @@
         android:id="@+id/btn_home"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_selector"
         android:title="Home"
         android:icon="@drawable/baseline_dashboard_24"/>
     <item
         android:id="@+id/btn_lessons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_selector"
         android:title="Lessons"
         android:icon="@drawable/baseline_campaign_24"/>
     <item
         android:id="@+id/btn_practice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_selector"
         android:title="Practice"
         android:icon="@drawable/baseline_business_center_24"/>
     <item
         android:id="@+id/btn_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_selector"
         android:title="Account"
         android:icon="@drawable/baseline_assignment_ind_24"/>
 </menu>
+

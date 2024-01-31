@@ -17,12 +17,21 @@ import com.example.decemberai.model.SpiskiPractice;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PracticeFragment extends Fragment {
+    //Параметры текущего пользователя тестово здесь
+    String userLevel = "Бывалый";
+
+
+
+
     // Установка списков текстов для Lessons ч1 Начало -------------------------------------------------
     // Еще Нужны файлы SpiskiPractice.java, SpiskiPracticeAdapter.java, spiski_practice_adapter.xml
     RecyclerView spiskiPracticeRecycler; // Объект на основе класса RecyclerView
-    SpiskiPracticeAdapter spiskiPracticeAdapter;// Объект на основе класса SpiskiLessonsAdapter
+    static SpiskiPracticeAdapter spiskiPracticeAdapter;// Объект на основе класса SpiskiLessonsAdapter
+    static List<SpiskiPractice> spiskiPracticeList = new ArrayList<>();//Создаем список, каждый элемент которого будет на основе класса SpiskiPractice называется он spiskiPracticeList и выделяем под него память ArrayList<>
+    static List<SpiskiPractice> fullSpiskiPracticeList = new ArrayList<>();// переменная для полного начального варианта списка
 
     // Установка списков текстов для Lessons ч1 Конец -------------------------------------------------
     @Override
@@ -32,24 +41,26 @@ public class PracticeFragment extends Fragment {
         // Навигационное меню  Начало --------------------------------------------------------------
         View view = inflater.inflate(R.layout.fragment_practice, container, false);
         // Навигационное меню  Конец + ( return view;)---------------------------------------------
+        spiskiPracticeList.clear();
+        fullSpiskiPracticeList.clear();
 
 
         // Установка списков текстов для Lessons ч2 Начало -----------------------------------------
 
-        List<SpiskiPractice> spiskiPracticeList = new ArrayList<>();//Создаем список, каждый элемент которого будет на основе класса SpiskiPractice называется он spiskiPracticeList и выделяем под него память ArrayList<>
-        spiskiPracticeList.add(new SpiskiPractice(11, "Лекция 1")); // Создаем объект на основе класса SpiskiPractice и указываем айди и Название(можно расширить поля)
-        spiskiPracticeList.add(new SpiskiPractice(12, "Лекция 2"));
-        spiskiPracticeList.add(new SpiskiPractice(13, "Лекция 3"));
-        spiskiPracticeList.add(new SpiskiPractice(14, "Лекция 4"));
-        spiskiPracticeList.add(new SpiskiPractice(15, "Лекция 5"));
-        spiskiPracticeList.add(new SpiskiPractice(16, "Лекция 6"));
-        spiskiPracticeList.add(new SpiskiPractice(17, "Лекция 7"));
-        spiskiPracticeList.add(new SpiskiPractice(18, "Лекция 8"));
-        spiskiPracticeList.add(new SpiskiPractice(19, "Лекция 9"));
+
+        spiskiPracticeList.add(new SpiskiPractice(11, 0001, "Утренняя кофемания", "ic_cofe_day_small2","ic_cofe_day_small2", "Новичок", "#424345")); // Создаем объект на основе класса SpiskiPractice и указываем айди и Название(можно расширить поля)
+        spiskiPracticeList.add(new SpiskiPractice(12, 0002, "Разговорчики \nс подругой", "ic_phyton_small","ic_phyton_small", "Новичок", "#9FA52D" ));
+        spiskiPracticeList.add(new SpiskiPractice(13, 0003, "Утренняя кофемания", "ic_cofe_day_small2","ic_cofe_day_small2", "Бывалый", "#424345")); // Создаем объект на основе класса SpiskiPractice и указываем айди и Название(можно расширить поля)
+        spiskiPracticeList.add(new SpiskiPractice(14, 0004, "Разговорчики \nс подругой", "ic_phyton_small","ic_phyton_small", "Бывалый", "#9FA52D" ));
+
 
         setSpiskiPracticeRecycler(view, spiskiPracticeList); // Вызываем наш метод и передаем туда список
 
         // Установка списков текстов для Lessons ч2 Конец ------------------------------------------
+
+        fullSpiskiPracticeList.clear();
+        fullSpiskiPracticeList.addAll(spiskiPracticeList); //заполняем переменную для сохранения неизменного начального варианта списка
+        showSpiskiByLevel(userLevel);
 
 
 
@@ -69,5 +80,22 @@ public class PracticeFragment extends Fragment {
         spiskiPracticeRecycler.setAdapter(spiskiPracticeAdapter); // Устанавливаем Адаптер к нашему spiskiPracticeRecycler
     }
     // Установка списков текстов для Lessons ч3 Конец -------------------------------------------------
+
+    public static void showSpiskiByLevel(String userLevel){
+        spiskiPracticeList.clear(); // стираем весь список
+        spiskiPracticeList.addAll(fullSpiskiPracticeList); // заполняем его из переменной которая хранит первоначальные параметры
+        List<SpiskiPractice> filterSpiski = new ArrayList<>(); // выполним фильтрацию и все необходимые курсы поместим в этот список filterCourses
+        for (SpiskiPractice c : spiskiPracticeList){// цикл
+            if(Objects.equals(c.getLevel(), userLevel)) // Проверяем уровень если нужный то добавляем в список filterCourses
+                filterSpiski.add(c);
+        }
+
+        spiskiPracticeList.clear(); // очистили наш первоначальный список
+        spiskiPracticeList.addAll(filterSpiski);// добавили в первоначальный список отфильтрованные элементы
+
+        spiskiPracticeAdapter.notifyDataSetChanged(); // обновляем данные в адапторе
+
+    }
+
 
 }

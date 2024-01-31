@@ -9,6 +9,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DecemberAi">
         <activity
+            android:name=".model.PracticePage"
+            android:exported="false" />
+        <activity
+            android:name=".model.LessonsPage"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -18,7 +24,9 @@
             </intent-filter>
         </activity>
 
-
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

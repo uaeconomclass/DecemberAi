@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Состояние активной кнопки -->
+    <item
+        android:color="@color/app_blue"
+        android:state_checked="true"/>
+    <!-- Состояние пассивной кнопки -->
+    <item
+        android:color="@color/app_grey"
+        android:state_checked="false"/>
+
+
+</selector>
