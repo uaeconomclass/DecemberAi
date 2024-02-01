@@ -2,8 +2,11 @@ package com.example.decemberai.model;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,6 +35,11 @@ public class LessonsPage extends AppCompatActivity {
 
         int id_lessons = getIntent().getIntExtra("spiskiLessonsId", 0);
         add_view_item_lessons(id_lessons);
+
+
+
+
+
 
     }
 

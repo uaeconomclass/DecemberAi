@@ -66,14 +66,16 @@
 
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
         android:layout_marginBottom="15dp"
+        android:foregroundGravity="center_vertical|center"
         app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/addToCard2"
+        app:layout_constraintBottom_toTopOf="@+id/practiceSayBatton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,22 +96,52 @@
 
         </ScrollView>
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/practiceRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/practiceWelcomeTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:foregroundGravity="center"
+            android:gravity="center"
+            android:text="Welcome to your lessons"
+            android:textSize="28dp" />
+
 
     </androidx.cardview.widget.CardView>
 
+    <EditText
+        android:id="@+id/practiceMessageEditText"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="10dp"
+        android:background="@drawable/rounded_corner"
+        android:hint="Write here "
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/practiceSayBatton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
     <ImageButton
-        android:id="@+id/addToCard2"
+        android:id="@+id/practiceSayBatton"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
         android:layout_marginBottom="15dp"
-        android:scaleType="centerCrop"
         android:background="@android:color/transparent"
         android:contentDescription="@string/app_name"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/button_speak4"
-        />
+        app:layout_constraintStart_toEndOf="@+id/practiceMessageEditText"
+        app:layout_constraintTop_toBottomOf="@+id/cardView"
+        app:srcCompat="@drawable/button_speak4" />
 
 
 
