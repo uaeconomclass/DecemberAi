@@ -1,5 +1,6 @@
 package com.example.decemberai;
 
+import android.content.Context;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -31,10 +33,25 @@ public class MainActivity extends AppCompatActivity {
     boolean flag = true;
     // Навигационное меню ч1 Конец -------------------------------------------------------------------
 
+    SharedPreferences sp; // Переменная для SharedPreferences
+    String userEmail, userPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sp = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE); //Присваиваем sp название UserPreferences
+
+        // Проверяем условие авторизован ли клиент
+        if (!AuthorizationCompleted()) {
+            // Если условие не выполняется, переходим на RegisterActivity
+            Intent intent = new Intent(this, RegisterActivity.class);
+            startActivity(intent);
+            finish(); // Завершаем текущую активность, чтобы пользователь не мог вернуться назад
+            return;
+        }
+
+
         setContentView(R.layout.activity_main);
 
     // Навигационное меню ч2 начало -------------------------------------------------------------------
@@ -70,8 +87,22 @@ public class MainActivity extends AppCompatActivity {
         });
     // Навигационное меню ч2 Конец ---------------------------------------------------------------------
 
+    }
+
+    private boolean AuthorizationCompleted() {
+        userEmail = sp.getString("email", "");
+        userPassword = sp.getString("password", "");
+        if((!userEmail.equals(""))&&(!userPassword.equals(""))){ //Если в SharedPreferences есть почта и пароль клиента то считаем его авторизованным
+            return true;
+        }else{
+            return false;
+        }
+        // Возвращаете true, если Авторизован, и false, если не Авторизован
 
     }
+
+
+
 
 
     // Навигационное меню ч3 Начало ---------------------------------------------------------------------
