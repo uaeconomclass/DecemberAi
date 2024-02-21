@@ -20,7 +20,7 @@
         app:menu="@menu/bn_menu"
         android:layout_alignParentBottom="true"
         tools:ignore="PrivateResourse"
-        android:background="@color/app_light_grey"
+        android:background="@color/menu_ottenok_1"
         app:itemTextColor="@color/bottom_nav_color"
         app:itemIconTint="@color/bottom_nav_color"
         >

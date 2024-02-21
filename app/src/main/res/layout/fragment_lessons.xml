@@ -5,9 +5,26 @@
     android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LessonsFragment">
+    tools:context=".LessonsFragment"
+    android:background="#1E696C">
 
     <!-- TODO: Update blank fragment layout -->
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="1dp"
+
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        android:scaleType="fitXY"
+        android:src="@drawable/gory_mobile2"/>
+
     <LinearLayout
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -22,7 +39,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/montserrat_bold"
-            android:textColor="@color/app_blue"
+            android:textColor="@color/menu_ottenok_3"
             android:text="L"
             android:textSize="38sp" />
         <TextView
@@ -30,7 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/montserrat_bold"
-            android:textColor="@color/app_grey"
+            android:textColor="@color/menu_ottenok_3"
             android:text="esson"
             android:textSize="38sp" />
         <TextView
@@ -38,26 +55,36 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:fontFamily="@font/montserrat_bold"
-            android:textColor="@color/app_blue"
+            android:textColor="@color/menu_ottenok_3"
             android:text="s"
             android:textSize="38sp" />
 
     </LinearLayout>
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/spiskiLessonsRecycler"
+    <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:circularflow_defaultRadius="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:listitem="@layout/spiski_lessons_item" />
+        tools:ignore="MissingConstraints">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/spiskiLessonsRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:padding="15dp"
+            app:circularflow_defaultRadius="30dp"
+            tools:listitem="@layout/spiski_lessons_item" />
+
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

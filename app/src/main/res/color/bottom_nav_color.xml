@@ -2,11 +2,11 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Состояние активной кнопки -->
     <item
-        android:color="@color/app_blue"
+        android:color="@color/menu_ottenok_3"
         android:state_checked="true"/>
     <!-- Состояние пассивной кнопки -->
     <item
-        android:color="@color/app_grey"
+        android:color="@color/menu_ottenok_2"
         android:state_checked="false"/>
 
 

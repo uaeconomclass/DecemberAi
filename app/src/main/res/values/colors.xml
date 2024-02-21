@@ -7,6 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="menu_ottenok_1">#012F56</color>
+    <color name="menu_ottenok_2">#7AB1B3</color>
+    <color name="menu_ottenok_3">#D4E9DE</color>
+    <color name="menu_ottenok_3_border">#66AAB1</color>
+    <color name="menu_ottenok_3_animated">#287D92</color>
+
     <color name="app_blue">#00B5D8</color>
     <color name="app_grey">#FF838383</color>
     <color name="app_light_grey">#EAEAEA</color>
