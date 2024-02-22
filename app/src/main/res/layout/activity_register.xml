@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gory_mobile3"
+    android:id="@+id/root_activity_register"
     tools:context=".RegisterActivity">
 
 
@@ -126,7 +127,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_margin="15dp"
-            android:id="@+id/buttonLogIn"
+            android:id="@+id/btnLogIn"
             android:layout_width="90dp"
             android:layout_height="48dp"
             android:layout_weight="0"
@@ -137,7 +138,7 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:layout_margin="15dp"
-            android:id="@+id/buttonRegister"
+            android:id="@+id/btnRegister"
             android:layout_width="90dp"
             android:layout_height="48dp"
             android:layout_weight="0"
