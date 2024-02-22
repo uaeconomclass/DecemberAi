@@ -25,41 +25,22 @@
         android:scaleType="fitXY"
         android:src="@drawable/gory_mobile2"/>
 
-    <LinearLayout
+
+    <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:textColor="@color/menu_ottenok_3"
+        android:text="Lessons"
+        android:textSize="38sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:textColor="@color/menu_ottenok_3"
-            android:text="L"
-            android:textSize="38sp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:textColor="@color/menu_ottenok_3"
-            android:text="esson"
-            android:textSize="38sp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:textColor="@color/menu_ottenok_3"
-            android:text="s"
-            android:textSize="38sp" />
 
-    </LinearLayout>
+
 
     <androidx.cardview.widget.CardView
         android:layout_width="0dp"
