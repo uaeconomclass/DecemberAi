@@ -28,6 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat_bold"
         android:text="Register App"
         android:textColor="@color/menu_ottenok_3"
         app:layout_constraintEnd_toEndOf="parent"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:cardElevation="10dp"
-    android:id="@+id/registerWindow">
+    android:id="@+id/loginWindow">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,21 +13,12 @@
         android:layout_margin="20dp"
         android:orientation="vertical">
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/nameRegister"
-            android:hint="Name"
-            android:inputType="text"
-            android:text=""
-            android:textColor="@color/menu_ottenok_1"
-            android:textColorHint="@color/app_grey"
-            android:textSize="20sp" />
+
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/emailRegister"
+            android:id="@+id/emailLogin"
             android:hint="Email"
             android:inputType="textEmailAddress"
             android:text=""
@@ -35,21 +26,11 @@
             android:textColorHint="@color/app_grey"
             android:textSize="20sp" />
 
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/phoneRegister"
-            android:hint="Phone"
-            android:inputType="phone"
-            android:text=""
-            android:textColor="@color/menu_ottenok_1"
-            android:textColorHint="@color/app_grey"
-            android:textSize="20sp" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/passwordRegister"
+            android:id="@+id/passwordLogin"
             android:hint="Password"
             android:inputType="textPassword"
             android:text=""
@@ -58,10 +39,10 @@
             android:textSize="20sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/registerButton"
+            android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register"
+            android:text="Login"
             android:background="@drawable/register_button_animate"
             android:textColor="@color/white"/>
 

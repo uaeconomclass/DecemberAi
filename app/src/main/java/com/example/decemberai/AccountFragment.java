@@ -32,7 +32,7 @@ public class AccountFragment extends Fragment {
         email_account = view.findViewById(R.id.email_account);
         password_account = view.findViewById(R.id.password_account);
 
-        User user = new User();
+        User user = User.getInstance();
         name = user.getUserName();
         email = user.getUserEmail();
         password = user.getUserPassword();
