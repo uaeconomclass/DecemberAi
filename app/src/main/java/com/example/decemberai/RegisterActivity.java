@@ -2,6 +2,7 @@ package com.example.decemberai;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,68 +21,25 @@ import com.example.decemberai.model.User;
 import com.google.android.material.snackbar.Snackbar;
 
 public class RegisterActivity extends AppCompatActivity {
-    Button button2, button_register;
-
-    EditText emailViewById, passwordViewById;
-    String emailInsert, passwordInsert;
     SharedPreferences sp; // Переменная для SharedPreferences
-
     Button btnLogIn, btnRegister;
-
-    RelativeLayout root;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        button2 = findViewById(R.id.button_test2);
-        button_register = findViewById(R.id.button_register);
-        emailViewById = findViewById(R.id.editText);
-        passwordViewById = findViewById(R.id.editText2);
         sp = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE); //Присваиваем sp название UserPreferences
-
         btnLogIn = findViewById(R.id.btnLogIn);
         btnRegister = findViewById(R.id.btnRegister);
-        root = findViewById(R.id.root_activity_register);
 
-
-        btnRegister.setOnClickListener(new View.OnClickListener() {//Проверить авторизацию
+        btnRegister.setOnClickListener(new View.OnClickListener() {// Клик по кнопке Регистрация
             @Override
             public void onClick(View v) {
+
                 showRegisterWindow();
             }
         });
-
-        button2.setOnClickListener(new View.OnClickListener() {//Проверить авторизацию
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish(); // Завершаем текущую активность, чтобы пользователь не мог вернуться назад
-
-            }
-        });
-
-        button_register.setOnClickListener(new View.OnClickListener() {// Регистрация
-            @Override
-            public void onClick(View v) {
-                emailInsert = emailViewById.getText().toString(); // Записываем в переменную то что ввел пользователь
-                passwordInsert = passwordViewById.getText().toString();
-
-
-                SharedPreferences.Editor editor = sp.edit(); // Создаем editor (редактирование) через него можно записывать в SharedPreferences
-                editor.putString("email", emailInsert); // в editor Сохраняем данные в формате (ключь, значение)
-                editor.putString("password", passwordInsert);
-                editor.commit(); // Записали из editor в SharedPreferences
-                Toast.makeText(RegisterActivity.this, "Информация сохранена", Toast.LENGTH_LONG).show();
-
-
-            }
-        });
-
-
-
 
     }
 
@@ -99,6 +57,46 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText nameRegister = register_window.findViewById(R.id.nameRegister);
         final EditText phoneRegister = register_window.findViewById(R.id.phoneRegister);
 
+
+
+
+        Button registerButton = register_window.findViewById(R.id.registerButton);
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(TextUtils.isEmpty(nameRegister.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
+                    Toast.makeText(RegisterActivity.this, "Enter your name", Toast.LENGTH_LONG).show();
+                } else if(TextUtils.isEmpty(emailRegister.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
+                        Toast.makeText(RegisterActivity.this, "Enter your email address", Toast.LENGTH_LONG).show();//Если не ввели то всплывающее окно
+                } else if(TextUtils.isEmpty(phoneRegister.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
+                    Toast.makeText(RegisterActivity.this, "Enter your phone number", Toast.LENGTH_LONG).show();
+                } else if(passwordRegister.getText().toString().length() < 5 ){ //Проверяем что бы пароль был длиннее 5
+                    Toast.makeText(RegisterActivity.this, "Enter a password, that is more than 5 characters long", Toast.LENGTH_LONG).show();
+                } else {
+
+                    //На этом этапе проверки пройдены и делаем Регистрацию пользователя
+                    //Вызываем функцию передачи данных на сервер
+                    // userRegister(nameRegister.getText().toString(), emailRegister.getText().toString(), phoneRegister.getText().toString(), passwordRegister.getText().toString())
+                    // Если вернулся ОК записываем данные в SharedPreferences
+                    SharedPreferences.Editor editor = sp.edit(); // Создаем editor (редактирование) через него можно записывать в SharedPreferences
+                    editor.putString("email", emailRegister.getText().toString()); // в editor Сохраняем данные в формате (ключь, значение)
+                    editor.putString("password", passwordRegister.getText().toString());
+                    editor.commit(); // Записали из editor в SharedPreferences
+
+                    User user = new User();
+                    user.setUserName(nameRegister.getText().toString()); // Записываем жанные в Юзера приложения
+                    user.setUserEmail(emailRegister.getText().toString());
+                    user.setUserPhone(phoneRegister.getText().toString());
+                    user.setUserPassword(passwordRegister.getText().toString());
+
+                    // После успешной авторизации перекидываем пользователя на MainActivity
+                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                    startActivity(intent);
+                    finish(); // Завершаем текущую активность, чтобы пользователь не мог вернуться назад
+                }
+            }
+        });
+
         dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() { // Создаем кнопку закрытия всплывающего окна
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
@@ -106,42 +104,9 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        dialog.setPositiveButton("Register", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if(TextUtils.isEmpty(emailRegister.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
-                    Snackbar.make(root,"Enter your email address", Snackbar.LENGTH_SHORT).show(); //Если не ввели то всплывающее окно
-                    return; // и выходим
-                }
-                if(TextUtils.isEmpty(nameRegister.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
-                    Snackbar.make(root,"Enter your name", Snackbar.LENGTH_SHORT).show(); //Если не ввели то всплывающее окно
-                    return; // и выходим
-                }
-                if(TextUtils.isEmpty(phoneRegister.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
-                    Snackbar.make(root,"Enter your phone number", Snackbar.LENGTH_SHORT).show(); //Если не ввели то всплывающее окно
-                    return; // и выходим
-                }
-                if(passwordRegister.getText().toString().length() < 5 ){ //Проверяем что бы пароль был длиннее 5
-                    Snackbar.make(root,"Enter a password, that is more than 5 characters long", Snackbar.LENGTH_SHORT).show(); //Если не ввели то всплывающее окно
-                    return; // и выходим
-                }
 
-                //На этом этапе проверки пройдены и делаем Регистрацию пользователя
-                //Вызываем функцию передачи данных на сервер
-                // userRegister(nameRegister.getText().toString(), emailRegister.getText().toString(), phoneRegister.getText().toString(), passwordRegister.getText().toString())
-                // Если вернулся ОК записываем данные в SharedPreferences
-                SharedPreferences.Editor editor = sp.edit(); // Создаем editor (редактирование) через него можно записывать в SharedPreferences
-                editor.putString("email", emailRegister.getText().toString()); // в editor Сохраняем данные в формате (ключь, значение)
-                editor.putString("password", passwordRegister.getText().toString());
-                editor.commit(); // Записали из editor в SharedPreferences
 
-                User user = new User();
-                user.setUserName(nameRegister.getText().toString());
-                user.setUserEmail(emailRegister.getText().toString());
-                user.setUserPhone(phoneRegister.getText().toString());
-                user.setUserPassword(passwordRegister.getText().toString());
-            }
-        });
+        dialog.show();
 
     }
 }
