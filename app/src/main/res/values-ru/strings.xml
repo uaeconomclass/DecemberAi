@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hello_blank_fragment">Привет пустой фрагмент</string>
+    <string name="level">"Уровень: "</string>
+    <string name="welcome_to_your_lessons">Добро пожаловать в вашу Лекцию</string>
+    <string name="write_here">"Пишите сюда "</string>
+    <string name="download">Загрузка</string>
+    <string name="register_app">Регистрация в приложении</string>
+    <string name="login">Вход</string>
+    <string name="register">Регистрация</string>
+    <string name="login_o_your_account">Вход в ваш аккаунт</string>
+    <string name="password">"Пароль: "</string>
+    <string name="proficiency_level">"Уровень владения: "</string>
+    <string name="change">сменить</string>
+    <string name="reset">сбросить</string>
+    <string name="status_payed">"Cтатус оплаты: "</string>
+    <string name="acquired_skills">"Приобретенные навыки: "</string>
+    <string name="to_pay">оплатить</string>
+    <string name="recomended">РЕКОМЕНДОВАННОЕ</string>
+    <string name="lessons">Лекции</string>
+    <string name="practice">Практики</string>
+    <string name="enter_the_login_information">Введите регистрационные данные</string>
+    <string name="email">Емайл</string>
+    <string name="cancel">Закрыть</string>
+    <string name="enter_all_the_registration_details">Введите все регистрационные данные</string>
+    <string name="name">Имя</string>
+    <string name="phone">Телефон</string>
+    <string name="home">Главная</string>
+    <string name="account">Аккаунт</string>
+</resources>

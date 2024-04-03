@@ -1,90 +1,87 @@
 package com.example.decemberai.model;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class User {
+    public static List<SpiskiLessons> selectSpiskiLessonsList = new ArrayList<>();
+    public static List<SpiskiLessons> fullSpiskiLessonsList = new ArrayList<>();
 
-    private static User instance; // Объект в который будем записывать данные пользователя, сделал что бы был только один объект и к нему можно было обратиться из любого класса
-    //Как бы создаем глобального юзера к которому можно ото всюду обратиться
-    // Приватный конструктор, чтобы предотвратить создание объекта User извне
-    private User() {}
+    public static void addSelectSpiskiLessonsList(SpiskiLessons lessons) {
+        selectSpiskiLessonsList.add(lessons);
+    }
+    // Добавление всех элементов из другого списка
+    public static void addAllSelectSpiskiLessonsList(List<SpiskiLessons> lessonsList) {
+        selectSpiskiLessonsList.addAll(lessonsList);
+    }
+
+    public static void clearSelectSpiskiLessonsList() {
+        selectSpiskiLessonsList.clear();
+    }
+
+    public static void addFullSpiskiLessonsList(SpiskiLessons lessons) {
+        fullSpiskiLessonsList.add(lessons);
+    }
+    // Добавление всех элементов из другого списка
+    public static void addAllFullSpiskiLessonsList(List<SpiskiLessons> lessonsList) {
+        fullSpiskiLessonsList.addAll(lessonsList);
+    }
+
+    public static void clearFullSpiskiLessonsList() {
+        fullSpiskiLessonsList.clear();
+    }
+
+
+
+
+
+
+    public static List<SpiskiPractice> selectSpiskiPracticeList = new ArrayList<>();
+    public static List<SpiskiPractice> fullSpiskiPracticeList = new ArrayList<>();
+
+    public static void addSelectSpiskiPracticeList(SpiskiPractice practice) {
+        selectSpiskiPracticeList.add(practice);
+    }
+    // Добавление всех элементов из другого списка
+    public static void addAllSelectSpiskiPracticeList(List<SpiskiPractice> practiceList) {
+        selectSpiskiPracticeList.addAll(practiceList);
+    }
+
+    public static void clearSelectSpiskiPracticeList() {
+        selectSpiskiPracticeList.clear();
+    }
+
+    public static void addFullSpiskiPracticeList(SpiskiPractice practice) {
+        fullSpiskiPracticeList.add(practice);
+    }
+    // Добавление всех элементов из другого списка
+    public static void addAllFullSpiskiPracticeList(List<SpiskiPractice> practiceList) {
+        fullSpiskiPracticeList.addAll(practiceList);
+    }
+
+    public static void clearFullSpiskiPracticeList() {
+        fullSpiskiPracticeList.clear();
+    }
+
+
 
     public static Set<Integer> lessons_item_id = new HashSet<>(); // Set отличается от List тем что Set не дублирует поля, если встречается дубль он его не записывает
     public static Set<Integer> practice_item_id = new HashSet<>();
-    private String userName = "";
-    private String userEmail = "";
-    private String userPhone = "";
-    private String userPassword = "";
+    public static String userName = "";
+    //public static String userEmail = ""; Емайл и пароль храним в преференсах
+    public static String userPhone = "";
+    //public static String userPassword = "";
 
-    private int userId = 1;// Наверно не нужно
-    private String userLevel = "Новичок";
-    private int userSkill = 15;
+    public static String userTest;
 
-
-    // Метод для получения единственного экземпляра User
-    public static synchronized User getInstance() {
-        if (instance == null) {
-            instance = new User();
-        }
-        return instance;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getUserPhone() {
-        return userPhone;
-    }
-
-    public void setUserPhone(String userPhone) {
-        this.userPhone = userPhone;
-    }
-
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public String getUserPassword() {
-        return userPassword;
-    }
-
-    public void setUserPassword(String userPassword) {
-        this.userPassword = userPassword;
-    }
-
-    public int getUserSkill() {
-        return userSkill;
-    }
-
-    public void setUserSkill(int userSkill) {
-        this.userSkill = userSkill;
-    }
+    public static int userId;
+    public static String userLevel = "";
+    public static int userSkill = 0;
+    public static String openaiApiKey = "";
+    public static String assistantId = "";
 
 
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getUserLevel() {
-        return userLevel;
-    }
-
-    public void setUserLevel(String userLevel) {
-        this.userLevel = userLevel;
-    }
 }

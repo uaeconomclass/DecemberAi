@@ -2,8 +2,9 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="360dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
     app:cardElevation="10dp"
     android:id="@+id/registerWindow">
 
@@ -11,13 +12,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        >
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/register"
+            android:textColor="@color/menu_ottenok_1"
+            android:textSize="30sp"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_all_the_registration_details"
+            android:textColor="@color/menu_ottenok_1"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/nameRegister"
-            android:hint="Name"
+            android:hint="@string/name"
             android:inputType="text"
             android:text=""
             android:textColor="@color/menu_ottenok_1"
@@ -28,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/emailRegister"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:text=""
             android:textColor="@color/menu_ottenok_1"
@@ -39,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/phoneRegister"
-            android:hint="Phone"
+            android:hint="@string/phone"
             android:inputType="phone"
             android:text=""
             android:textColor="@color/menu_ottenok_1"
@@ -50,7 +69,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/passwordRegister"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:text=""
             android:textColor="@color/menu_ottenok_1"
@@ -61,10 +80,19 @@
             android:id="@+id/registerButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Register"
-            android:background="@drawable/register_button_animate"
+            android:text="@string/register"
+            android:background="@drawable/register_positiv_button_animate"
             android:textColor="@color/white"/>
 
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/canselRegisterButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="right"
+            android:background="@drawable/register_negative_button_animate"
+            android:textColor="@color/white"/>
 
     </LinearLayout>
 

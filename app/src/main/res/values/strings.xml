@@ -1,5 +1,35 @@
 <resources>
-    <string name="app_name">DecemberAi</string>
+    <string name="app_name" translatable="false">DecemberAi</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="level">Level: </string>
+    <string name="welcome_to_your_lessons">Welcome to your lessons</string>
+    <string name="write_here">Write here </string>
+    <string name="download">Download</string>
+    <string name="register_app">Register App</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="login_o_your_account">Login to your account</string>
+    <string name="password">"Password: "</string>
+    <string name="proficiency_level">"Proficiency level: "</string>
+    <string name="change">change</string>
+    <string name="reset">reset</string>
+    <string name="status_payed">"Status payed: "</string>
+    <string name="acquired_skills">"Acquired skills: "</string>
+    <string name="to_pay">to pay</string>
+    <string name="recomended">RECOMENDED</string>
+    <string name="lessons">Lessons</string>
+    <string name="practice">Practice</string>
+    <string name="enter_the_login_information">Enter the login information</string>
+    <string name="email">Email</string>
+    <string name="cancel">Cancel</string>
+    <string name="enter_all_the_registration_details">Enter all the registration details</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="home">Home</string>
+    <string name="account">Account</string>
+<string name="The_user_data_was_received_successfully">Данные пользователя получены успешно</string>
+
+
+
 </resources>

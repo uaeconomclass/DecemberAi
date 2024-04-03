@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeFragment">
+    tools:context=".HomeFragment"
+    android:background="@drawable/gory_mobile2">
 
     <!-- TODO: Update blank fragment layout -->
 
@@ -25,21 +26,21 @@
             android:id="@+id/textView6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="30dp"
             android:textColor="@color/menu_ottenok_1"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
-            android:text="RECOMENDED" />
+            android:text="@string/recomended" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/spiskiLessonsRecycler"
-            android:layout_width="185dp"
-            android:layout_height="150dp"
-            android:layout_marginLeft="35dp"
-            android:layout_marginTop="60dp"
+            android:id="@+id/spiskiHomeRecycler"
+            android:layout_width="195dp"
+            android:layout_height="165dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="55dp"
             android:background="@color/white"
             android:padding="0dp"
- >
+            tools:listitem="@layout/spiski_home_item">
 
 
         </androidx.recyclerview.widget.RecyclerView>
@@ -51,36 +52,13 @@
             android:layout_height="30dp"
             android:src="@drawable/volna"
             android:gravity="center"
-            android:layout_marginTop="210dp"/>
+            android:layout_marginTop="215dp"/>
 
-        <ImageView
-            android:id="@+id/imageView8"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:paddingTop="60dp"
-            android:paddingBottom="40dp"
-            android:gravity="center"
-            android:src="@drawable/zagluska" />
 
     </androidx.cardview.widget.CardView>
 
 
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"
-        android:layout_marginBottom="0dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/gory_mobile2" />
 
     <ImageView
         android:id="@+id/imageView4"
@@ -109,15 +87,17 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat"
             android:gravity="center|start"
-            android:text="acquired skills: "
+            android:text="@string/acquired_skills"
             android:textColor="@color/menu_ottenok_3"
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/home_skill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center|start"
+            android:textStyle="bold"
             android:text="0 ★★★★★★"
             android:textColor="@color/menu_ottenok_3"
             android:textSize="14sp" />
@@ -149,15 +129,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center|start"
-            android:text="proficiency level: "
+            android:text="@string/proficiency_level"
             android:textColor="@color/menu_ottenok_3"
             android:textSize="14sp" />
 
         <TextView
+            android:id="@+id/home_level"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center|start"
+            android:textStyle="bold"
             android:text="Elementary"
             android:textColor="@color/menu_ottenok_3"
             android:textSize="14sp" />

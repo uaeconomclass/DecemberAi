@@ -1,41 +1,50 @@
 package com.example.decemberai.model;
 
 public class SpiskiPractice {
-    int id, poleZapasnoe;
-    String title, imgSmall, imgBig, level, color;
 
-    public SpiskiPractice(int id, int poleZapasnoe, String title, String imgSmall, String imgBig, String level, String color) {
-        this.id = id;
-        this.poleZapasnoe = poleZapasnoe;
+    public int practiceId;
+    public  String title, img, level, colorFon, colorText;
+
+
+
+
+    public SpiskiPractice(int practiceId, String title, String img, String level, String colorFon, String colorText) {
+        this.practiceId = practiceId;
         this.title = title;
-        this.imgSmall = imgSmall;
-        this.imgBig = imgBig;
+        this.img = img;
         this.level = level;
-        this.color = color;
+        this.colorFon = colorFon;
+        this.colorText = colorText;
     }
 
-    public int getPoleZapasnoe() {
-        return poleZapasnoe;
+
+    public SpiskiPractice(int practiceId, String title) {
+        this.practiceId = practiceId;
+        this.title = title;
     }
 
-    public void setPoleZapasnoe(int poleZapasnoe) {
-        this.poleZapasnoe = poleZapasnoe;
+    public int getPracticeId() {
+        return practiceId;
     }
 
-    public String getImgSmall() {
-        return imgSmall;
+    public void setPracticeId(int practiceId) {
+        this.practiceId = practiceId;
     }
 
-    public void setImgSmall(String imgSmall) {
-        this.imgSmall = imgSmall;
+    public String getTitle() {
+        return title;
     }
 
-    public String getImgBig() {
-        return imgBig;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public void setImgBig(String imgBig) {
-        this.imgBig = imgBig;
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public String getLevel() {
@@ -46,27 +55,19 @@ public class SpiskiPractice {
         this.level = level;
     }
 
-    public String getColor() {
-        return color;
+    public String getColorFon() {
+        return colorFon;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setColorFon(String colorFon) {
+        this.colorFon = colorFon;
     }
 
-    public int getId() {
-        return id;
+    public String getColorText() {
+        return colorText;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void setColorText(String colorText) {
+        this.colorText = colorText;
     }
 }

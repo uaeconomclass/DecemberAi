@@ -33,7 +33,7 @@
         android:layout_marginTop="15dp"
         android:fontFamily="@font/montserrat_bold"
         android:textColor="@color/menu_ottenok_3"
-        android:text="Lessons"
+        android:text="@string/lessons"
         android:textSize="38sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

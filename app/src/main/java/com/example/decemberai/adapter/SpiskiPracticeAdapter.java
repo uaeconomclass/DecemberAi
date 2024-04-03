@@ -17,14 +17,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.decemberai.R;
-import com.example.decemberai.model.LessonsPage;
-import com.example.decemberai.model.PracticePage;
-import com.example.decemberai.model.SpiskiLessons;
+import com.example.decemberai.model.ChatPage;
 import com.example.decemberai.model.SpiskiPractice;
 
 import java.util.List;
 
-public class SpiskiPracticeAdapter extends RecyclerView.Adapter<SpiskiPracticeAdapter.SpiskiPracticeViewHolder> {
+public class SpiskiPracticeAdapter  extends RecyclerView.Adapter<SpiskiPracticeAdapter.SpiskiPracticeViewHolder> {
 
     Context context; // Сюда передадим Страницу на которой все должно быть выведено
     List<SpiskiPractice> spiskiPractice;// Сюда передадим Список всех категорий что должны быть выведены
@@ -50,29 +48,28 @@ public class SpiskiPracticeAdapter extends RecyclerView.Adapter<SpiskiPracticeAd
         final int currentPosition = position;  // Объявили final переменную для position так как в новых версиях андроида что бы переменная была доступна внутри вложенной функции она должна быть final
 
         holder.spiskiPracticeTitle.setText(spiskiPractice.get(currentPosition).getTitle());// через объект holder обращаемся к  spiskiLessonsTitle и устанавливаем текст для этого поля
-        holder.spiskiPracticeBackGround.setBackgroundColor(Color.parseColor(spiskiPractice.get(currentPosition).getColor()));
+        holder.spiskiPracticeTitle.setTextColor(Color.parseColor(spiskiPractice.get(currentPosition).getColorText()));
+        holder.spiskiPracticeBackGround.setBackgroundColor(Color.parseColor(spiskiPractice.get(currentPosition).getColorFon()));
 
-        int imageSmallId = context.getResources().getIdentifier(spiskiPractice.get(currentPosition).getImgSmall(), "drawable", context.getPackageName());// Получаем айди картинки по названию
-        holder.spiskiPracticeImageSmall.setImageResource(imageSmallId);
-        int imageBigId = context.getResources().getIdentifier(spiskiPractice.get(currentPosition).getImgBig(), "drawable", context.getPackageName());// Получаем айди картинки по названию
+
+        int imageId = context.getResources().getIdentifier(spiskiPractice.get(currentPosition).getImg(), "drawable", context.getPackageName());// Получаем айди картинки по названию
+        holder.spiskiPracticeImage.setImageResource(imageId);
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) { // Действия которые будут выполняться по клику на какую либо из Тем(в списке  в LrssonsFragment.java)
-                Intent intent = new Intent(context, PracticePage.class);// Создаем условие для переадрессации на LessonsPage
+                Intent intent = new Intent(context, ChatPage.class);// Создаем условие для переадрессации на LessonsPage
 
-                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) context, new Pair<View, String>(holder.spiskiPracticeImageSmall, "practiceAnimations"));
+                ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation((Activity) context, new Pair<View, String>(holder.spiskiPracticeImage, "chatAnimations"));
 
-                intent.putExtra("spiskiPracticeBackGround", Color.parseColor(spiskiPractice.get(currentPosition).getColor()));
-                intent.putExtra("spiskiPracticeImageBigId", imageBigId);
-                intent.putExtra("spiskiPracticeTitle", spiskiPractice.get(currentPosition).getTitle());
-                intent.putExtra("practicePageLevel", spiskiPractice.get(currentPosition).getLevel());
-                intent.putExtra("spiskiPracticeId", spiskiPractice.get(currentPosition).getId());
-                intent.putExtra("poleZapasnoe", spiskiPractice.get(currentPosition).getPoleZapasnoe());
-
-
-
-
+                intent.putExtra("spiskiChatBackGround", Color.parseColor(spiskiPractice.get(currentPosition).getColorFon()));
+                intent.putExtra("spiskiChatColorText", Color.parseColor(spiskiPractice.get(currentPosition).getColorText()));
+                intent.putExtra("spiskiChatImageId", imageId);
+                intent.putExtra("spiskiChatTitle", spiskiPractice.get(currentPosition).getTitle());
+                intent.putExtra("chatPageLevel", spiskiPractice.get(currentPosition).getLevel());
+                intent.putExtra("spiskiChatId", spiskiPractice.get(currentPosition).getPracticeId());
+                intent.putExtra("typeOfChat", "practice");
 
                 context.startActivity(intent, options.toBundle()); // Сама переадрессация и анимация
             }
@@ -88,13 +85,13 @@ public class SpiskiPracticeAdapter extends RecyclerView.Adapter<SpiskiPracticeAd
 
         TextView spiskiPracticeTitle; // с каким объектом работаем
         LinearLayout spiskiPracticeBackGround;
-        ImageView spiskiPracticeImageSmall;
+        ImageView spiskiPracticeImage;
         public SpiskiPracticeViewHolder(@NonNull View itemView) {
             super(itemView);
 
             spiskiPracticeTitle = itemView.findViewById(R.id.spiskiPracticeTitle); // ссылка на него из дизайна
             spiskiPracticeBackGround = itemView.findViewById(R.id.spiskiPracticeBackGround);
-            spiskiPracticeImageSmall = itemView.findViewById(R.id.spiskiPracticeImageSmall);
+            spiskiPracticeImage = itemView.findViewById(R.id.spiskiPracticeImageSmall);
         }
     }
 

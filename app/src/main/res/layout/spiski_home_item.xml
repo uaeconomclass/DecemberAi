@@ -4,12 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginBottom="5dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="36dp">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/spiskiPracticeCardView"
+        android:id="@+id/spiskiHomeCardView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
-            android:id="@+id/spiskiPracticeBackGround"
+            android:id="@+id/spiskiHomeBackGround"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             >
@@ -35,11 +35,11 @@
                 android:text="•"
                 android:textColor="@color/menu_ottenok_1"
                 android:textSize="14sp"
-                android:transitionName="practiceAnimations"
+                android:transitionName="chatAnimations"
                 tools:ignore="MissingConstraints" />
 
             <TextView
-                android:id="@+id/spiskiPracticeTitle"
+                android:id="@+id/spiskiHomeTitle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

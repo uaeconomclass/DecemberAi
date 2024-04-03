@@ -1,7 +1,11 @@
 package com.example.decemberai;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 
+import androidx.core.content.res.ResourcesCompat;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -19,8 +23,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountFragment extends Fragment {
-    String name, email,  password;
-    TextView name_account, email_account,  password_account;
+    String name, email, phone, password, skillString, level;
+    Integer skillInt;
+    TextView name_account, email_account, phone_account, password_account, user_skill_account, user_level_account;
+    SharedPreferences sp; // Переменная для SharedPreferences
     // phone пока клиенту не выводим
 
     @Override
@@ -30,24 +36,35 @@ public class AccountFragment extends Fragment {
 
         name_account = view.findViewById(R.id.name_account);
         email_account = view.findViewById(R.id.email_account);
+        phone_account = view.findViewById(R.id.phone_account);
         password_account = view.findViewById(R.id.password_account);
+        user_skill_account = view.findViewById(R.id.user_skill_account);
+        user_level_account = view.findViewById(R.id.user_level_account);
 
-        User user = User.getInstance();
-        name = user.getUserName();
-        email = user.getUserEmail();
-        password = user.getUserPassword();
+        sp = requireContext().getSharedPreferences("UserPreferences", Context.MODE_PRIVATE);//Присваиваем sp название UserPreferences
+
+        name = User.userName;
+        phone = User.userPhone;
+        level = User.userLevel;
+        skillInt = User.userSkill;
+        skillString = Integer.toString(skillInt);// перевели значение скила в текст, потом подумаем на счет как добавлять звездочки
+        email = sp.getString("email", "");
+        password = sp.getString("password", "");
 
         name_account.setText(name);
+        phone_account.setText(phone);
         email_account.setText(email);
         password_account.setText(password);
+        user_skill_account.setText(skillString);
+        user_level_account.setText(level);
 
         ListView item_lessons_list = view.findViewById(R.id.item_lessons_list);
 
         List<String> itemLessonsInfo = new ArrayList<>();// переменная которая будет содержать массив из названий курсов
-        for(SpiskiLessons c : LessonsFragment.fullSpiskiLessonsList){// перебираем массив с полным списком всех курсов
-            if(User.lessons_item_id.contains(c.getId())) {// Перебираем каждый элемент, если его айди совпадает со списком айди которые сейчас есть в Л/К
+        for(SpiskiLessons c : User.fullSpiskiLessonsList){// перебираем массив с полным списком всех курсов
+            if(User.lessons_item_id.contains(c.getLessonsId())) {// Перебираем каждый элемент, если его айди совпадает со списком айди которые сейчас есть в Л/К
                 // Формируем строку, объединяя название и айди с использованием тире
-                String lessonInfo = c.getId() + " - " + c.getTitle();
+                String lessonInfo = c.getLessonsId() + " - " + c.getTitle();
                 itemLessonsInfo.add(lessonInfo);
             }
         }
@@ -60,10 +77,10 @@ public class AccountFragment extends Fragment {
         ListView item_practice_list = view.findViewById(R.id.item_practice_list);
 
         List<String> itemPracticeInfo = new ArrayList<>();
-        for(SpiskiPractice c : PracticeFragment.fullSpiskiPracticeList){
-            if(User.practice_item_id.contains(c.getId())) {
+        for(SpiskiPractice c : User.fullSpiskiPracticeList){
+            if(User.practice_item_id.contains(c.getPracticeId())) {
                 // Формируем строку, объединяя название и айди с использованием тире
-                String practiceInfo = c.getId() + " - " + c.getTitle();
+                String practiceInfo = c.getPracticeId() + " - " + c.getTitle();
                 itemPracticeInfo.add(practiceInfo);
             }
         }

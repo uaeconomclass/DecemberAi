@@ -4,10 +4,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -18,11 +22,29 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.decemberai.model.User;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+
+import kotlinx.coroutines.CoroutineScope;
 
 public class RegisterActivity extends AppCompatActivity {
     SharedPreferences sp; // Переменная для SharedPreferences
-    Button btnLogin, btnRegister;
+    Button btnLogin, btnRegister, buttonTest;
+
+    Dialog dialogRegister,  dialogLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,51 +55,56 @@ public class RegisterActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btnLogIn);
         btnRegister = findViewById(R.id.btnRegister);
 
+        dialogRegister = new Dialog(RegisterActivity.this);
+        dialogLogin = new Dialog(RegisterActivity.this);
+
+
+
         btnRegister.setOnClickListener(new View.OnClickListener() {// Клик по кнопке Регистрация
             @Override
             public void onClick(View v) {
-
-                showRegisterWindow();
+                showRegisterWindow(); // Показываем окно регистрации
             }
         });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {// Клик по кнопке Регистрация
             @Override
             public void onClick(View v) {
-
-                showLoginWindow();
+                showLoginWindow(); //Показываем окно Залогинивания
             }
         });
 
-
-
     }
 
+
+    private void redirectToMainActivity() {
+        // После успешной авторизации перекидываем пользователя на MainActivity
+        Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish(); // Завершаем текущую активность, чтобы пользователь не мог вернуться назад
+    }
+
+
     private void showRegisterWindow() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("register");// Заголовок
-        dialog.setMessage("Enter all the registration details");//Текст
 
-        LayoutInflater inflater = LayoutInflater.from(this); //Создали просто объект на основе класса LayoutInflater
-        View register_window = inflater.inflate(R.layout.register_window,null); //Благодаря объекту inflater получаем наш шаблон register_window и записываем его в переменную register_window
-        dialog.setView(register_window); //и дальше устанавливаем наш шаблон в качестве всплывающего окна
+        dialogRegister.setContentView(R.layout.register_window);
+        dialogRegister.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogRegister.setCancelable(true);
 
-        final EditText emailRegister = register_window.findViewById(R.id.emailRegister);// Получаем значения полей со всплывающего окна
-        final EditText passwordRegister = register_window.findViewById(R.id.passwordRegister);
-        final EditText nameRegister = register_window.findViewById(R.id.nameRegister);
-        final EditText phoneRegister = register_window.findViewById(R.id.phoneRegister);
+        Button registerButton = dialogRegister.findViewById(R.id.registerButton);
+        Button canselRegisterButton = dialogRegister.findViewById(R.id.canselRegisterButton);
+        final EditText nameRegister = dialogRegister.findViewById(R.id.nameRegister);
+        final EditText emailRegister = dialogRegister.findViewById(R.id.emailRegister);
+        final EditText phoneRegister = dialogRegister.findViewById(R.id.phoneRegister);
+        final EditText passwordRegister = dialogRegister.findViewById(R.id.passwordRegister);
 
-
-
-
-        Button registerButton = register_window.findViewById(R.id.registerButton);
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if(TextUtils.isEmpty(nameRegister.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
                     Toast.makeText(RegisterActivity.this, "Enter your name", Toast.LENGTH_LONG).show();
                 } else if(TextUtils.isEmpty(emailRegister.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
-                        Toast.makeText(RegisterActivity.this, "Enter your email address", Toast.LENGTH_LONG).show();//Если не ввели то всплывающее окно
+                    Toast.makeText(RegisterActivity.this, "Enter your email address", Toast.LENGTH_LONG).show();//Если не ввели то всплывающее окно
                 } else if(TextUtils.isEmpty(phoneRegister.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
                     Toast.makeText(RegisterActivity.this, "Enter your phone number", Toast.LENGTH_LONG).show();
                 } else if(passwordRegister.getText().toString().length() < 5 ){ //Проверяем что бы пароль был длиннее 5
@@ -86,57 +113,126 @@ public class RegisterActivity extends AppCompatActivity {
 
                     //На этом этапе проверки пройдены и делаем Регистрацию пользователя
                     //Вызываем функцию передачи данных на сервер
-                    // userRegister(nameRegister.getText().toString(), emailRegister.getText().toString(), phoneRegister.getText().toString(), passwordRegister.getText().toString())
-                    // Если вернулся ОК записываем данные в SharedPreferences
-                    SharedPreferences.Editor editor = sp.edit(); // Создаем editor (редактирование) через него можно записывать в SharedPreferences
-                    editor.putString("email", emailRegister.getText().toString()); // в editor Сохраняем данные в формате (ключь, значение)
-                    editor.putString("password", passwordRegister.getText().toString());
-                    editor.commit(); // Записали из editor в SharedPreferences
+                    Executor executor2 = Executors.newSingleThreadExecutor();
+                    executor2.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            String result = userRegister(nameRegister.getText().toString(), emailRegister.getText().toString(), phoneRegister.getText().toString(), passwordRegister.getText().toString());
+                            if (Objects.equals(result, "true")) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(RegisterActivity.this, "Регистрация прошла успешно", Toast.LENGTH_LONG).show();
+
+                                        // Если вернулся ОК записываем данные в SharedPreferences
+                                        SharedPreferences.Editor editor = sp.edit(); // Создаем editor (редактирование) через него можно записывать в SharedPreferences
+                                        editor.putString("email", emailRegister.getText().toString()); // в editor Сохраняем данные в формате (ключь, значение)
+                                        editor.putString("password", passwordRegister.getText().toString());
+                                        editor.commit(); // Записали из editor в SharedPreferences
 
 
-                    User user = User.getInstance();//Создаем объект user в этой функции, но подгружаем в него объект из класса User что бы редактировать не сдешнего Юзера а Глобального, созданного в User
-                    user.setUserName(nameRegister.getText().toString()); // Записываем жанные в Юзера приложения
-                    user.setUserEmail(emailRegister.getText().toString());
-                    user.setUserPhone(phoneRegister.getText().toString());
-                    user.setUserPassword(passwordRegister.getText().toString());
+                                        // После успешной авторизации перекидываем пользователя на MainActivity
+                                        dialogRegister.dismiss(); // Закрываем диалоговое окно
+                                        redirectToMainActivity(); // Перенаправляем пользователя на MainActivity
 
-                    // После успешной авторизации перекидываем пользователя на MainActivity
-                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish(); // Завершаем текущую активность, чтобы пользователь не мог вернуться назад
+
+
+                                    }
+                                });
+                            } else {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(RegisterActivity.this, "Ошибка регистрации   " + result, Toast.LENGTH_LONG).show();
+                                        // Ваш код для неудачной авторизации здесь...
+                                    }
+                                });
+                            }
+                        }
+                    });
+
+
                 }
             }
         });
 
-        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() { // Создаем кнопку закрытия всплывающего окна
+        canselRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();// По клику на отменить скрываем всплывающее окно
+            public void onClick(View view) {
+                dialogRegister.dismiss();
             }
         });
 
+        dialogRegister.show();
 
-        dialog.show();
+    }
+
+    public static String userRegister(String name, String email, String phone, String password) {
+        try {
+            // URL для отправки запроса
+            URL url = new URL("https://yourtalker.com/hendlers_api/register.php");
+
+            // Создание соединения
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            // Установка метода запроса
+            connection.setRequestMethod("POST");
+
+            // Включение возможности отправки данных
+            connection.setDoOutput(true);
+
+            // Формирование тела запроса
+            String postData = "name=" + name + "&email=" + email + "&phone=" + phone + "&password=" + password;
+            byte[] postDataBytes = postData.getBytes(StandardCharsets.UTF_8);
+
+            // Установка заголовков запроса
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            connection.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+
+            // Отправка данных
+            try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
+                outputStream.write(postDataBytes);
+            }
+
+            // Получение ответа от сервера
+            StringBuilder response = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+            }
+
+            // Закрытие соединения
+            connection.disconnect();
+
+            // Проверка ответа сервера и возврат результата
+            return response.toString();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
     }
 
 
+
+
+
+
     private void showLoginWindow() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("login");// Заголовок
-        dialog.setMessage("Enter the login information");//Текст
+        dialogLogin.setContentView(R.layout.login_window);
+        dialogLogin.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        dialogLogin.setCancelable(true);
 
-        LayoutInflater inflater = LayoutInflater.from(this); //Создали просто объект на основе класса LayoutInflater
-        View register_window = inflater.inflate(R.layout.login_window,null); //Благодаря объекту inflater получаем наш шаблон register_window и записываем его в переменную register_window
-        dialog.setView(register_window); //и дальше устанавливаем наш шаблон в качестве всплывающего окна
+        Button loginButton = dialogLogin.findViewById(R.id.loginButton);
+        Button canselLoginButton = dialogLogin.findViewById(R.id.canselLoginButton);
+        final EditText emailLogin = dialogLogin.findViewById(R.id.emailLogin);
+        final EditText passwordLogin = dialogLogin.findViewById(R.id.passwordLogin);
 
-        final EditText emailLogin = register_window.findViewById(R.id.emailLogin);// Получаем значения полей со всплывающего окна
-        final EditText passwordLogin = register_window.findViewById(R.id.passwordLogin);
-
-
-        Button loginButton = register_window.findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if(TextUtils.isEmpty(emailLogin.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
                     Toast.makeText(RegisterActivity.this, "Enter your email address", Toast.LENGTH_LONG).show();//Если не ввели то всплывающее окно
                 } else if(passwordLogin.getText().toString().length() < 5 ){ //Проверяем что бы пароль был длиннее 5
@@ -145,38 +241,106 @@ public class RegisterActivity extends AppCompatActivity {
 
                     //На этом этапе проверки пройдены и делаем Авторизацию пользователя
                     //Вызываем функцию передачи данных на сервер
-                    // userLogin(emailRegister.getText().toString(), passwordRegister.getText().toString())
-                    // Если вернулся ОК записываем данные в SharedPreferences и все данные пользователя
-                    SharedPreferences.Editor editor = sp.edit(); // Создаем editor (редактирование) через него можно записывать в SharedPreferences
-                    editor.putString("email", emailLogin.getText().toString()); // в editor Сохраняем данные в формате (ключь, значение)
-                    editor.putString("password", passwordLogin.getText().toString());
-                    editor.commit(); // Записали из editor в SharedPreferences
+                    Executor executor = Executors.newSingleThreadExecutor();
+                    executor.execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            String result = userLogin(emailLogin.getText().toString(), passwordLogin.getText().toString());
+                            if (Objects.equals(result, "true")) {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(RegisterActivity.this, "Авторизация прошла успешно", Toast.LENGTH_LONG).show();
+                                        // Код для успешной авторизации здесь...
+                                        // Если вернулся ОК записываем данные в SharedPreferences и все данные пользователя
+                                        SharedPreferences.Editor editor = sp.edit(); // Создаем editor (редактирование) через него можно записывать в SharedPreferences
+                                        editor.putString("email", emailLogin.getText().toString()); // в editor Сохраняем данные в формате (ключь, значение)
+                                        editor.putString("password", passwordLogin.getText().toString());
+                                        editor.commit(); // Записали из editor в SharedPreferences
 
-                    User user = User.getInstance();//В user помещаем глобального Юзера
-                    user.setUserName("Шаблон имени"); // Записываем жанные в Юзера приложения
-                    user.setUserEmail(emailLogin.getText().toString());
-                    user.setUserPhone("Шаблон телефона");
-                    user.setUserPassword(passwordLogin.getText().toString());
 
-                    // После успешной авторизации перекидываем пользователя на MainActivity
-                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                    startActivity(intent);
-                    finish(); // Завершаем текущую активность, чтобы пользователь не мог вернуться назад
+                                        // После успешной авторизации перекидываем пользователя на MainActivity
+                                        dialogLogin.dismiss(); // Закрываем диалоговое окно
+                                        redirectToMainActivity(); // Перенаправляем пользователя на MainActivity
+
+
+                                    }
+                                });
+                            } else {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(RegisterActivity.this, "Ошибка авторизации   " + result, Toast.LENGTH_LONG).show();
+                                        // Ваш код для неудачной авторизации здесь...
+                                    }
+                                });
+                            }
+                        }
+                    });
+
+
                 }
             }
         });
 
-        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() { // Создаем кнопку закрытия всплывающего окна
+        canselLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();// По клику на отменить скрываем всплывающее окно
+            public void onClick(View view) {
+                dialogLogin.dismiss();
             }
         });
 
-
-
-        dialog.show();
+        dialogLogin.show();
 
     }
+    // Функция авторизации пользователя
+    public static String userLogin(String emailRegister, String passwordRegister) {
+        try {
+            // URL для отправки запроса
+            URL url = new URL("https://yourtalker.com/hendlers_api/login.php");
+
+            // Создание соединения
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            // Установка метода запроса
+            connection.setRequestMethod("POST");
+
+            // Включение возможности отправки данных
+            connection.setDoOutput(true);
+
+            // Формирование тела запроса
+            String postData = "email=" + emailRegister + "&password=" + passwordRegister;
+            byte[] postDataBytes = postData.getBytes(StandardCharsets.UTF_8);
+
+            // Установка заголовков запроса
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            connection.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+
+            // Отправка данных
+            try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
+                outputStream.write(postDataBytes);
+            }
+
+            // Получение ответа от сервера
+            StringBuilder response = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+            }
+
+            // Закрытие соединения
+            connection.disconnect();
+
+            // Проверка ответа сервера и возврат результата
+            return response.toString();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
+
 
 }

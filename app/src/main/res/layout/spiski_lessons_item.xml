@@ -27,9 +27,9 @@
                 android:layout_width="114dp"
                 android:layout_height="64dp"
                 android:contentDescription="@string/app_name"
-                android:scaleType="matrix"
-                android:transitionName="lessonsAnimations"
-                app:srcCompat="@drawable/ic_phyton_small" />
+                android:scaleType="centerCrop"
+                android:transitionName="chatAnimations"
+                app:srcCompat="@drawable/img_cofemania" />
 
             <TextView
                 android:id="@+id/spiskiLessonsTitle"

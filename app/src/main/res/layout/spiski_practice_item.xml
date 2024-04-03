@@ -28,7 +28,7 @@
                 android:layout_height="64dp"
                 android:contentDescription="@string/app_name"
                 android:scaleType="matrix"
-                android:transitionName="lessonsAnimations"
+                android:transitionName="chatAnimations"
                 app:srcCompat="@drawable/ic_phyton_small" />
 
             <TextView

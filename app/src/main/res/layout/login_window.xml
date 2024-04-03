@@ -2,24 +2,41 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_width="360dp"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
     app:cardElevation="10dp"
     android:id="@+id/loginWindow">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_margin="20dp"
         android:orientation="vertical">
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/login"
+            android:textColor="@color/menu_ottenok_1"
+            android:textSize="30sp"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_the_login_information"
+            android:textColor="@color/menu_ottenok_1"
+            android:textSize="14sp"
+            android:fontFamily="@font/montserrat"
+            android:gravity="center"/>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/emailLogin"
-            android:hint="Email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:text=""
             android:textColor="@color/menu_ottenok_1"
@@ -31,19 +48,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/passwordLogin"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:text=""
             android:textColor="@color/menu_ottenok_1"
             android:textColorHint="@color/app_grey"
             android:textSize="20sp" />
 
+
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/loginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Login"
-            android:background="@drawable/register_button_animate"
+            android:text="@string/login"
+            android:background="@drawable/register_positiv_button_animate"
+            android:textColor="@color/white"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/canselLoginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="right"
+            android:background="@drawable/register_negative_button_animate"
             android:textColor="@color/white"/>
 
 

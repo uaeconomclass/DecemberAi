@@ -2,49 +2,50 @@ package com.example.decemberai.model;
 
 public class SpiskiLessons {
 
-    int id, poleZapasnoe;
-    String title, imgSmall, imgBig, level, color;
+    public int lessonsId;
+    public  String title, img, level, colorFon, colorText;
 
-    public String getImgSmall() {
-        return imgSmall;
-    }
 
-    public void setImgSmall(String imgSmall) {
-        this.imgSmall = imgSmall;
-    }
 
-    public String getImgBig() {
-        return imgBig;
-    }
 
-    public void setImgBig(String imgBig) {
-        this.imgBig = imgBig;
-    }
-
-    public SpiskiLessons(int id, int poleZapasnoe, String title, String imgSmall, String imgBig, String level, String color) {
-        this.id = id;
-        this.poleZapasnoe = poleZapasnoe;
+    public SpiskiLessons(int lessonsId, String title, String img, String level, String colorFon, String colorText) {
+        this.lessonsId = lessonsId;
         this.title = title;
-        this.imgSmall = imgSmall;
-        this.imgBig = imgBig;
+        this.img = img;
         this.level = level;
-        this.color = color;
+        this.colorFon = colorFon;
+        this.colorText = colorText;
     }
 
 
-    public SpiskiLessons(int id, String title) {
-        this.id = id;
+    public SpiskiLessons(int lessonsId, String title) {
+        this.lessonsId = lessonsId;
         this.title = title;
     }
 
-    public int getPoleZapasnoe() {
-        return poleZapasnoe;
+    public int getLessonsId() {
+        return lessonsId;
     }
 
-    public void setPoleZapasnoe(int poleZapasnoe) {
-        this.poleZapasnoe = poleZapasnoe;
+    public void setLessonsId(int lessonsId) {
+        this.lessonsId = lessonsId;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 
     public String getLevel() {
         return level;
@@ -54,27 +55,19 @@ public class SpiskiLessons {
         this.level = level;
     }
 
-    public String getColor() {
-        return color;
+    public String getColorFon() {
+        return colorFon;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setColorFon(String colorFon) {
+        this.colorFon = colorFon;
     }
 
-    public int getId() {
-        return id;
+    public String getColorText() {
+        return colorText;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
+    public void setColorText(String colorText) {
+        this.colorText = colorText;
     }
 }
