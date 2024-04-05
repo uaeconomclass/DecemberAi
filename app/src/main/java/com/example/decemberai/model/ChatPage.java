@@ -300,12 +300,14 @@ public class ChatPage extends AppCompatActivity {
 
 
 
-
+    // Отправка ответа на сервер и принятие аудио файла
     public void toVoiceAssistantResponse(String text) {
+
    // Создание JSON объекта с текстом для отправки на сервер
         JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("text", text);
+            jsonBody.put("userId", User.userId);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -410,12 +412,14 @@ public class ChatPage extends AppCompatActivity {
     }
 
     private static final String TAG = "FileUploadTask";
-    private static final String UPLOAD_URL = "https://yourtalker.com/hendlers_api/upload_user_voise.php";
+    private static final String UPLOAD_URL = "https://yourtalker.com/hendlers_api/upload_user_voiсe.php";
 
     // Метод для загрузки файла на сервер
     private void uploadFileToServer(final String filePath, final UploadCallback callback) {
         OkHttpClient client = new OkHttpClient();
         File file = new File(filePath);
+
+        String string_userId = String.valueOf(User.userId);// Перевели цифру в текст так как цифру не получится передать
 
         // Создаем тело запроса для файла
         RequestBody fileRequestBody = RequestBody.create(file, MediaType.parse("audio/*"));
@@ -424,6 +428,7 @@ public class ChatPage extends AppCompatActivity {
         RequestBody requestBody = new MultipartBody.Builder()
                 .setType(MultipartBody.FORM)
                 .addFormDataPart("file", file.getName(), fileRequestBody)
+                .addFormDataPart("userId", string_userId)
                 .build();
 
         // Создаем запрос к серверу
@@ -517,7 +522,7 @@ public class ChatPage extends AppCompatActivity {
     private String getRecordingFilePath(){
         ContextWrapper contextWrapper = new ContextWrapper(getApplicationContext());
         File music = contextWrapper.getExternalFilesDir(Environment.DIRECTORY_MUSIC);
-        File file = new File(music, "recVoice" + ".mp3"); // testFile вместо этого можно добавлять рандомное имя и можно будет много файлов сохранять
+        File file = new File(music, "recVoice_" + User.userId + ".mp3"); // testFile вместо этого можно добавлять рандомное имя и можно будет много файлов сохранять
         return file.getPath();
     }
 
@@ -872,7 +877,7 @@ public class ChatPage extends AppCompatActivity {
                                     String otvetAssistant = textObject.getString("value");
                                     addResponse(otvetAssistant);
 
-                                    toVoiceAssistantResponse(otvetAssistant);
+                                    //toVoiceAssistantResponse(otvetAssistant);
                                 }
                             }
                         }

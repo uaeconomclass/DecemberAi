@@ -81,6 +81,8 @@ public class User {
     public static int userSkill = 0;
     public static String openaiApiKey = "";
     public static String assistantId = "";
+    public static String thisVersionApp = "1";
+    public static String actualVersionApp = "";
 
 
 

@@ -92,6 +92,22 @@ public class MainActivity extends AppCompatActivity {
                                 // Данные пользователя получены успешно
                                 // Здесь можно продолжить выполнение кода после получения данных пользователя
                                 // Навигационное меню ч2 начало -------------------------------------------------------------------
+
+
+                                if(!Objects.equals(User.actualVersionApp, User.thisVersionApp)){
+                                    // выполнить код в основном потоке находясь на второстипенном
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Toast.makeText(MainActivity.this, "A new version of the application is available", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+
+                                }
+
+
+
+
                                 bottomNavigationView = findViewById(R.id.bottom_navigation);
                                 integerDeque.push(R.id.btn_home);
                                 loadFragment(new HomeFragment());
@@ -163,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(MainActivity.this, "Пользователь успешно авторизован", Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, "Пользователь успешно авторизован", Toast.LENGTH_SHORT).show();
                                 callback.onAuthorizationCompleted("true");
                             }
                         });
@@ -171,7 +187,7 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(MainActivity.this, "Ошибка авторизации пользователя   " + result, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Ошибка авторизации пользователя   " + result, Toast.LENGTH_LONG).show();
                                 // Ваш код для неудачной авторизации здесь...
                                 callback.onAuthorizationCompleted("false");
                             }
@@ -221,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(MainActivity.this, "Данные пользователя получены успешно", Toast.LENGTH_LONG).show();
+                            Toast.makeText(MainActivity.this, "Данные пользователя получены успешно Айди юзера = " + User.assistantId, Toast.LENGTH_SHORT).show();
 
 
                         }
@@ -231,7 +247,7 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(MainActivity.this, "Ошибка получения данных пользователя   " + result, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Ошибка получения данных пользователя   " + result, Toast.LENGTH_LONG).show();
                             // Ваш код для неудачной авторизации здесь...
                             redirectionPageLogIn();
                         }
@@ -291,6 +307,8 @@ public class MainActivity extends AppCompatActivity {
             User.userSkill = userDataJson.getInt("user_skill");
             User.openaiApiKey = userDataJson.getString("openaiApiKey");
             User.assistantId = userDataJson.getString("assistantId");
+            User.userId = userDataJson.getInt("userId");
+            User.actualVersionApp = userDataJson.getString("actualVersionApp");
 
             // Получение массива завершенных лекций из JSON ------------------------------
             JSONArray completedLessonsJson = userDataJson.getJSONArray("completed_lessons");
