@@ -877,7 +877,7 @@ public class ChatPage extends AppCompatActivity {
                                     String otvetAssistant = textObject.getString("value");
                                     addResponse(otvetAssistant);
 
-                                    //toVoiceAssistantResponse(otvetAssistant);
+                                    toVoiceAssistantResponse(otvetAssistant);
                                 }
                             }
                         }
