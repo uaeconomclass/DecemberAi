@@ -87,7 +87,7 @@ public class ChatPage extends AppCompatActivity {
 
     private ApiRequestManager apiRequestManager = new ApiRequestManager();
     public static final String OPENAI_API_KEY = User.openaiApiKey;
-    public static final String ASSISTANT_ID = User.assistantId;
+    public static String ASSISTANT_ID = "";
 
     private static ScheduledExecutorService scheduler;
     private ScheduledFuture<?> waitingLoopFuture;
@@ -165,7 +165,7 @@ public class ChatPage extends AppCompatActivity {
         id_chat = getIntent().getIntExtra("spiskiChatId", 0);
         typeOfChat = getIntent().getStringExtra("typeOfChat");
 
-
+        ASSISTANT_ID = getIntent().getStringExtra("assistantId");
 
 
 
@@ -181,6 +181,9 @@ public class ChatPage extends AppCompatActivity {
         chatMessageEditText = findViewById(R.id.chatMessageEditText); //Текст который ввел пользователь
         chatSayBatton = findViewById(R.id.chatSayBatton); //Кнопка отправить
         chatDivUrovenClient = findViewById(R.id.chatDivUrovenClient); //Строка об Уровнеклиента
+
+
+        chatWelcomeTextView.setText(ASSISTANT_ID);
 
         //setup recycler view
         messageAdapter = new MessageAdapter(messageList);

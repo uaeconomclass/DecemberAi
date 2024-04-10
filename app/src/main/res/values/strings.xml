@@ -5,7 +5,7 @@
     <string name="level">Level: </string>
     <string name="welcome_to_your_lessons">Welcome to your lessons</string>
     <string name="write_here">Write here </string>
-    <string name="download">Download</string>
+    <string name="download">Loading</string>
     <string name="register_app">Register App</string>
     <string name="login">Login</string>
     <string name="register">Register</string>
@@ -28,7 +28,7 @@
     <string name="phone">Phone</string>
     <string name="home">Home</string>
     <string name="account">Account</string>
-<string name="The_user_data_was_received_successfully">Данные пользователя получены успешно</string>
+    <string name="the_user_data_was_received_successfully" translatable="false">Данные пользователя получены успешно</string>
 
 
 

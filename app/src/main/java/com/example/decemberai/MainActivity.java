@@ -237,7 +237,7 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(MainActivity.this, "Данные пользователя получены успешно Айди юзера = " + User.assistantId, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MainActivity.this, "Данные пользователя получены успешно ", Toast.LENGTH_SHORT).show();
 
 
                         }
@@ -306,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
             User.userLevel = userDataJson.getString("user_level");
             User.userSkill = userDataJson.getInt("user_skill");
             User.openaiApiKey = userDataJson.getString("openaiApiKey");
-            User.assistantId = userDataJson.getString("assistantId");
+            //User.assistantId = userDataJson.getString("assistantId");
             User.userId = userDataJson.getInt("userId");
             User.actualVersionApp = userDataJson.getString("actualVersionApp");
 
@@ -345,7 +345,8 @@ public class MainActivity extends AppCompatActivity {
                 String level = lessonJson.getString("level");
                 String colorFon = lessonJson.getString("colorFon");
                 String colorText = lessonJson.getString("colorText");
-                User.addFullSpiskiLessonsList(new SpiskiLessons(lessonId, title, img,level, colorFon, colorText ));
+                String assistantId = lessonJson.getString("assistantId");
+                User.addFullSpiskiLessonsList(new SpiskiLessons(lessonId, title, img,level, colorFon, colorText, assistantId));
             }
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -362,7 +363,8 @@ public class MainActivity extends AppCompatActivity {
                 String level = practiceJson.getString("level");
                 String colorFon = practiceJson.getString("colorFon");
                 String colorText = practiceJson.getString("colorText");
-                User.addFullSpiskiPracticeList(new SpiskiPractice(practiceId, title, img,level, colorFon, colorText));
+                String assistantId = practiceJson.getString("assistantId");
+                User.addFullSpiskiPracticeList(new SpiskiPractice(practiceId, title, img,level, colorFon, colorText, assistantId));
             }
             //^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 

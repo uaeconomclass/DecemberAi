@@ -69,6 +69,7 @@ public class SpiskiPracticeAdapter  extends RecyclerView.Adapter<SpiskiPracticeA
                 intent.putExtra("spiskiChatTitle", spiskiPractice.get(currentPosition).getTitle());
                 intent.putExtra("chatPageLevel", spiskiPractice.get(currentPosition).getLevel());
                 intent.putExtra("spiskiChatId", spiskiPractice.get(currentPosition).getPracticeId());
+                intent.putExtra("assistantId", spiskiPractice.get(currentPosition).getAssistantId());
                 intent.putExtra("typeOfChat", "practice");
 
                 context.startActivity(intent, options.toBundle()); // Сама переадрессация и анимация

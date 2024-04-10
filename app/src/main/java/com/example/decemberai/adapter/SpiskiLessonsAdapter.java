@@ -68,6 +68,7 @@ public class SpiskiLessonsAdapter extends RecyclerView.Adapter<SpiskiLessonsAdap
                 intent.putExtra("spiskiChatTitle", spiskiLessons.get(currentPosition).getTitle());
                 intent.putExtra("chatPageLevel", spiskiLessons.get(currentPosition).getLevel());
                 intent.putExtra("spiskiChatId", spiskiLessons.get(currentPosition).getLessonsId());
+                intent.putExtra("assistantId", spiskiLessons.get(currentPosition).getAssistantId());
                 intent.putExtra("typeOfChat", "lessons");
 
 

@@ -27,7 +27,7 @@
                 android:layout_width="114dp"
                 android:layout_height="64dp"
                 android:contentDescription="@string/app_name"
-                android:scaleType="matrix"
+                android:scaleType="centerCrop"
                 android:transitionName="chatAnimations"
                 app:srcCompat="@drawable/ic_phyton_small" />
 
@@ -47,6 +47,7 @@
                 android:textSize="14sp"
                 android:transitionName="practiceAnimations"
                 tools:ignore="MissingConstraints" />
+
 
         </LinearLayout>
 

@@ -3,20 +3,26 @@ package com.example.decemberai.model;
 public class SpiskiPractice {
 
     public int practiceId;
-    public  String title, img, level, colorFon, colorText;
+    public  String title, img, level, colorFon, colorText, assistantId;
 
 
-
-
-    public SpiskiPractice(int practiceId, String title, String img, String level, String colorFon, String colorText) {
+    public SpiskiPractice(int practiceId, String title, String img, String level, String colorFon, String colorText, String assistantId) {
         this.practiceId = practiceId;
         this.title = title;
         this.img = img;
         this.level = level;
         this.colorFon = colorFon;
         this.colorText = colorText;
+        this.assistantId = assistantId;
     }
 
+    public String getAssistantId() {
+        return assistantId;
+    }
+
+    public void setAssistantId(String assistantId) {
+        this.assistantId = assistantId;
+    }
 
     public SpiskiPractice(int practiceId, String title) {
         this.practiceId = practiceId;
