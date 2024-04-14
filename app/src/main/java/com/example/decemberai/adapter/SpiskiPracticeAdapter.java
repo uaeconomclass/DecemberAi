@@ -52,8 +52,12 @@ public class SpiskiPracticeAdapter  extends RecyclerView.Adapter<SpiskiPracticeA
         holder.spiskiPracticeBackGround.setBackgroundColor(Color.parseColor(spiskiPractice.get(currentPosition).getColorFon()));
 
 
-        int imageId = context.getResources().getIdentifier(spiskiPractice.get(currentPosition).getImg(), "drawable", context.getPackageName());// Получаем айди картинки по названию
-        holder.spiskiPracticeImage.setImageResource(imageId);
+        int imageId = context.getResources().getIdentifier(spiskiPractice.get(currentPosition).getImg(), "drawable", context.getPackageName());// Получаем айди картинки большой по названию
+
+        String imageName = spiskiPractice.get(currentPosition).getImg(); // Получаем название картинки
+        String imageNameWithS = imageName + "s"; // Добавляем "s" к названию картинки что бы получить маленькую
+        int imageSmallId = context.getResources().getIdentifier(imageNameWithS, "drawable", context.getPackageName()); // Получаем айди картинки по названию с добавленной "s"
+        holder.spiskiPracticeImage.setImageResource(imageSmallId);
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {

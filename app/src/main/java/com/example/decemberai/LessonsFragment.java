@@ -64,7 +64,8 @@ public class LessonsFragment extends Fragment {
 
         List<SpiskiLessons> filterSpiski = new ArrayList<>(); // выполним фильтрацию и все необходимые курсы поместим в этот список filterSpiski
         for (SpiskiLessons c : User.selectSpiskiLessonsList){// цикл
-            if(Objects.equals(c.getLevel(), userLevel)) // Проверяем уровень если нужный то добавляем в список filterSpiski
+            // Закоментил что бы небыло фильтрации по уровню пользователя для Лекций
+            // if(Objects.equals(c.getLevel(), userLevel)) // Проверяем уровень если нужный то добавляем в список filterSpiski
                 filterSpiski.add(c);
         }
 

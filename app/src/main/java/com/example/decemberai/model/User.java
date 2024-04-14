@@ -1,5 +1,13 @@
 package com.example.decemberai.model;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -83,6 +91,124 @@ public class User {
     public static String assistantId = "";
     public static String thisVersionApp = "1";
     public static String actualVersionApp = "";
+
+    // Функция обновления Скила пользователя
+
+    public static String userUpdateSkill(String userEmail, Integer id_chat) {
+        //emailRegister, String passwordRegister
+        try {
+            // URL для отправки запроса
+            URL url = new URL("https://yourtalker.com/hendlers_api/user_update_skill.php");
+
+            // Создание соединения
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            // Установка метода запроса
+            connection.setRequestMethod("POST");
+
+            // Включение возможности отправки данных
+            connection.setDoOutput(true);
+
+            // Формирование тела запроса
+            String postData = "email=" + userEmail + "&id_chat=" + id_chat;
+            byte[] postDataBytes = postData.getBytes(StandardCharsets.UTF_8);
+
+            // Установка заголовков запроса
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            connection.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+
+            // Устанавливаем таймауты соединения и чтения
+            connection.setConnectTimeout(60000); // Устанавливаем таймаут соединения на 60 секунд
+            connection.setReadTimeout(60000); // Устанавливаем таймаут чтения на 60 секунд
+
+            // Отправка данных
+            try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
+                outputStream.write(postDataBytes);
+            }
+
+            // Получение ответа от сервера
+            StringBuilder response = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+            }
+
+            // Закрытие соединения
+            connection.disconnect();
+
+            // Проверка ответа сервера и возврат результата
+            return response.toString();
+
+        } catch (SocketTimeoutException e) {
+            e.printStackTrace();
+            return "Вышло время ожидания";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
+
+
+
+
+    // Функция обновления уровня пользователя
+    public static String userUpdateLevel(String userEmail, String userLevel) {
+        //emailRegister, String passwordRegister
+        try {
+            // URL для отправки запроса
+            URL url = new URL("https://yourtalker.com/hendlers_api/user_update_level.php");
+
+            // Создание соединения
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            // Установка метода запроса
+            connection.setRequestMethod("POST");
+
+            // Включение возможности отправки данных
+            connection.setDoOutput(true);
+
+            // Формирование тела запроса
+            String postData = "email=" + userEmail + "&userLevel=" + userLevel;
+            byte[] postDataBytes = postData.getBytes(StandardCharsets.UTF_8);
+
+            // Установка заголовков запроса
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            connection.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+
+            // Устанавливаем таймауты соединения и чтения
+            connection.setConnectTimeout(60000); // Устанавливаем таймаут соединения на 60 секунд
+            connection.setReadTimeout(60000); // Устанавливаем таймаут чтения на 60 секунд
+
+            // Отправка данных
+            try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
+                outputStream.write(postDataBytes);
+            }
+
+            // Получение ответа от сервера
+            StringBuilder response = new StringBuilder();
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+            }
+
+            // Закрытие соединения
+            connection.disconnect();
+
+            // Проверка ответа сервера и возврат результата
+            return response.toString();
+
+        } catch (SocketTimeoutException e) {
+            e.printStackTrace();
+            return "Вышло время ожидания";
+        } catch (IOException e) {
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
 
 
 

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gory_mobile3"
+    android:id="@+id/root_activity_page_finish_chat"
+    tools:context=".PageFinishChat">
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/congratulate"
+        android:textColor="@color/menu_ottenok_3"
+        android:textSize="38sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="@string/you_have_completed"
+        android:textAlignment="center"
+        android:textColor="@color/menu_ottenok_3"
+        app:layout_constraintBottom_toTopOf="@+id/textChatTitleFinish"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textChatTitleFinish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Разговорчики с подружками"
+        android:textAlignment="center"
+        android:textColor="@color/menu_ottenok_3"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView23"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="6dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:text="@string/recommended"
+        android:textAlignment="center"
+        android:textColor="@color/menu_ottenok_3"
+        app:layout_constraintBottom_toTopOf="@+id/textRecomendedFinish"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textRecomendedFinish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="Больше выходить на улицу"
+        android:textAlignment="center"
+        android:textColor="@color/menu_ottenok_3"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageDownload"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageDownload"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView25"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/lightness_rotate_36"
+    android:scaleType="centerCrop"
+    android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/continue_your_training"
+        android:textAlignment="center"
+        android:textColor="@color/menu_ottenok_3"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

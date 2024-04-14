@@ -9,11 +9,15 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import android.annotation.SuppressLint;
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.AsyncTask;
@@ -33,7 +37,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.decemberai.Message;
+import com.example.decemberai.PageFinishChat;
 import com.example.decemberai.R;
+import com.example.decemberai.TesterUserActivity;
 import com.example.decemberai.adapter.MessageAdapter;
 
 import org.json.JSONArray;
@@ -56,6 +62,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.*;
 import java.util.concurrent.ExecutorService;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -73,7 +81,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ChatPage extends AppCompatActivity {
     RecyclerView chatRecyclerView;
-    TextView chatWelcomeTextView;
+    TextView chatWelcomeTextView, spiskiChatTitle;
     EditText chatMessageEditText;
     ImageButton chatSayBatton;
     List<Message> messageList;
@@ -86,8 +94,10 @@ public class ChatPage extends AppCompatActivity {
             .build();
 
     private ApiRequestManager apiRequestManager = new ApiRequestManager();
-    public static final String OPENAI_API_KEY = User.openaiApiKey;
+    //public static final String OPENAI_API_KEY = User.openaiApiKey;
+    //public static final String OPENAI_API_KEY = "";
     public static String ASSISTANT_ID = "";
+    public static String testerVova = ""; //Если я то 1 , если валек то пусто
 
     private static ScheduledExecutorService scheduler;
     private ScheduledFuture<?> waitingLoopFuture;
@@ -95,7 +105,7 @@ public class ChatPage extends AppCompatActivity {
 
     private int executionCount = 0; // Счетчик для цикла при опросе, когда будетготов ответ от Ассистента
     private String savedThreadId;// Переменная для хранения threadId
-    private String typeOfChat;
+    private String typeOfChat, spiskiChatTitleString;
     private int id_chat;
 
 
@@ -118,6 +128,60 @@ public class ChatPage extends AppCompatActivity {
 
         // Кнопка Voice
         chatSayBattonNew= findViewById(R.id.chatSayBattonNew);
+
+
+
+
+
+
+
+
+        ConstraintLayout spiskiChatBackGround = findViewById(R.id.chatPageContainer);// Создаем переменные которые ссылаются на объекты из дизайна привязыванием их по айди
+        spiskiChatImageId = findViewById(R.id.chatPageImage);
+        TextView spiskiChatTitle = findViewById(R.id.chatPageTitle);
+        TextView chatPageLevelName = findViewById(R.id.chatPageLevelName);
+        TextView chatPageLevel = findViewById(R.id.chatPageLevel);
+
+        spiskiChatBackGround.setBackgroundColor(getIntent().getIntExtra("spiskiChatBackGround", 0)); // Получаем переданные параметры из адаптера и устанавливаем их значение куда нам нужно
+        spiskiChatTitle.setTextColor(getIntent().getIntExtra("spiskiChatColorText", 0));
+        chatPageLevelName.setTextColor(getIntent().getIntExtra("spiskiChatColorText", 0));
+        chatPageLevel.setTextColor(getIntent().getIntExtra("spiskiChatColorText", 0));
+
+        spiskiChatImageId.setImageResource(getIntent().getIntExtra("spiskiChatImageId", 0));
+        spiskiChatTitle.setText(getIntent().getStringExtra("spiskiChatTitle"));
+        chatPageLevel.setText(getIntent().getStringExtra("chatPageLevel"));
+
+        id_chat = getIntent().getIntExtra("spiskiChatId", 0);
+        typeOfChat = getIntent().getStringExtra("typeOfChat");
+        spiskiChatTitleString = getIntent().getStringExtra("spiskiChatTitle");
+
+        ASSISTANT_ID = getIntent().getStringExtra("assistantId");
+
+
+
+
+        int colorFromIntent = getIntent().getIntExtra("spiskiChatColorText", Color.BLACK);
+        // Получаем ресурс ID векторной картинки
+        int vectorDrawableResourceId = R.drawable.button_speak4;
+        // Получаем объект Drawable из ресурса
+        Drawable drawable = ContextCompat.getDrawable(this, vectorDrawableResourceId);
+        // Проверяем, к какому типу относится картинка и устанавливаем цвет, на разных устройствах может быть разный тип
+        if (drawable instanceof VectorDrawableCompat) {
+            VectorDrawableCompat vectorDrawable = (VectorDrawableCompat) drawable;
+            // Устанавливаем новый цвет заполнения
+            vectorDrawable.setTint(colorFromIntent); // Используем цвет из интента
+        } else if (drawable instanceof VectorDrawable) {
+            VectorDrawable vectorDrawable = (VectorDrawable) drawable;
+            // Устанавливаем новый цвет заполнения
+            vectorDrawable.setTint(colorFromIntent); // Используем цвет из интента
+        }
+        // Устанавливаем измененный Drawable на ImageView или другой виджет
+        chatSayBattonNew.setImageDrawable(drawable);
+
+
+
+
+
         final Animation scaleAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_animation_on);
         final Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.scale_animation_out);
 
@@ -147,25 +211,6 @@ public class ChatPage extends AppCompatActivity {
         });
 
 
-
-
-
-
-        ConstraintLayout spiskiChatBackGround = findViewById(R.id.chatPageContainer);// Создаем переменные которые ссылаются на объекты из дизайна привязыванием их по айди
-        spiskiChatImageId = findViewById(R.id.chatPageImage);
-        TextView spiskiChatTitle = findViewById(R.id.chatPageTitle);
-        TextView chatPageLevel = findViewById(R.id.chatPageLevel);
-
-        spiskiChatBackGround.setBackgroundColor(getIntent().getIntExtra("spiskiChatBackGround", 0)); // Получаем переданные параметры из адаптера и устанавливаем их значение куда нам нужно
-        spiskiChatTitle.setTextColor(getIntent().getIntExtra("spiskiChatColorText", 0));
-        spiskiChatImageId.setImageResource(getIntent().getIntExtra("spiskiChatImageId", 0));
-        spiskiChatTitle.setText(getIntent().getStringExtra("spiskiChatTitle"));
-        chatPageLevel.setText(getIntent().getStringExtra("chatPageLevel"));
-
-        id_chat = getIntent().getIntExtra("spiskiChatId", 0);
-        typeOfChat = getIntent().getStringExtra("typeOfChat");
-
-        ASSISTANT_ID = getIntent().getStringExtra("assistantId");
 
 
 
@@ -573,6 +618,45 @@ public class ChatPage extends AppCompatActivity {
 
 
 
+    public void searchCommands(String response){
+        // Создаем список для хранения найденных значений внутри кавычек【】
+        ArrayList<String> values = new ArrayList<>();
+
+        // Паттерн для поиска значений внутри кавычек【】
+        Pattern pattern = Pattern.compile("【([^】]+)】");
+        Matcher matcher = pattern.matcher(response);
+
+        // Поиск и добавление найденных значений в список
+        while (matcher.find()) {
+            values.add(matcher.group(1));
+        }
+
+        // Перебор списка и выполнение действий с каждым значением
+        for (String value : values) {
+
+            System.out.println("Пришла команда" + value);
+            String type = value.substring(0, 3); // Получаем первые три символа
+            String parameter = value.substring(4);
+            System.out.println("Разбили её на type " + type + " parameter " + parameter);
+            // Если это команда, то только тогда выполняем переход на другую страницу
+            if(type.equals("100") || type.equals("200") ||type.equals("300")) {
+                Intent intent = new Intent(ChatPage.this, PageFinishChat.class);// Создаем условие для переадрессации на LessonsPage
+                intent.putExtra("comand", value);
+                intent.putExtra("typeOfChat", typeOfChat);
+                intent.putExtra("id_chat", id_chat);
+                intent.putExtra("spiskiChatTitleString", spiskiChatTitleString);
+
+                startActivity(intent);
+                finish(); // Завершаем текущую активность, чтобы пользователь не мог вернуться назад
+            }
+
+        }
+    }
+
+
+
+
+
 
     public interface ThreadCreationCallback {
         void onThreadCreated(String threadId);
@@ -614,7 +698,7 @@ public class ChatPage extends AppCompatActivity {
 
             RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
             Request request = new Request.Builder()
-                    .url("https://yourtalker.com/hendlers_api/get_thread_id.php")
+                    .url("https://yourtalker.com/hendlers_api/get_thread_id" + testerVova + ".php")
                     //.header("Authorization", "Bearer " + OPENAI_API_KEY)
                     //.header("OpenAI-Beta", "assistants=v1")
                     //.post(body)
@@ -672,7 +756,7 @@ public class ChatPage extends AppCompatActivity {
 
 
         Request request = new Request.Builder()
-                .url("https://yourtalker.com/hendlers_api/add_message.php")
+                .url("https://yourtalker.com/hendlers_api/add_message" + testerVova + ".php")
                 .header("Content-Type", "application/json")
                 //.header("Authorization", "Bearer " + OPENAI_API_KEY)
                 //.header("OpenAI-Beta", "assistants=v1")
@@ -711,7 +795,7 @@ public class ChatPage extends AppCompatActivity {
 
         JSONObject jsonBody = new JSONObject();
         try {
-            //jsonBody.put("assistant_id", assistantId);
+            jsonBody.put("assistant_id", assistantId);
             jsonBody.put("threadId", threadId);// Добавил, если на прямую, то этот параметр не нужен
 
         } catch (JSONException e) {
@@ -720,7 +804,7 @@ public class ChatPage extends AppCompatActivity {
 
         RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
         Request request = new Request.Builder()
-                .url("https://yourtalker.com/hendlers_api/assistant_run.php")
+                .url("https://yourtalker.com/hendlers_api/assistant_run" + testerVova + ".php")
                 //.header("Authorization", "Bearer " + OPENAI_API_KEY)
                 //.header("OpenAI-Beta", "assistants=v1")
                 .post(body)
@@ -777,7 +861,7 @@ public class ChatPage extends AppCompatActivity {
         RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
 
         Request request = new Request.Builder()
-                .url("https://yourtalker.com/hendlers_api/assistant_response_status.php")
+                .url("https://yourtalker.com/hendlers_api/assistant_response_status" + testerVova + ".php")
                 //.url("https://api.openai.com/v1/threads/" + threadId + "/runs/" + run_id)
                 //.header("Authorization", "Bearer " + OPENAI_API_KEY)
                 //.header("OpenAI-Beta", "assistants=v1")
@@ -837,7 +921,7 @@ public class ChatPage extends AppCompatActivity {
 
 
         Request request = new Request.Builder()
-                .url("https://yourtalker.com/hendlers_api/get_assistant_response.php")
+                .url("https://yourtalker.com/hendlers_api/get_assistant_response" + testerVova + ".php")
                 //.url("https://api.openai.com/v1/threads/" + threadId + "/messages")
                 //.header("Authorization", "Bearer " + OPENAI_API_KEY)
                 //.header("OpenAI-Beta", "assistants=v1")
@@ -880,7 +964,9 @@ public class ChatPage extends AppCompatActivity {
                                     String otvetAssistant = textObject.getString("value");
                                     addResponse(otvetAssistant);
 
-                                    toVoiceAssistantResponse(otvetAssistant);
+                                    //toVoiceAssistantResponse(otvetAssistant);
+
+                                    searchCommands(otvetAssistant);
                                 }
                             }
                         }

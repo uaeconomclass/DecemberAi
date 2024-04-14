@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
@@ -56,7 +57,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_main);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setVisibility(View.GONE); //Прячем до загрузки что бы ни кто не тыкал в меню до подгрузки обработчика нажатия
         sp = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE); //Присваиваем sp название UserPreferences
 
         // Проверяем есть ли в преференсах емайл и пароль
@@ -66,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
             return; // Останавливаем выполнение кода здесь
         }
 
-        setContentView(R.layout.activity_main);
+
 
         // Анимация загрузки страницы
         TextView text_download_start = findViewById(R.id.text_download_end);
@@ -74,6 +77,44 @@ public class MainActivity extends AppCompatActivity {
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.animation_blink);
         // Запускаем анимацию
         text_download_start.startAnimation(animation);
+
+
+        // Если в преференсах висит запись с айди  пройденого события которое не сохранилось на сервере ещё раз пытаемся его сохранить
+        int errorUserUpdateSkill = sp.getInt("errorUserUpdateSkill", 0);
+        if ( errorUserUpdateSkill != 0) {
+            Executor executor5 = Executors.newSingleThreadExecutor();
+            executor5.execute(new Runnable() {
+                @Override
+                public void run() {
+                    String result = User.userUpdateSkill(userEmail, errorUserUpdateSkill);
+                    if (Objects.equals(result, "true")) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "Ошибочный Скилл пользователя обновлен", Toast.LENGTH_SHORT).show();
+                                SharedPreferences.Editor editor = sp.edit(); // Создаем editor (редактирование) через него можно записывать в SharedPreferences
+                                editor.putInt("errorUserUpdateSkill", 0); // в editor Сохраняем данные в формате (ключь, значение)
+                                editor.apply(); // Применяем изменения
+                            }
+                        });
+                    } else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.this, "Error. Ошибочный Скилл пользователя НЕ обновлен", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+
+
+
+
+
+
 
 
         AuthorizationCompleted(new AuthorizationCallback() {//А здесть проверим после старта активити правильный ли пароль
@@ -94,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
                                 // Навигационное меню ч2 начало -------------------------------------------------------------------
 
 
+                                // Напоминание клиенту что у него не последняя версия приложения
                                 if(!Objects.equals(User.actualVersionApp, User.thisVersionApp)){
                                     // выполнить код в основном потоке находясь на второстипенном
                                     runOnUiThread(new Runnable() {
@@ -102,13 +144,31 @@ public class MainActivity extends AppCompatActivity {
                                             Toast.makeText(MainActivity.this, "A new version of the application is available", Toast.LENGTH_LONG).show();
                                         }
                                     });
+                                }
 
+
+                                // Если пользователь еще не был на странице определения его уровня то это первый его старт, и перекидываем его туда
+                                int userViewPageTesterUserActivity = sp.getInt("userViewPageTesterUserActivity", 0);
+                                if(userViewPageTesterUserActivity == 0){
+                                    Intent intent = new Intent(MainActivity.this, TesterUserActivity.class);// Перекидываем на MainActivity
+                                    startActivity(intent);
                                 }
 
 
 
+                                // Показываем навигационное меню когда все загрузилось
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        bottomNavigationView.setVisibility(View.VISIBLE);
+                                    }
+                                });
 
-                                bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+
+
+
+
                                 integerDeque.push(R.id.btn_home);
                                 loadFragment(new HomeFragment());
                                 bottomNavigationView.setSelectedItemId(R.id.btn_home);

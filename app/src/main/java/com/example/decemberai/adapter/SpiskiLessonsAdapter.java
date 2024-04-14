@@ -52,8 +52,13 @@ public class SpiskiLessonsAdapter extends RecyclerView.Adapter<SpiskiLessonsAdap
         holder.spiskiLessonsTitle.setTextColor(Color.parseColor(spiskiLessons.get(currentPosition).getColorText()));
         holder.spiskiLessonsBackGround.setBackgroundColor(Color.parseColor(spiskiLessons.get(currentPosition).getColorFon()));
 
-        int imageId = context.getResources().getIdentifier(spiskiLessons.get(currentPosition).getImg(), "drawable", context.getPackageName());// Получаем айди картинки по названию
-        holder.spiskiLessonsImage.setImageResource(imageId);
+        int imageId = context.getResources().getIdentifier(spiskiLessons.get(currentPosition).getImg(), "drawable", context.getPackageName());// Получаем айди картинки большой по названию
+
+        String imageName = spiskiLessons.get(currentPosition).getImg(); // Получаем название картинки
+        String imageNameWithS = imageName + "s"; // Добавляем "s" к названию картинки что бы получить маленькую
+        int imageSmallId = context.getResources().getIdentifier(imageNameWithS, "drawable", context.getPackageName()); // Получаем айди картинки по названию с добавленной "s"
+        holder.spiskiLessonsImage.setImageResource(imageSmallId);
+
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
