@@ -35,10 +35,10 @@ import java.util.concurrent.Executors;
 
 public class PageFinishChat extends AppCompatActivity {
     private String typeOfChat, comand, type, parameter, spiskiChatTitleString, userEmail;
-    private int id_chat;
+    private int id_chat, spiskiChatImageId;
     TextView textChatTitleFinish, textRecomendedFinish;
     SharedPreferences sp; // Переменная для SharedPreferences
-
+    ImageView pageFinishChatImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +52,7 @@ public class PageFinishChat extends AppCompatActivity {
 
 
         id_chat = getIntent().getIntExtra("id_chat", 0);
+        spiskiChatImageId = getIntent().getIntExtra("spiskiChatImageId", 0);
         typeOfChat = getIntent().getStringExtra("typeOfChat");
         spiskiChatTitleString = getIntent().getStringExtra("spiskiChatTitleString");
         comand = getIntent().getStringExtra("comand");
@@ -65,7 +66,9 @@ public class PageFinishChat extends AppCompatActivity {
 
         textChatTitleFinish = findViewById(R.id.textChatTitleFinish);
         textRecomendedFinish = findViewById(R.id.textRecomendedFinish);
+        pageFinishChatImage = findViewById(R.id.pageFinishChatImage);
 
+        pageFinishChatImage.setImageResource(getIntent().getIntExtra("spiskiChatImageId", 0));
         textRecomendedFinish.setText(parameter);
         textChatTitleFinish.setText(spiskiChatTitleString);
 

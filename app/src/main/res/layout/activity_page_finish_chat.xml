@@ -21,6 +21,43 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView"
+        android:layout_width="342dp"
+        android:layout_height="192dp"
+        android:background="@color/menu_ottenok_1"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="2dp"
+        app:strokeWidth="4dp"
+        app:strokeColor="@color/menu_ottenok_3_animated"
+        app:layout_constraintBottom_toTopOf="@+id/textView21"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView20"
+        tools:ignore="MissingConstraints">
+
+        <ImageView
+            android:id="@+id/pageFinishChatImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/ic_phyton_small" />
+
+        <TextView
+            android:id="@+id/textView26"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#DADCF8F4"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:textSize="40sp"
+            android:text="@string/completed"
+            android:textAlignment="center"
+            android:textColor="@color/menu_ottenok_3_animated" />
+
+    </com.google.android.material.card.MaterialCardView>
+
 
     <TextView
         android:id="@+id/textView21"

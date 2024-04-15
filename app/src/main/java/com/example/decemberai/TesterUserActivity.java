@@ -133,7 +133,7 @@ public class TesterUserActivity extends AppCompatActivity {
                     executor3.execute(new Runnable() {
                         @Override
                         public void run() {
-                            String result = userUpdateLevel2(userEmail, selectedParameter);
+                            String result = User.userUpdateLevel(userEmail, selectedParameter);
                             if (Objects.equals(result, "true")) {
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -166,63 +166,6 @@ public class TesterUserActivity extends AppCompatActivity {
         });
     }
 
-
-    // Функция обновления уровня пользователя
-    public static String userUpdateLevel2(String userEmail, String userLevel) {
-        //emailRegister, String passwordRegister
-        try {
-            // URL для отправки запроса
-            URL url = new URL("https://yourtalker.com/hendlers_api/add_id_chat.php");
-
-            // Создание соединения
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-            // Установка метода запроса
-            connection.setRequestMethod("POST");
-
-            // Включение возможности отправки данных
-            connection.setDoOutput(true);
-
-            // Формирование тела запроса
-            String postData = "email=" + userEmail + "&userLevel=" + userLevel;
-            byte[] postDataBytes = postData.getBytes(StandardCharsets.UTF_8);
-
-            // Установка заголовков запроса
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            connection.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
-
-            // Устанавливаем таймауты соединения и чтения
-            connection.setConnectTimeout(60000); // Устанавливаем таймаут соединения на 60 секунд
-            connection.setReadTimeout(60000); // Устанавливаем таймаут чтения на 60 секунд
-
-            // Отправка данных
-            try (DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream())) {
-                outputStream.write(postDataBytes);
-            }
-
-            // Получение ответа от сервера
-            StringBuilder response = new StringBuilder();
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    response.append(line);
-                }
-            }
-
-            // Закрытие соединения
-            connection.disconnect();
-
-            // Проверка ответа сервера и возврат результата
-            return response.toString();
-
-        } catch (SocketTimeoutException e) {
-            e.printStackTrace();
-            return "Вышло время ожидания";
-        } catch (IOException e) {
-            e.printStackTrace();
-            return e.getMessage();
-        }
-    }
 
 
 }

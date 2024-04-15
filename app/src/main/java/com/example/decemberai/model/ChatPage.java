@@ -57,6 +57,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -97,7 +98,7 @@ public class ChatPage extends AppCompatActivity {
     //public static final String OPENAI_API_KEY = User.openaiApiKey;
     //public static final String OPENAI_API_KEY = "";
     public static String ASSISTANT_ID = "";
-    public static String testerVova = ""; //Если я то 1 , если валек то пусто
+    public static String testerVova = "1"; //Если я то 1 , если валек то пусто
 
     private static ScheduledExecutorService scheduler;
     private ScheduledFuture<?> waitingLoopFuture;
@@ -149,15 +150,18 @@ public class ChatPage extends AppCompatActivity {
 
         spiskiChatImageId.setImageResource(getIntent().getIntExtra("spiskiChatImageId", 0));
         spiskiChatTitle.setText(getIntent().getStringExtra("spiskiChatTitle"));
-        chatPageLevel.setText(getIntent().getStringExtra("chatPageLevel"));
+
 
         id_chat = getIntent().getIntExtra("spiskiChatId", 0);
         typeOfChat = getIntent().getStringExtra("typeOfChat");
         spiskiChatTitleString = getIntent().getStringExtra("spiskiChatTitle");
 
         ASSISTANT_ID = getIntent().getStringExtra("assistantId");
-
-
+        if (Objects.equals(typeOfChat, "testerUser")) {
+            chatPageLevel.setText("test");
+        }else{
+            chatPageLevel.setText(User.userLevel);
+        }
 
 
         int colorFromIntent = getIntent().getIntExtra("spiskiChatColorText", Color.BLACK);
@@ -214,8 +218,8 @@ public class ChatPage extends AppCompatActivity {
 
 
 
-
-        add_view_item_chat();
+        // Функция добавления в просмотренные темы на приложении, уже не актуальна
+        //add_view_item_chat();
 
 
 
@@ -582,7 +586,7 @@ public class ChatPage extends AppCompatActivity {
 
 
 
-
+    // Функция добавления в просмотренные темы на приложении, уже не актуальна
     public void add_view_item_chat(){
         if ("practice".equals(typeOfChat)) {//  функционал что бы записывать в разные списки(в практики и в лекции)
             User.practice_item_id.add(id_chat); // Записываем айди лекции в просмотренные
@@ -645,6 +649,7 @@ public class ChatPage extends AppCompatActivity {
                 intent.putExtra("typeOfChat", typeOfChat);
                 intent.putExtra("id_chat", id_chat);
                 intent.putExtra("spiskiChatTitleString", spiskiChatTitleString);
+                intent.putExtra("spiskiChatImageId", getIntent().getIntExtra("spiskiChatImageId", 0));
 
                 startActivity(intent);
                 finish(); // Завершаем текущую активность, чтобы пользователь не мог вернуться назад

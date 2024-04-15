@@ -39,5 +39,6 @@
     <string name="you_have_completed">You have completed</string>
     <string name="recommended">Recommended</string>
     <string name="continue_your_training">Continue your training !!!</string>
+    <string name="completed">COMPLETED</string>
 
 </resources>
