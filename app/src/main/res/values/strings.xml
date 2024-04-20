@@ -28,7 +28,6 @@
     <string name="phone">Phone</string>
     <string name="home">Home</string>
     <string name="account">Account</string>
-    <string name="the_user_data_was_received_successfully" translatable="false">Данные пользователя получены успешно</string>
     <string name="your_level">Your Level</string>
     <string name="text_or_level_1">Take the test with the help of an assistant or choose your level yourself</string>
     <string name="text_or_level_2">You can return to the selection of your level at any time in your personal account</string>
@@ -40,5 +39,28 @@
     <string name="recommended">Recommended</string>
     <string name="continue_your_training">Continue your training !!!</string>
     <string name="completed">COMPLETED</string>
+    <string name="enter_a_new_password">Enter a new password</string>
+    <string name="changing_the_password">Changing the password</string>
+    <string name="new_password">New password</string>
+    <string name="repeat_password">Repeat password</string>
+    <string name="fill_in_all_the_fields">Fill in all the fields</string>
+    <string name="the_passwords_do_not_match">The passwords do not match!</string>
+    <string name="password_update_error_please_try_again">Password update error, please try again</string>
+    <string name="password_has_been_successfully_updated">The password has been successfully updated</string>
+    <string name="new_version_of_the_application_is_available">A new version of the application is available</string>
+    <string name="the_user_has_been_successfully_logged_in">The user has been successfully logged in</string>
+    <string name="user_authorization_error">User authorization error</string>
+    <string name="the_user_level_has_been_updated">The user level has been updated</string>
+    <string name="enter_your_name">Enter your name</string>
+    <string name="enter_your_email_address">Enter your email address</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="enter_password_that_is_more_than_5_characters_long">Enter a password, that is more than 5 characters long</string>
+    <string name="registration_was_successful">Registration was successful</string>
+    <string name="registration_error_please_try_again">Registration error, please try again</string>
+    <string name="authorization_was_successful">Authorization was successful</string>
+    <string name="authorization_error">Authorization error</string>
+    <string name="error_there_may_be_a_problem_with_the_internet">Error. There may be a problem with the Internet</string>
+
+
 
 </resources>

@@ -537,7 +537,8 @@ public class ChatPage extends AppCompatActivity {
             requestRecordingPremession();
             return false;
         }
-        Toast.makeText(getApplicationContext(), "Разрешение на использование микрофона получено", Toast.LENGTH_SHORT);
+        //Toast.makeText(getApplicationContext(), "Разрешение на использование микрофона получено", Toast.LENGTH_SHORT);
+        Log.e("111111111111111", "Разрешение на использование микрофона получено");
         return true;
     }
 
@@ -558,9 +559,11 @@ public class ChatPage extends AppCompatActivity {
             if (grantResults.length > 0) {
                 boolean permissionToRecord = grantResults[0]==PackageManager.PERMISSION_GRANTED;
                 if(permissionToRecord){
-                    Toast.makeText(getApplicationContext(), "Permission Given", Toast.LENGTH_SHORT);
+                    //Toast.makeText(getApplicationContext(), "Permission Given", Toast.LENGTH_SHORT);
+                    Log.e("111111111111111", "Permission Given");
                 }else{
-                    Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT);
+                    //Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT);
+                    Log.e("111111111111111", "Permission Given");
                 }
             } else {
                 // Если grantResults пустой, выведите сообщение об ошибке

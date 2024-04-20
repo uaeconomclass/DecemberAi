@@ -3,6 +3,7 @@ package com.example.decemberai;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -28,7 +29,7 @@ public class AccountFragment extends Fragment {
     TextView name_account, email_account, phone_account, password_account, user_skill_account, user_level_account;
     SharedPreferences sp; // Переменная для SharedPreferences
     // phone пока клиенту не выводим
-    Button button_reset_level;
+    Button button_reset_level, button_change_password, button_to_pay;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +43,33 @@ public class AccountFragment extends Fragment {
         user_skill_account = view.findViewById(R.id.user_skill_account);
         user_level_account = view.findViewById(R.id.user_level_account);
         button_reset_level = view.findViewById(R.id.button_reset_level);
+        button_change_password = view.findViewById(R.id.button_change_password);
+        button_to_pay = view.findViewById(R.id.button_to_pay);
+
+        // По клику на button_to_pay перекидываем на сайт для оплаты
+        button_to_pay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "https://www.example.com?email=" + email; // Замените на адрес вашей веб-страницы
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
+
+
+        // По клику на button_change_password перекидываем на страницу смены пароля
+        button_change_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Создаем намерение для перехода на активити TesterUserClass
+                Intent intent = new Intent(requireContext(), ChangePasswordActivity.class);
+
+                // Запускаем активити TesterUserClass
+                startActivity(intent);
+            }
+        });
+
 
         // По клику на button_reset_level перекидываем на страницу обновления уровня
         button_reset_level.setOnClickListener(new View.OnClickListener() {

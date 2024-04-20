@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
@@ -91,7 +92,8 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(MainActivity.this, "Ошибочный Скилл пользователя обновлен", Toast.LENGTH_SHORT).show();
+                                Log.e("111111111111111", "Ошибочный Скилл пользователя обновлен");
+                                //Toast.makeText(MainActivity.this, "Ошибочный Скилл пользователя обновлен", Toast.LENGTH_SHORT).show();
                                 SharedPreferences.Editor editor = sp.edit(); // Создаем editor (редактирование) через него можно записывать в SharedPreferences
                                 editor.putInt("errorUserUpdateSkill", 0); // в editor Сохраняем данные в формате (ключь, значение)
                                 editor.apply(); // Применяем изменения
@@ -101,7 +103,8 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(MainActivity.this, "Error. Ошибочный Скилл пользователя НЕ обновлен", Toast.LENGTH_LONG).show();
+                                Log.e("111111111111111", "Error. Ошибочный Скилл пользователя НЕ обновлен");
+                                //Toast.makeText(MainActivity.this, "Error. Ошибочный Скилл пользователя НЕ обновлен", Toast.LENGTH_LONG).show();
                             }
                         });
                     }
@@ -130,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onUserDataReceived(boolean success) {
                             if (success) {
                                 //Toast.makeText(MainActivity.this, "Данные пользователя получены успешно", Toast.LENGTH_LONG).show();
+                                Log.e("111111111111111", "Данные пользователя получены успешно");
                                 // Данные пользователя получены успешно
                                 // Здесь можно продолжить выполнение кода после получения данных пользователя
                                 // Навигационное меню ч2 начало -------------------------------------------------------------------
@@ -141,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
                                     runOnUiThread(new Runnable() {
                                         @Override
                                         public void run() {
-                                            Toast.makeText(MainActivity.this, "A new version of the application is available", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(MainActivity.this, getString(R.string.new_version_of_the_application_is_available), Toast.LENGTH_LONG).show();
                                         }
                                     });
                                 }
@@ -239,7 +243,7 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(MainActivity.this, "Пользователь успешно авторизован", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, getString(R.string.the_user_has_been_successfully_logged_in), Toast.LENGTH_SHORT).show();
                                 callback.onAuthorizationCompleted("true");
                             }
                         });
@@ -247,7 +251,8 @@ public class MainActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(MainActivity.this, "Ошибка авторизации пользователя   " + result, Toast.LENGTH_LONG).show();
+                                Toast.makeText(MainActivity.this, getString(R.string.user_authorization_error), Toast.LENGTH_LONG).show();
+                                //Toast.makeText(MainActivity.this, "Ошибка авторизации пользователя   " + result, Toast.LENGTH_LONG).show();
                                 // Ваш код для неудачной авторизации здесь...
                                 callback.onAuthorizationCompleted("false");
                             }
@@ -297,8 +302,8 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(MainActivity.this, "Данные пользователя получены успешно ", Toast.LENGTH_SHORT).show();
-
+                            //Toast.makeText(MainActivity.this, "Данные пользователя получены успешно ", Toast.LENGTH_SHORT).show();
+                            Log.e("111111111111111", "Данные пользователя получены успешно");
 
                         }
                     });
@@ -307,8 +312,8 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(MainActivity.this, "Ошибка получения данных пользователя   " + result, Toast.LENGTH_LONG).show();
-                            // Ваш код для неудачной авторизации здесь...
+                            //Toast.makeText(MainActivity.this, "Ошибка получения данных пользователя   " + result, Toast.LENGTH_LONG).show();
+                            Log.e("111111111111111", "Ошибка получения данных пользователя   " + result);
                             redirectionPageLogIn();
                         }
                     });

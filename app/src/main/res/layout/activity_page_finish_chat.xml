@@ -51,7 +51,7 @@
             android:background="#DADCF8F4"
             android:fontFamily="@font/montserrat_bold"
             android:gravity="center"
-            android:textSize="40sp"
+            android:textSize="38sp"
             android:text="@string/completed"
             android:textAlignment="center"
             android:textColor="@color/menu_ottenok_3_animated" />

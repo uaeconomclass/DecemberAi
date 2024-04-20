@@ -25,24 +25,9 @@
             android:layout_marginTop="15dp"
             android:fontFamily="@font/montserrat_bold"
             android:textColor="@color/menu_ottenok_3"
-            android:text="A"
+            android:text="@string/account"
             android:textSize="38sp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:textColor="@color/menu_ottenok_3"
-            android:text="ccoun"
-            android:textSize="38sp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:textColor="@color/menu_ottenok_3"
-            android:text="t"
-            android:textSize="38sp" />
+
 
     </LinearLayout>
 
@@ -169,7 +154,7 @@
             android:textSize="14sp" />
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/button_change_passvord"
+            android:id="@+id/button_change_password"
             android:layout_width="90dp"
             android:layout_height="48dp"
             android:text="@string/change"

@@ -102,13 +102,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(TextUtils.isEmpty(nameRegister.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
-                    Toast.makeText(RegisterActivity.this, "Enter your name", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, getString(R.string.enter_your_name), Toast.LENGTH_LONG).show();
                 } else if(TextUtils.isEmpty(emailRegister.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
-                    Toast.makeText(RegisterActivity.this, "Enter your email address", Toast.LENGTH_LONG).show();//Если не ввели то всплывающее окно
+                    Toast.makeText(RegisterActivity.this, getString(R.string.enter_your_email_address), Toast.LENGTH_LONG).show();//Если не ввели то всплывающее окно
                 } else if(TextUtils.isEmpty(phoneRegister.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
-                    Toast.makeText(RegisterActivity.this, "Enter your phone number", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, getString(R.string.enter_your_phone_number), Toast.LENGTH_LONG).show();
                 } else if(passwordRegister.getText().toString().length() < 5 ){ //Проверяем что бы пароль был длиннее 5
-                    Toast.makeText(RegisterActivity.this, "Enter a password, that is more than 5 characters long", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, getString(R.string.enter_password_that_is_more_than_5_characters_long), Toast.LENGTH_LONG).show();
                 } else {
 
                     //На этом этапе проверки пройдены и делаем Регистрацию пользователя
@@ -122,7 +122,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(RegisterActivity.this, "Регистрация прошла успешно", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(RegisterActivity.this, getString(R.string.registration_was_successful), Toast.LENGTH_LONG).show();
 
                                         // Если вернулся ОК записываем данные в SharedPreferences
                                         SharedPreferences.Editor editor = sp.edit(); // Создаем editor (редактирование) через него можно записывать в SharedPreferences
@@ -143,7 +143,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(RegisterActivity.this, "Ошибка регистрации   " + result, Toast.LENGTH_LONG).show();
+                                        Toast.makeText(RegisterActivity.this, getString(R.string.registration_error_please_try_again), Toast.LENGTH_LONG).show();
+                                       // Toast.makeText(RegisterActivity.this, "Ошибка регистрации   " + result, Toast.LENGTH_LONG).show();
                                         // Ваш код для неудачной авторизации здесь...
                                     }
                                 });
@@ -234,9 +235,9 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(TextUtils.isEmpty(emailLogin.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
-                    Toast.makeText(RegisterActivity.this, "Enter your email address", Toast.LENGTH_LONG).show();//Если не ввели то всплывающее окно
+                    Toast.makeText(RegisterActivity.this, getString(R.string.enter_your_email_address), Toast.LENGTH_LONG).show();//Если не ввели то всплывающее окно
                 } else if(passwordLogin.getText().toString().length() < 5 ){ //Проверяем что бы пароль был длиннее 5
-                    Toast.makeText(RegisterActivity.this, "Enter a password, that is more than 5 characters long", Toast.LENGTH_LONG).show();
+                    Toast.makeText(RegisterActivity.this, getString(R.string.enter_password_that_is_more_than_5_characters_long), Toast.LENGTH_LONG).show();
                 } else {
 
                     //На этом этапе проверки пройдены и делаем Авторизацию пользователя
@@ -250,7 +251,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(RegisterActivity.this, "Авторизация прошла успешно", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(RegisterActivity.this, getString(R.string.authorization_was_successful), Toast.LENGTH_LONG).show();
                                         // Код для успешной авторизации здесь...
                                         // Если вернулся ОК записываем данные в SharedPreferences и все данные пользователя
                                         SharedPreferences.Editor editor = sp.edit(); // Создаем editor (редактирование) через него можно записывать в SharedPreferences
@@ -270,7 +271,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(RegisterActivity.this, "Ошибка авторизации   " + result, Toast.LENGTH_LONG).show();
+                                        Toast.makeText(RegisterActivity.this, getString(R.string.authorization_error), Toast.LENGTH_LONG).show();
+                                        // Toast.makeText(RegisterActivity.this, "Ошибка авторизации   " + result, Toast.LENGTH_LONG).show();
                                         // Ваш код для неудачной авторизации здесь...
                                     }
                                 });

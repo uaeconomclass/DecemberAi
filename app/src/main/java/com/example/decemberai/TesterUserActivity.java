@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -127,8 +128,8 @@ public class TesterUserActivity extends AppCompatActivity {
                 if (userSelectedParameter) {
                     // Получаем выбранный параметр
                     String selectedParameter = (String) parent.getItemAtPosition(position);
-                    Toast.makeText(TesterUserActivity.this, "Выбран параметр " + selectedParameter, Toast.LENGTH_SHORT).show();
-
+                    //Toast.makeText(TesterUserActivity.this, "Выбран параметр " + selectedParameter, Toast.LENGTH_SHORT).show();
+                    Log.e("111111111111111", "Выбран параметр " + selectedParameter);
                     Executor executor3 = Executors.newSingleThreadExecutor();
                     executor3.execute(new Runnable() {
                         @Override
@@ -138,7 +139,7 @@ public class TesterUserActivity extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(TesterUserActivity.this, "Уровень пользователя обновлен", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(TesterUserActivity.this, getString(R.string.the_user_level_has_been_updated), Toast.LENGTH_SHORT).show();
                                         User.userLevel = selectedParameter;
 
                                     }
@@ -147,7 +148,7 @@ public class TesterUserActivity extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(TesterUserActivity.this, "Error. There may be a problem with the Internet", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(TesterUserActivity.this, getString(R.string.error_there_may_be_a_problem_with_the_internet), Toast.LENGTH_LONG).show();
 
                                     }
                                 });

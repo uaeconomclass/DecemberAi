@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -91,7 +92,7 @@ public class PageFinishChat extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(PageFinishChat.this, "Уровень пользователя обновлен", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(PageFinishChat.this, getString(R.string.the_user_level_has_been_updated), Toast.LENGTH_SHORT).show();
                                         User.userLevel = parameter;
                                         Intent intent = new Intent(PageFinishChat.this, MainActivity.class);// Перекидываем на MainActivity
                                         startActivity(intent);
@@ -101,7 +102,8 @@ public class PageFinishChat extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(PageFinishChat.this, "Error. Select your level manually", Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(PageFinishChat.this, "Error. Select your level manually", Toast.LENGTH_LONG).show();
+                                        Log.e("111111111111111", "Ошибка обновления уровня пользователя");
                                         Intent intent = new Intent(PageFinishChat.this, TesterUserActivity.class);// Перекидываем на MainActivity
                                         startActivity(intent);
                                     }
@@ -119,7 +121,8 @@ public class PageFinishChat extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(PageFinishChat.this, "Скилл пользователя обновлен", Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(PageFinishChat.this, "Скилл пользователя обновлен", Toast.LENGTH_SHORT).show();
+                                        Log.e("111111111111111", "Скилл пользователя обновлен");
                                         User.userLevel = parameter;
                                         Intent intent = new Intent(PageFinishChat.this, MainActivity.class);// Перекидываем на MainActivity
                                         startActivity(intent);
@@ -130,7 +133,8 @@ public class PageFinishChat extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
-                                        Toast.makeText(PageFinishChat.this, "Error. Скилл", Toast.LENGTH_LONG).show();
+                                        Log.e("111111111111111", "ошибка обновления Скила пользователя");
+                                        //Toast.makeText(PageFinishChat.this, "Error. Скилл", Toast.LENGTH_LONG).show();
                                         SharedPreferences.Editor editor = sp.edit(); // Создаем editor (редактирование) через него можно записывать в SharedPreferences
                                         editor.putInt("errorUserUpdateSkill", id_chat); // в editor Сохраняем данные в формате (ключь, значение)
                                         editor.apply(); // Применяем изменения
