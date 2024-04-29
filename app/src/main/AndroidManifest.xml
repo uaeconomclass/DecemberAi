@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DecemberAi">
         <activity
+            android:name=".PageBlocking"
+            android:exported="false" />
+        <activity
             android:name=".ChangePasswordActivity"
             android:exported="false" />
         <activity

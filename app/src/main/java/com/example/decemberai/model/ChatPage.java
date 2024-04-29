@@ -12,8 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -117,6 +119,8 @@ public class ChatPage extends AppCompatActivity {
     String path = null;
     ExecutorService executorService = Executors.newSingleThreadExecutor();
     private boolean recordingPremissionYes = false;
+    SharedPreferences sp;
+    private String userEmail;
 
 
 
@@ -126,6 +130,8 @@ public class ChatPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_page);
 
+        sp = getSharedPreferences("UserPreferences", Context.MODE_PRIVATE); //Присваиваем sp название UserPreferences
+        userEmail = sp.getString("email", "");
 
         // Кнопка Voice
         chatSayBattonNew= findViewById(R.id.chatSayBattonNew);
@@ -752,6 +758,7 @@ public class ChatPage extends AppCompatActivity {
         try {
              jsonBody.put("role", "user");
              jsonBody.put("content", question);
+             jsonBody.put("userEmail", userEmail);
              jsonBody.put("threadId", threadId);// Добавил, если на прямую, то этот параметр не нужен
 
         } catch (JSONException e) {
@@ -919,6 +926,7 @@ public class ChatPage extends AppCompatActivity {
         JSONObject jsonBody = new JSONObject();
         try {
             //jsonBody.put("assistant_id", assistantId);
+            jsonBody.put("userEmail", userEmail);
             jsonBody.put("threadId", threadId);// Добавил, если на прямую, то этот параметр не нужен
 
 

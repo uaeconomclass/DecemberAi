@@ -169,7 +169,12 @@ public class MainActivity extends AppCompatActivity {
                                 });
 
 
+                                if(User.howManyWordsToBlocking <= 0){
+                                    Intent intent = new Intent(MainActivity.this, PageBlocking.class);// Перекидываем на MainActivity
+                                    startActivity(intent);
+                                    finish();
 
+                                }
 
 
 
@@ -374,6 +379,7 @@ public class MainActivity extends AppCompatActivity {
             //User.assistantId = userDataJson.getString("assistantId");
             User.userId = userDataJson.getInt("userId");
             User.actualVersionApp = userDataJson.getString("actualVersionApp");
+            User.howManyWordsToBlocking = userDataJson.getInt("howManyWordsToBlocking");
 
             // Получение массива завершенных лекций из JSON ------------------------------
             JSONArray completedLessonsJson = userDataJson.getJSONArray("completed_lessons");

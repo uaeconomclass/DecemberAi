@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gory_mobile3"
+    android:id="@+id/root_activity_page_blocking"
+    tools:context=".PageBlocking">
+
+
+    <TextView
+        android:id="@+id/textView39"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:text="@string/tariff_settings"
+        android:textColor="@color/menu_ottenok_3"
+        android:textSize="32sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardView2"
+        android:layout_width="342dp"
+        android:layout_height="192dp"
+        android:background="@color/menu_ottenok_1"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="2dp"
+        app:strokeWidth="4dp"
+        app:strokeColor="@color/menu_ottenok_3_animated"
+        app:layout_constraintBottom_toTopOf="@+id/textView36"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView39"
+        tools:ignore="MissingConstraints">
+
+
+
+        <TextView
+            android:id="@+id/textView37"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#DADCF8F4"
+            android:fontFamily="@font/montserrat_bold"
+            android:gravity="center"
+            android:textSize="32sp"
+            android:text="@string/blocked"
+            android:textAlignment="center"
+            android:textColor="@color/menu_ottenok_3_animated" />
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <TextView
+        android:id="@+id/textView36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:fontFamily="@font/montserrat"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/you_have_run_out_of_tokens_on_your_tariff"
+        android:textAlignment="center"
+        android:textColor="@color/menu_ottenok_3"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/btnChangeTarif2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnChangeTarif2"
+        android:layout_width="130dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="30dp"
+        android:layout_weight="0"
+        android:background="@drawable/custom_button_animate"
+        android:text="@string/change"
+        android:textColor="@color/menu_ottenok_1"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/textView35"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+    <TextView
+        android:id="@+id/textView35"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:fontFamily="@font/montserrat_bold"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="@string/app_name"
+        android:textAlignment="center"
+        android:textColor="@color/menu_ottenok_3"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

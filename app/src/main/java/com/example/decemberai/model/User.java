@@ -91,6 +91,7 @@ public class User {
     public static String assistantId = "";
     public static String thisVersionApp = "1";
     public static String actualVersionApp = "";
+    public static int howManyWordsToBlocking = 60;
 
     // Функция обновления Скила пользователя
 
