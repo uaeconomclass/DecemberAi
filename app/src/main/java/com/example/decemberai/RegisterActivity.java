@@ -101,6 +101,7 @@ public class RegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if(TextUtils.isEmpty(nameRegister.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
                     Toast.makeText(RegisterActivity.this, getString(R.string.enter_your_name), Toast.LENGTH_LONG).show();
                 } else if(TextUtils.isEmpty(emailRegister.getText().toString())){ //Проверяем ввел ли что-нибудь пользователь
@@ -112,6 +113,7 @@ public class RegisterActivity extends AppCompatActivity {
                 } else {
 
                     //На этом этапе проверки пройдены и делаем Регистрацию пользователя
+                    Toast.makeText(RegisterActivity.this, "Connecting...", Toast.LENGTH_LONG).show();
                     //Вызываем функцию передачи данных на сервер
                     Executor executor2 = Executors.newSingleThreadExecutor();
                     executor2.execute(new Runnable() {

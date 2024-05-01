@@ -123,6 +123,7 @@ public class ChatPage extends AppCompatActivity {
     private boolean recordingPremissionYes = false;
     SharedPreferences sp;
     private String userEmail;
+    private boolean buttonVoiceBlocked = false;
 
 
 
@@ -200,6 +201,11 @@ public class ChatPage extends AppCompatActivity {
         chatSayBattonNew.setOnTouchListener(new View.OnTouchListener() {//Обработка нажатия и отпускания кнопки
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                // Проверяем, что кнопка не заблокирована
+                if (buttonVoiceBlocked) {
+                    return false; // Если кнопка заблокирована, ничего не делаем
+                }
+
                 switch (event.getAction()) {
                     case MotionEvent.ACTION_DOWN:
                         // Обработка нажатия кнопки
@@ -208,6 +214,7 @@ public class ChatPage extends AppCompatActivity {
                         return true;
                     case MotionEvent.ACTION_UP:
                         // Обработка отпускания кнопки
+                        buttonVoiceBlocked = true;
                         v.startAnimation(fadeOutAnimation);
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
@@ -216,8 +223,10 @@ public class ChatPage extends AppCompatActivity {
                                 stopRecording(); // Вызов метода stopRecording() через 2 секунды
                             }
                         }, 1000); // 2 секунды задержки
+
                         return true;
                 }
+
                 return false;
             }
         });
@@ -355,6 +364,7 @@ public class ChatPage extends AppCompatActivity {
                     // Обработать ошибку загрузки в основном потоке
 
                     addResponse(getString(R.string.check_your_internet_connection_and_repeat));
+                    buttonVoiceBlocked = false;
                 }
             });
         }
@@ -580,6 +590,7 @@ public class ChatPage extends AppCompatActivity {
                 Log.i("Permissions", "Пришло пустое значение grantResults array");
             }
         }
+        buttonVoiceBlocked = false;
     }
 
 
@@ -977,6 +988,7 @@ public class ChatPage extends AppCompatActivity {
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
                 //addResponse("getAssistantResponse Failed 1 " + e.getMessage());
                 Log.i("111111111111111", "getAssistantResponse Failed 1 " + e.getMessage());
+                buttonVoiceBlocked = false;
             }
 
             @Override
@@ -985,7 +997,7 @@ public class ChatPage extends AppCompatActivity {
                     try {
 
                         String jsonResponse = response.body().string();
-
+                        Log.d("333333333333333", jsonResponse);
                         // Разбор JSON-ответа
                         JSONObject jsonObject = new JSONObject(jsonResponse);
                         JSONArray dataArray = jsonObject.getJSONArray("data");
@@ -1014,17 +1026,19 @@ public class ChatPage extends AppCompatActivity {
                                 }
                             }
                         }
-
+                        buttonVoiceBlocked = false;
 
 
                     } catch (Exception e) {
                         e.printStackTrace();
                         //addResponse("getAssistantResponse Error parsing JSON response");
                         Log.i("111111111111111", "getAssistantResponse Error parsing JSON response");
+                        buttonVoiceBlocked = false;
                     }
                 } else {
                     //addResponse("getAssistantResponse Failed 2 " + response.body().string());
                     Log.i("111111111111111", "getAssistantResponse Failed 2 " + response.body().string());
+                    buttonVoiceBlocked = false;
                 }
             }
         });
@@ -1085,6 +1099,7 @@ public class ChatPage extends AppCompatActivity {
                                             } else if (executionCount >= 20) { // После выполнения 20 раз
                                                 stopWaitingLoop(); // Останавливаем цикл
                                                 addResponse("The waiting time has been exceeded, repeat");
+                                                buttonVoiceBlocked = false;
                                             }
 
                                         }
@@ -1095,6 +1110,7 @@ public class ChatPage extends AppCompatActivity {
                                             //addResponse(errorMessage);
                                             Log.i("222222222 errorMessage", errorMessage);
                                             addResponse("Say it again");
+                                            buttonVoiceBlocked = false;
                                         }
                                     });
 
@@ -1108,6 +1124,7 @@ public class ChatPage extends AppCompatActivity {
                                 //addResponse(errorMessage);
                                 Log.i("222222222 errorMessage", errorMessage);
                                 addResponse("Say it again");
+                                buttonVoiceBlocked = false;
                             }
                         });
                     }
@@ -1118,6 +1135,7 @@ public class ChatPage extends AppCompatActivity {
                         //addResponse(errorMessage);
                         Log.i("222222222 errorMessage", errorMessage);
                         addResponse("Say it again");
+                        buttonVoiceBlocked = false;
                     }
                 });
             }
@@ -1128,6 +1146,7 @@ public class ChatPage extends AppCompatActivity {
                 //addResponse(errorMessage);
                 Log.i("222222222 errorMessage", errorMessage);
                 addResponse("Say it again");
+                buttonVoiceBlocked = false;
             }
         });
     }
