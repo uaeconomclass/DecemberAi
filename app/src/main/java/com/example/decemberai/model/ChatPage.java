@@ -58,6 +58,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
@@ -615,19 +616,40 @@ public class ChatPage extends AppCompatActivity {
             @Override
             public void run() {
                 messageList.add(new Message(message, sendBy));
+                if(Objects.equals(sendBy, "me")) {
+                    messageList.add(new Message("Typing... ", Message.SENT_BY_BOT)); // текст что ПОДОЖДИТЕ печатает
+                }
                 messageAdapter.notifyDataSetChanged();
                 chatRecyclerView.smoothScrollToPosition(messageAdapter.getItemCount());
             }
         });
     }
 
+
+    public static List<Message> filterTypingMessages(List<Message> messageList) {
+        // Используем итератор для удаления сообщений на месте
+        Iterator<Message> iterator = messageList.iterator();
+
+        while (iterator.hasNext()) {
+            Message message = iterator.next();
+            if (message.getMessage().equals("Typing... ")) {
+                iterator.remove(); // Удаляем сообщение, если текст "Typing... "
+            }
+        }
+
+        return messageList;
+    }
+
+
+
     public void  addResponse(String response){ //Запись ответа Бота
-        //messageList.remove(messageList.size()-1);// удаляем текст что ПОДОЖДИТЕ печатает
+        filterTypingMessages(messageList);  // удаляем Typing...
+
         addToChat(response,Message.SENT_BY_BOT);
     }
     void callAPI(String question) {
         //   https://square.github.io/okhttp/  gpt-3.5-turbo-instruct
-        messageList.add(new Message("Typing... ", Message.SENT_BY_BOT)); // текст что ПОДОЖДИТЕ печатает
+
         runWorkflow(question);
     }
 
@@ -1013,6 +1035,7 @@ public class ChatPage extends AppCompatActivity {
     }
 
     public void runWorkflow(String question) {
+
         executionCount = 0;
 
         // Использование методов с колбэками
