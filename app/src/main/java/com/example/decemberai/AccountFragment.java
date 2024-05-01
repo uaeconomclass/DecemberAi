@@ -101,7 +101,7 @@ public class AccountFragment extends Fragment {
         user_skill_account.setText(skillString);
         user_level_account.setText(level);
 
-        ListView item_lessons_list = view.findViewById(R.id.item_lessons_list);
+        //----ListView item_lessons_list = view.findViewById(R.id.item_lessons_list);
 
         List<String> itemLessonsInfo = new ArrayList<>();// переменная которая будет содержать массив из названий курсов
         for(SpiskiLessons c : User.fullSpiskiLessonsList){// перебираем массив с полным списком всех курсов
@@ -112,12 +112,12 @@ public class AccountFragment extends Fragment {
             }
         }
 
-        item_lessons_list.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, itemLessonsInfo));
+        //----item_lessons_list.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, itemLessonsInfo));
         //Выводим список с помошью дизайна встроенного адаптера, стиль списка simple_list_item_1
 
 
 
-        ListView item_practice_list = view.findViewById(R.id.item_practice_list);
+        //----ListView item_practice_list = view.findViewById(R.id.item_practice_list);
 
         List<String> itemPracticeInfo = new ArrayList<>();
         for(SpiskiPractice c : User.fullSpiskiPracticeList){
@@ -128,7 +128,7 @@ public class AccountFragment extends Fragment {
             }
         }
 
-        item_practice_list.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, itemPracticeInfo));
+        //----item_practice_list.setAdapter(new ArrayAdapter<>(requireActivity(), android.R.layout.simple_list_item_1, itemPracticeInfo));
         //Выводим список с помошью дизайна встроенного адаптера, стиль списка simple_list_item_1
 
 

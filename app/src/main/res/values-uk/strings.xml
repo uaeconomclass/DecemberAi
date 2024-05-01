@@ -62,4 +62,6 @@
     <string name="tariff_settings">Тарифні Установки</string>
     <string name="blocked">ЗАБЛОКОВАНО</string>
     <string name="you_have_run_out_of_tokens_on_your_tariff">На вашому тарифі закінчилися токени, можете підвищити тариф чи почекати нарахування токенів</string>
+    <string name="check_your_internet_connection_and_repeat">Перевірте підключення до Інтернету та повторіть спробу</string>
+    <string name="the_waiting_time_has_expired">Час очікування закінчився</string>
 </resources>

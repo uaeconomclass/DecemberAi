@@ -63,6 +63,8 @@
     <string name="tariff_settings">Tariff Settings</string>
     <string name="blocked">BLOCKED</string>
     <string name="you_have_run_out_of_tokens_on_your_tariff">You have run out of tokens on your tariff, either increase the tariff or wait for the tokens to be updated</string>
+    <string name="check_your_internet_connection_and_repeat">Check your internet connection and repeat</string>
+    <string name="the_waiting_time_has_expired">The waiting time has expired</string>
 
 
 </resources>

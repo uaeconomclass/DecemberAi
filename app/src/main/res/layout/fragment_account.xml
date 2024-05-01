@@ -330,32 +330,31 @@
             android:textSize="14sp" />
     </LinearLayout>
 
+    <!--
+        // временная потом удалить в
+        <ListView
+            android:id="@+id/item_lessons_list"
+            android:layout_width="245dp"
+            android:layout_height="61dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.096"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/item_practice_list"
+            tools:ignore="MissingConstraints" />
 
-    // временная потом удалить верх
-
-    <ListView
-        android:id="@+id/item_lessons_list"
-        android:layout_width="245dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.096"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/item_practice_list"
-        tools:ignore="MissingConstraints" />
-
-    <ListView
-        android:id="@+id/item_practice_list"
-        android:layout_width="225dp"
-        android:layout_height="61dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.086"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        tools:ignore="MissingConstraints" />
-    // временная потом удалить низ
-
+        <ListView
+            android:id="@+id/item_practice_list"
+            android:layout_width="225dp"
+            android:layout_height="61dp"
+            android:layout_marginTop="20dp"
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.086"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView7"
+            tools:ignore="MissingConstraints" />
+        // временная потом удалить низ
+    -->
 </androidx.constraintlayout.widget.ConstraintLayout>

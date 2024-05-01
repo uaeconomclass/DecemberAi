@@ -59,4 +59,9 @@
     <string name="authorization_was_successful">Авторизация прошла успешно</string>
     <string name="authorization_error">Ошибка авторизации</string>
     <string name="error_there_may_be_a_problem_with_the_internet">Ошибка. Возможно, возникла проблема с Интернетом</string>
+    <string name="tariff_settings">Настройки Тарифа</string>
+    <string name="blocked">ЗАБЛОКИРОВАНО</string>
+    <string name="you_have_run_out_of_tokens_on_your_tariff">По вашему тарифу закончились токены, можете поменять тариф или подождать обновления токенов</string>
+    <string name="check_your_internet_connection_and_repeat">Проверьте свое интернет-соединение и повторите попытку</string>
+    <string name="the_waiting_time_has_expired">Время ожидания истекло</string>
 </resources>

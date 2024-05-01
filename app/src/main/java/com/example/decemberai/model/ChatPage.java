@@ -84,9 +84,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class ChatPage extends AppCompatActivity {
     RecyclerView chatRecyclerView;
-    TextView chatWelcomeTextView, spiskiChatTitle;
-    EditText chatMessageEditText;
-    ImageButton chatSayBatton;
+    //--TextView chatWelcomeTextView;
+    TextView  spiskiChatTitle;
+    //--EditText chatMessageEditText;
+    //--ImageButton chatSayBatton;
     List<Message> messageList;
     MessageAdapter messageAdapter;
     LinearLayout chatDivUrovenClient;
@@ -100,7 +101,7 @@ public class ChatPage extends AppCompatActivity {
     //public static final String OPENAI_API_KEY = User.openaiApiKey;
     //public static final String OPENAI_API_KEY = "";
     public static String ASSISTANT_ID = "";
-    public static String testerVova = "1"; //Если я то 1 , если валек то пусто
+    public static String testerVova = ""; //Если я то 1 , если валек то пусто
 
     private static ScheduledExecutorService scheduler;
     private ScheduledFuture<?> waitingLoopFuture;
@@ -232,13 +233,13 @@ public class ChatPage extends AppCompatActivity {
         messageList = new ArrayList<>();
 
         chatRecyclerView = findViewById(R.id.chatRecyclerView); //Окно диалога
-        chatWelcomeTextView = findViewById(R.id.chatWelcomeTextView); // Приветственный текст
-        chatMessageEditText = findViewById(R.id.chatMessageEditText); //Текст который ввел пользователь
-        chatSayBatton = findViewById(R.id.chatSayBatton); //Кнопка отправить
+        //--chatWelcomeTextView = findViewById(R.id.chatWelcomeTextView); // Приветственный текст
+        //--chatMessageEditText = findViewById(R.id.chatMessageEditText); //Текст который ввел пользователь
+        //--chatSayBatton = findViewById(R.id.chatSayBatton); //Кнопка отправить
         chatDivUrovenClient = findViewById(R.id.chatDivUrovenClient); //Строка об Уровнеклиента
 
 
-        chatWelcomeTextView.setText(ASSISTANT_ID);
+        //--chatWelcomeTextView.setText(ASSISTANT_ID);
 
         //setup recycler view
         messageAdapter = new MessageAdapter(messageList);
@@ -246,17 +247,18 @@ public class ChatPage extends AppCompatActivity {
         LinearLayoutManager llm = new LinearLayoutManager(this );
         llm.setStackFromEnd(true); // Обратный порядок чата
         chatRecyclerView.setLayoutManager(llm);
-
+        /* --
         chatSayBatton.setOnClickListener((v)->{
             String question = chatMessageEditText.getText().toString().trim(); //Получаем вопрос пользователя
             spiskiChatImageId.setVisibility(View.GONE); //Прячем большую картинку страницы
             chatDivUrovenClient.setVisibility(View.GONE); //Прячем Строку об уровне клиента
-            chatWelcomeTextView.setVisibility(View.GONE); //Прячем приветственный текст
+            //--chatWelcomeTextView.setVisibility(View.GONE); //Прячем приветственный текст
             addToChat(question, Message.SENT_BY_ME); // Записываем вопрос пользователя в чат
             chatMessageEditText.setText(""); // Очищаем окно ввода вопросов пользователя
             callAPI(question);
 
         });
+        */
 
         scheduler = Executors.newScheduledThreadPool(1);
 
@@ -282,7 +284,7 @@ public class ChatPage extends AppCompatActivity {
                         mediaRecorder.prepare();
                     } catch (IOException e) {
                         // Выведем сообщение об ошибке в лог для отладки
-                        Log.e("MediaRecorder", "Ошибка при подготовке MediaRecorder: " + e.getMessage());
+                        Log.i("MediaRecorder", "Ошибка при подготовке MediaRecorder: " + e.getMessage());
                         // Бросаем RuntimeException для того, чтобы приложение остановилось и мы увидели ошибку
                         throw new RuntimeException(e);
                     }
@@ -325,14 +327,14 @@ public class ChatPage extends AppCompatActivity {
 
             spiskiChatImageId.setVisibility(View.GONE); //Прячем большую картинку страницы
             chatDivUrovenClient.setVisibility(View.GONE); //Прячем Строку об уровне клиента
-            chatWelcomeTextView.setVisibility(View.GONE); //Прячем приветственный текст
+            //--chatWelcomeTextView.setVisibility(View.GONE); //Прячем приветственный текст
 
 
             uploadFileToServer(path, new UploadCallback() {
                 @Override
                 public void onSuccess(String result) {
                     // Обработать успешную загрузку в основном потоке
-                    //Log.d(TAG, "Получили ответ : " + result);
+                    //Log.i(TAG, "Получили ответ : " + result);
                     String question2 = String.valueOf(result); //Получаем вопрос пользователя
 
                     addToChat(question2, Message.SENT_BY_ME); // Записываем вопрос пользователя в чат
@@ -340,7 +342,7 @@ public class ChatPage extends AppCompatActivity {
                         @Override
                         public void run() {
                             // Ваш код для обновления UI здесь
-                            chatMessageEditText.setText(""); // Очищаем окно ввода вопросов пользователя
+                            //--chatMessageEditText.setText(""); // Очищаем окно ввода вопросов пользователя
                         }
                     });
 
@@ -350,7 +352,8 @@ public class ChatPage extends AppCompatActivity {
                 @Override
                 public void onFailure(String error) {
                     // Обработать ошибку загрузки в основном потоке
-                    addResponse("Проверьте интернет соединение и повторите");
+
+                    addResponse(getString(R.string.check_your_internet_connection_and_repeat));
                 }
             });
         }
@@ -402,7 +405,7 @@ public class ChatPage extends AppCompatActivity {
                                 InputStream inputStream = responseBody.byteStream();
                                 // Сохранение файла, например, на устройство
                                 saveAudioFile(inputStream);
-                                Log.d(TAG, "Получили аудио файл");
+                                Log.i(TAG, "Получили аудио файл");
                             }
                         }
                     } else{
@@ -413,7 +416,7 @@ public class ChatPage extends AppCompatActivity {
                                 // Обработка JSON ответа
                                 JSONObject jsonObject = new JSONObject(jsonString);
                                 String message = jsonObject.getString("error");
-                                Log.d(TAG, "Получили текстовое сообщение: " + message);
+                                Log.i(TAG, "Получили текстовое сообщение: " + message);
                             }
                         } catch (JSONException e) {
                             throw new RuntimeException(e);
@@ -422,7 +425,7 @@ public class ChatPage extends AppCompatActivity {
 
                 } else {
                     // Обработка неуспешного ответа
-                    Log.d(TAG, "Получили ответ 222222222222222 : " + response);
+                    Log.i(TAG, "Получили ответ 222222222222222 : " + response);
                     //System.out.println("Voice assistant response request failed: " + response.code());
                 }
             }
@@ -442,7 +445,7 @@ public class ChatPage extends AppCompatActivity {
                 fos.write(buffer, 0, bytesRead);
             }
             fos.close();
-            Log.d(TAG, "Файл успешно сохранен: " + filePath);
+            Log.i(TAG, "Файл успешно сохранен: " + filePath);
 
             mediaPlayer = new MediaPlayer();
 
@@ -451,11 +454,11 @@ public class ChatPage extends AppCompatActivity {
                 mediaPlayer.prepare();
                 mediaPlayer.start();
             } catch (IOException e) {
-                Log.d(TAG, "Ошибка при воспроизведении файла полученного с сервера ");
+                Log.i(TAG, "Ошибка при воспроизведении файла полученного с сервера ");
                 throw new RuntimeException(e);
             }
         } catch (IOException e) {
-            Log.d(TAG, "Возникла проблема при сохранении файла полученного с сервера ");
+            Log.i(TAG, "Возникла проблема при сохранении файла полученного с сервера ");
             e.printStackTrace();
         }
     }
@@ -504,10 +507,10 @@ public class ChatPage extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                //Log.d(TAG, "onResponse called 111111111111111");
+                //Log.i(TAG, "onResponse called 111111111111111");
                 if (response.isSuccessful()) {
                     String responseData = response.body().string();
-                    Log.d(TAG, "Получили ответ : " + responseData);
+                    Log.i(TAG, "Получили ответ : " + responseData);
 
                     try {
                         // Парсинг JSON-строки
@@ -519,7 +522,7 @@ public class ChatPage extends AppCompatActivity {
                         callback.onSuccess(textValue);
                     } catch (JSONException e) {
                         // Обработка ошибок парсинга JSON
-                        Log.e(TAG, "Ошибка при разборе JSON: " + e.getMessage());
+                        Log.i(TAG, "Ошибка при разборе JSON: " + e.getMessage());
                         callback.onFailure("Ошибка при разборе JSON: " + e.getMessage());
                     }
                 } else {
@@ -544,7 +547,7 @@ public class ChatPage extends AppCompatActivity {
             return false;
         }
         //Toast.makeText(getApplicationContext(), "Разрешение на использование микрофона получено", Toast.LENGTH_SHORT);
-        Log.e("111111111111111", "Разрешение на использование микрофона получено");
+        Log.i("111111111111111", "Разрешение на использование микрофона получено");
         return true;
     }
 
@@ -566,14 +569,14 @@ public class ChatPage extends AppCompatActivity {
                 boolean permissionToRecord = grantResults[0]==PackageManager.PERMISSION_GRANTED;
                 if(permissionToRecord){
                     //Toast.makeText(getApplicationContext(), "Permission Given", Toast.LENGTH_SHORT);
-                    Log.e("111111111111111", "Permission Given");
+                    Log.i("111111111111111", "Permission Given");
                 }else{
                     //Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT);
-                    Log.e("111111111111111", "Permission Given");
+                    Log.i("111111111111111", "Permission Given");
                 }
             } else {
                 // Если grantResults пустой, выведите сообщение об ошибке
-                Log.e("Permissions", "Пришло пустое значение grantResults array");
+                Log.i("Permissions", "Пришло пустое значение grantResults array");
             }
         }
     }
@@ -842,12 +845,14 @@ public class ChatPage extends AppCompatActivity {
 
                         // Получение значения id
                         String run_id = jsonObject2.getString("id");
-                        addResponse("Получили run_id 1  " + run_id);
+                        //addResponse("Получили run_id 1  " + run_id);
+                        Log.i("111111111111111", "Получили run_id 1  " + run_id);
                         // Успешный вызов колбэка
                         callback.onAssistRequestSuccess(run_id);
 
                     } catch (Exception e) {
-                        addResponse("Получили ошибку run_id");
+                        //addResponse("Получили ошибку run_id");
+                        Log.i("111111111111111", "Получили ошибку run_id");
                         e.printStackTrace();
 
                         callback.onAssistRequestFailure("addAssistRequest Error parsing JSON response");
@@ -948,7 +953,8 @@ public class ChatPage extends AppCompatActivity {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-                addResponse("getAssistantResponse Failed 1 " + e.getMessage());
+                //addResponse("getAssistantResponse Failed 1 " + e.getMessage());
+                Log.i("111111111111111", "getAssistantResponse Failed 1 " + e.getMessage());
             }
 
             @Override
@@ -980,7 +986,7 @@ public class ChatPage extends AppCompatActivity {
                                     String otvetAssistant = textObject.getString("value");
                                     addResponse(otvetAssistant);
 
-                                    //toVoiceAssistantResponse(otvetAssistant);
+                                    toVoiceAssistantResponse(otvetAssistant);
 
                                     searchCommands(otvetAssistant);
                                 }
@@ -991,10 +997,12 @@ public class ChatPage extends AppCompatActivity {
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        addResponse("getAssistantResponse Error parsing JSON response");
+                        //addResponse("getAssistantResponse Error parsing JSON response");
+                        Log.i("111111111111111", "getAssistantResponse Error parsing JSON response");
                     }
                 } else {
-                    addResponse("getAssistantResponse Failed 2 " + response.body().string());
+                    //addResponse("getAssistantResponse Failed 2 " + response.body().string());
+                    Log.i("111111111111111", "getAssistantResponse Failed 2 " + response.body().string());
                 }
             }
         });
@@ -1008,14 +1016,14 @@ public class ChatPage extends AppCompatActivity {
         executionCount = 0;
 
         // Использование методов с колбэками
-        addResponse("question: " + question);
-
+        //addResponse("question: " + question);
+        Log.i("111111111111111", "question: " + question);
 
         createThread( new ThreadCreationCallback() {
             @Override
             public void onThreadCreated(String threadId) {
-                addResponse("Thread ID: " + threadId);
-
+                //addResponse("Thread ID: " + threadId);
+                Log.i("111111111111111", "Thread ID: " + threadId);
 
 
 
@@ -1023,8 +1031,8 @@ public class ChatPage extends AppCompatActivity {
                 addQuestionRequest(question, threadId, new QuestionRequestCallback() {
                     @Override
                     public void onQuestionRequestSuccess(String questionSuccess) {
-                        addResponse(" onQuestionRequest - Success " + questionSuccess);
-
+                        //addResponse(" onQuestionRequest - Success " + questionSuccess);
+                        Log.i("111111111111111", " onQuestionRequest - Success " + questionSuccess);
 
 
 
@@ -1032,8 +1040,8 @@ public class ChatPage extends AppCompatActivity {
                         addAssistRequest(threadId, ASSISTANT_ID, new AssistRequestCallback() {
                             @Override
                             public void onAssistRequestSuccess(String run_id) {
-                                addResponse(" onAssistRequest - Success " + run_id);
-
+                                //addResponse(" onAssistRequest - Success " + run_id);
+                                Log.i("111111111111111", " onAssistRequest - Success " + run_id);
 
 
                                 // Запускаем цикл ожидания ответа
@@ -1042,8 +1050,8 @@ public class ChatPage extends AppCompatActivity {
                                         public void onResponseSuccess(String runStatus) {
                                            // Цикл работает так: сначало выполняется все что внутри функции startWaitingLoop, после её выполнения вызывается колбек WaitForResponseCallback
                                             // и он вызывает onResponseSuccess после чего цикл начинается заново если его не остановит функция stopWaitingLoop()
-                                            addResponse(" waitForResponse - Success  status = " + runStatus);
-
+                                            //addResponse(" waitForResponse - Success  status = " + runStatus);
+                                            Log.i("111111111111111", " waitForResponse - Success  status = " + runStatus);
 
 
                                             if (runStatus.equals("completed")) {
@@ -1062,6 +1070,7 @@ public class ChatPage extends AppCompatActivity {
                                         public void onResponseFailure(String errorMessage) {
                                             // Обработка ошибки при ожидании ответа Ассистента
                                             //addResponse(errorMessage);
+                                            Log.i("222222222 errorMessage", errorMessage);
                                             addResponse("Say it again");
                                         }
                                     });
@@ -1074,6 +1083,7 @@ public class ChatPage extends AppCompatActivity {
                             public void onAssistRequestFailure(String errorMessage) {
                                 // Обработка ошибки при запуске ассистента
                                 //addResponse(errorMessage);
+                                Log.i("222222222 errorMessage", errorMessage);
                                 addResponse("Say it again");
                             }
                         });
@@ -1083,6 +1093,7 @@ public class ChatPage extends AppCompatActivity {
                     public void onQuestionRequestFailure(String errorMessage) {
                         // Обработка ошибки при отправке вопроса
                         //addResponse(errorMessage);
+                        Log.i("222222222 errorMessage", errorMessage);
                         addResponse("Say it again");
                     }
                 });
@@ -1092,6 +1103,7 @@ public class ChatPage extends AppCompatActivity {
             public void onThreadCreationFailed(String errorMessage) {
                 // Обработка ошибки при создании ветки
                 //addResponse(errorMessage);
+                Log.i("222222222 errorMessage", errorMessage);
                 addResponse("Say it again");
             }
         });

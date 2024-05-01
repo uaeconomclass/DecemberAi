@@ -8,13 +8,15 @@
         android:background="@drawable/button_selector"
         android:title="@string/home"
         android:icon="@drawable/baseline_dashboard_24"/>
-    <item
+ <!--
+        <item
         android:id="@+id/btn_lessons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/button_selector"
         android:title="@string/lessons"
         android:icon="@drawable/baseline_campaign_24"/>
+        -->
     <item
         android:id="@+id/btn_practice"
         android:layout_width="wrap_content"

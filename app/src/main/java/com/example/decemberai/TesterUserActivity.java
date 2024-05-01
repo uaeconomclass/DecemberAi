@@ -70,7 +70,6 @@ public class TesterUserActivity extends AppCompatActivity {
 
 
         btnTakeTest = findViewById(R.id.btnTakeTest);
-        // По клику на btnStartLearning перекидываем на MainActivity
         btnTakeTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,7 +84,7 @@ public class TesterUserActivity extends AppCompatActivity {
                 intent.putExtra("spiskiChatTitle", "Testing");
                 intent.putExtra("chatPageLevel", "test");
                 intent.putExtra("spiskiChatId", 0);
-                intent.putExtra("assistantId", "asst_6M2GxnItZV8Xz8hXllFCFWAj");
+                intent.putExtra("assistantId", User.assistantIdForTest);
                 intent.putExtra("typeOfChat", "testerUser");
 
 

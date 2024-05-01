@@ -77,7 +77,7 @@
         android:layout_marginBottom="15dp"
         android:foregroundGravity="center_vertical|center"
         app:cardCornerRadius="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/chatSayBatton"
+        app:layout_constraintBottom_toTopOf="@+id/chatSayBattonNew"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +102,7 @@
             android:id="@+id/chatRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
+<!--
         <TextView
             android:id="@+id/chatWelcomeTextView"
             android:layout_width="match_parent"
@@ -111,10 +111,10 @@
             android:gravity="center"
             android:text="@string/welcome_to_your_lessons"
             android:textSize="28dp" />
-
+-->
 
     </androidx.cardview.widget.CardView>
-
+    <!--
     <EditText
         android:id="@+id/chatMessageEditText"
         android:layout_width="0dp"
@@ -145,6 +145,7 @@
         app:layout_constraintStart_toEndOf="@+id/chatMessageEditText"
         app:layout_constraintTop_toBottomOf="@+id/cardView"
         app:srcCompat="@drawable/button_speak4" />
+-->
 
     <ImageView
         android:id="@+id/chatSayBattonNew"

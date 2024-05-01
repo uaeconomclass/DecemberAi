@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     android:textSize="20sp"
     android:padding="8dp"
+    android:gravity="center"
     android:text="A0"
     android:textAlignment="center"
     android:background="@color/menu_ottenok_1"

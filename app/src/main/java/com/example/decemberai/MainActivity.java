@@ -375,7 +375,8 @@ public class MainActivity extends AppCompatActivity {
             User.userPhone = userDataJson.getString("phone");
             User.userLevel = userDataJson.getString("user_level");
             User.userSkill = userDataJson.getInt("user_skill");
-            User.openaiApiKey = userDataJson.getString("openaiApiKey");
+            //User.openaiApiKey = userDataJson.getString("openaiApiKey");
+            User.assistantIdForTest = userDataJson.getString("assistantIdForTest");
             //User.assistantId = userDataJson.getString("assistantId");
             User.userId = userDataJson.getInt("userId");
             User.actualVersionApp = userDataJson.getString("actualVersionApp");
@@ -502,7 +503,8 @@ public class MainActivity extends AppCompatActivity {
 
         } catch (SocketTimeoutException e) {
             e.printStackTrace();
-            return "Вышло время ожидания";
+
+            return "The waiting time has expired";
         } catch (IOException e) {
             e.printStackTrace();
             return e.getMessage();
@@ -522,17 +524,17 @@ public class MainActivity extends AppCompatActivity {
                 return new HomeFragment();
 
 
-            case R.id.btn_lessons:
-                bottomNavigationView.getMenu().getItem(1).setChecked(true);
-                return new LessonsFragment();
+            //---case R.id.btn_lessons:
+            //---    bottomNavigationView.getMenu().getItem(1).setChecked(true);
+            //---    return new LessonsFragment();
 
 
             case R.id.btn_practice:
-                bottomNavigationView.getMenu().getItem(2).setChecked(true);
+                bottomNavigationView.getMenu().getItem(1).setChecked(true);
                 return new PracticeFragment();
 
             case R.id.btn_account:
-                bottomNavigationView.getMenu().getItem(3).setChecked(true);
+                bottomNavigationView.getMenu().getItem(2).setChecked(true);
                 return new AccountFragment();
 
         }
