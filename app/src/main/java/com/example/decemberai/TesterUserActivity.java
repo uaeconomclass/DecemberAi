@@ -133,7 +133,7 @@ public class TesterUserActivity extends AppCompatActivity {
                     executor3.execute(new Runnable() {
                         @Override
                         public void run() {
-                            String result = User.userUpdateLevel(userEmail, selectedParameter, 0);
+                            String result = User.userUpdateLevel(userEmail, selectedParameter);
                             if (Objects.equals(result, "true")) {
                                 runOnUiThread(new Runnable() {
                                     @Override

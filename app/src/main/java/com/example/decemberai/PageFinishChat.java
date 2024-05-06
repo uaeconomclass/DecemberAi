@@ -89,7 +89,7 @@ public class PageFinishChat extends AppCompatActivity {
                     executor2.execute(new Runnable() {
                         @Override
                         public void run() {
-                            String result = User.userUpdateLevel(userEmail, parameter, schetchik_slov);
+                            String result = User.userUpdateLevel(userEmail, parameter);
                             if (Objects.equals(result, "true")) {
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -118,7 +118,7 @@ public class PageFinishChat extends AppCompatActivity {
                     executor4.execute(new Runnable() {
                         @Override
                         public void run() {
-                            String result = User.userUpdateSkill(userEmail, id_chat);
+                            String result = User.userUpdateSkill(userEmail, id_chat, schetchik_slov);
                             if (Objects.equals(result, "true")) {
                                 runOnUiThread(new Runnable() {
                                     @Override
@@ -139,6 +139,7 @@ public class PageFinishChat extends AppCompatActivity {
                                         //Toast.makeText(PageFinishChat.this, "Error. Скилл", Toast.LENGTH_LONG).show();
                                         SharedPreferences.Editor editor = sp.edit(); // Создаем editor (редактирование) через него можно записывать в SharedPreferences
                                         editor.putInt("errorUserUpdateSkill", id_chat); // в editor Сохраняем данные в формате (ключь, значение)
+                                        editor.putInt("errorUserUpdateSchetchikSlov", schetchik_slov); // в editor Сохраняем данные в формате (ключь, значение)
                                         editor.apply(); // Применяем изменения
                                         Intent intent = new Intent(PageFinishChat.this, MainActivity.class);// Перекидываем на MainActivity
                                         startActivity(intent);

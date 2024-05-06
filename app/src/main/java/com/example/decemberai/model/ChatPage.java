@@ -451,12 +451,12 @@ public class ChatPage extends AppCompatActivity {
 
     public void toVoiceAssistantResponse(String text) {
     //public void sendTextAndGetAudio(String text, String userId) {
-
+        String updateText = text.replaceAll("【[^】]*】", "");
         // Создание JSON тела запроса
         JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("model", "tts-1");
-            jsonBody.put("input", text);
+            jsonBody.put("input", updateText);
             jsonBody.put("voice", "echo");
             jsonBody.put("speed", "0.90");
         } catch (JSONException e) {
@@ -779,7 +779,9 @@ public class ChatPage extends AppCompatActivity {
     public void  addResponse(String response){ //Запись ответа Бота
         filterTypingMessages(messageList);  // удаляем Typing...
 
-        addToChat(response,Message.SENT_BY_BOT);
+        // Удаляем команды из текста
+        String updateResponse = response.replaceAll("【[^】]*】", "");
+        addToChat(updateResponse,Message.SENT_BY_BOT);
     }
 
 

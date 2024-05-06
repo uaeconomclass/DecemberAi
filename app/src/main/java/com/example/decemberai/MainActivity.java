@@ -82,12 +82,14 @@ public class MainActivity extends AppCompatActivity {
 
         // Если в преференсах висит запись с айди  пройденого события которое не сохранилось на сервере ещё раз пытаемся его сохранить
         int errorUserUpdateSkill = sp.getInt("errorUserUpdateSkill", 0);
+        int errorUserUpdateSchetchikSlov = sp.getInt("errorUserUpdateSchetchikSlov", 0);
+
         if ( errorUserUpdateSkill != 0) {
             Executor executor5 = Executors.newSingleThreadExecutor();
             executor5.execute(new Runnable() {
                 @Override
                 public void run() {
-                    String result = User.userUpdateSkill(userEmail, errorUserUpdateSkill);
+                    String result = User.userUpdateSkill(userEmail, errorUserUpdateSkill, errorUserUpdateSchetchikSlov);
                     if (Objects.equals(result, "true")) {
                         runOnUiThread(new Runnable() {
                             @Override
@@ -96,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                                 //Toast.makeText(MainActivity.this, "Ошибочный Скилл пользователя обновлен", Toast.LENGTH_SHORT).show();
                                 SharedPreferences.Editor editor = sp.edit(); // Создаем editor (редактирование) через него можно записывать в SharedPreferences
                                 editor.putInt("errorUserUpdateSkill", 0); // в editor Сохраняем данные в формате (ключь, значение)
+                                editor.putInt("errorUserUpdateSchetchikSlov", 0); // в editor Сохраняем данные в формате (ключь, значение)
                                 editor.apply(); // Применяем изменения
                             }
                         });

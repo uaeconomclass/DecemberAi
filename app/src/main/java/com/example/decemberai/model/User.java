@@ -97,7 +97,7 @@ public class User {
 
     // Функция обновления Скила пользователя
 
-    public static String userUpdateSkill(String userEmail, Integer id_chat) {
+    public static String userUpdateSkill(String userEmail, Integer id_chat, Integer schetchik_slov) {
         //emailRegister, String passwordRegister
         try {
             // URL для отправки запроса
@@ -113,7 +113,7 @@ public class User {
             connection.setDoOutput(true);
 
             // Формирование тела запроса
-            String postData = "email=" + userEmail + "&id_chat=" + id_chat;
+            String postData = "email=" + userEmail + "&id_chat=" + id_chat + "&schetchik_slov=" + schetchik_slov;
             byte[] postDataBytes = postData.getBytes(StandardCharsets.UTF_8);
 
             // Установка заголовков запроса
@@ -157,7 +157,7 @@ public class User {
 
 
     // Функция обновления уровня пользователя
-    public static String userUpdateLevel(String userEmail, String userLevel, Integer schetchik_slov) {
+    public static String userUpdateLevel(String userEmail, String userLevel) {
         //emailRegister, String passwordRegister
         try {
             // URL для отправки запроса
@@ -173,7 +173,7 @@ public class User {
             connection.setDoOutput(true);
 
             // Формирование тела запроса
-            String postData = "email=" + userEmail + "&userLevel=" + userLevel + "&schetchik_slov=" + schetchik_slov;
+            String postData = "email=" + userEmail + "&userLevel=" + userLevel;
             byte[] postDataBytes = postData.getBytes(StandardCharsets.UTF_8);
 
             // Установка заголовков запроса
