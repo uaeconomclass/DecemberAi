@@ -40,6 +40,7 @@ public class PageFinishChat extends AppCompatActivity {
     TextView textChatTitleFinish, textRecomendedFinish;
     SharedPreferences sp; // Переменная для SharedPreferences
     ImageView pageFinishChatImage;
+    private int schetchik_slov = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +58,7 @@ public class PageFinishChat extends AppCompatActivity {
         typeOfChat = getIntent().getStringExtra("typeOfChat");
         spiskiChatTitleString = getIntent().getStringExtra("spiskiChatTitleString");
         comand = getIntent().getStringExtra("comand");
+        schetchik_slov = getIntent().getIntExtra("schetchik_slov", 0);
 
         System.out.println("Пришла команда" + comand);
         type = comand.substring(0, 3); // Получаем первые три символа
@@ -87,7 +89,7 @@ public class PageFinishChat extends AppCompatActivity {
                     executor2.execute(new Runnable() {
                         @Override
                         public void run() {
-                            String result = User.userUpdateLevel(userEmail, parameter);
+                            String result = User.userUpdateLevel(userEmail, parameter, schetchik_slov);
                             if (Objects.equals(result, "true")) {
                                 runOnUiThread(new Runnable() {
                                     @Override

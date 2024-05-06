@@ -124,6 +124,7 @@ public class ChatPage extends AppCompatActivity {
     SharedPreferences sp;
     private String userEmail;
     private boolean buttonVoiceBlocked = false;
+    private int schetchik_slov = 0;
 
 
 
@@ -264,6 +265,7 @@ public class ChatPage extends AppCompatActivity {
             chatDivUrovenClient.setVisibility(View.GONE); //Прячем Строку об уровне клиента
             //--chatWelcomeTextView.setVisibility(View.GONE); //Прячем приветственный текст
             addToChat(question, Message.SENT_BY_ME); // Записываем вопрос пользователя в чат
+            schetchikResponse(question);
             chatMessageEditText.setText(""); // Очищаем окно ввода вопросов пользователя
             callAPI(question);
 
@@ -348,6 +350,8 @@ public class ChatPage extends AppCompatActivity {
                     String question2 = String.valueOf(result); //Получаем вопрос пользователя
 
                     addToChat(question2, Message.SENT_BY_ME); // Записываем вопрос пользователя в чат
+
+                    schetchikResponse(question2);
                     runOnUiThread(new Runnable() { // Этот код для вызова операции в основном потоке находясь на второстипенном
                         @Override
                         public void run() {
@@ -371,9 +375,9 @@ public class ChatPage extends AppCompatActivity {
     }
 
 
-
+/*
     // Отправка ответа на сервер и принятие аудио файла
-    public void toVoiceAssistantResponse(String text) {
+       public void toVoiceAssistantResponse(String text) {
 
    // Создание JSON объекта с текстом для отправки на сервер
         JSONObject jsonBody = new JSONObject();
@@ -443,6 +447,59 @@ public class ChatPage extends AppCompatActivity {
         });
 
     }
+*/
+
+    public void toVoiceAssistantResponse(String text) {
+    //public void sendTextAndGetAudio(String text, String userId) {
+
+        // Создание JSON тела запроса
+        JSONObject jsonBody = new JSONObject();
+        try {
+            jsonBody.put("model", "tts-1");
+            jsonBody.put("input", text);
+            jsonBody.put("voice", "echo");
+            jsonBody.put("speed", "0.90");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        // Создание запроса
+        RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
+
+        Request request = new Request.Builder()
+                .url("https://api.openai.com/v1/audio/speech")
+                .addHeader("Authorization", "Bearer " + User.openaiApiKey)
+                .addHeader("Content-Type", "application/json")
+                .post(body)
+                .build();
+
+        // Асинхронное выполнение запроса
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                // Обработка ошибки при отправке запроса
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    try (ResponseBody responseBody = response.body()) {
+                        if (responseBody != null) {
+                            InputStream inputStream = responseBody.byteStream();
+                            saveAudioFile(inputStream);
+                        }
+                    }
+                } else {
+                    // Если ответ неуспешен, обработайте ошибку
+                    System.out.println("Error: " + response.message());
+                }
+            }
+        });
+    }
+
+
+
 
 
     // Метод для сохранения аудио файла
@@ -485,7 +542,7 @@ public class ChatPage extends AppCompatActivity {
 
     private static final String TAG = "FileUploadTask";
     private static final String UPLOAD_URL = "https://yourtalker.com/hendlers_api/upload_user_voiсe.php";
-
+/*
     // Метод для загрузки файла на сервер
     private void uploadFileToServer(final String filePath, final UploadCallback callback) {
         OkHttpClient client = new OkHttpClient();
@@ -542,6 +599,72 @@ public class ChatPage extends AppCompatActivity {
             }
         });
     }
+
+*/
+
+    private void uploadFileToServer(final String filePath, final UploadCallback callback) {
+        OkHttpClient client = new OkHttpClient();
+
+        // Получаем файл
+        File file = new File(filePath);
+
+        // Строим тело запроса с файлами (Multipart)
+        RequestBody fileRequestBody = RequestBody.create(file, MediaType.parse("audio/mp3"));
+        MultipartBody.Part filePart = MultipartBody.Part.createFormData("file", file.getName(), fileRequestBody);
+
+        // Создаем тело запроса
+        RequestBody requestBody = new MultipartBody.Builder()
+                .setType(MultipartBody.FORM)
+                .addPart(filePart)
+                .addFormDataPart("model", "whisper-1")  // Добавляем параметры запроса
+                .addFormDataPart("language", "en")
+                .build();
+
+        // Строим запрос
+        Request request = new Request.Builder()
+                .url("https://api.openai.com/v1/audio/transcriptions")
+                .addHeader("Authorization", "Bearer " + User.openaiApiKey)  // Указываем ключ API
+                .post(requestBody)  // Отправляем POST-запрос
+                .build();
+
+        // Отправляем запрос и обрабатываем ответ
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                callback.onFailure("Ошибка отправки файла: " + e.getMessage());
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                try {
+                    if (response.isSuccessful()) {
+                        String responseText = response.body().string();
+
+                        try {
+                            // Парсим JSON-ответ
+                            JSONObject jsonResponse = new JSONObject(responseText);
+
+                            // Извлекаем значение по ключу "text"
+                            String extractedText = jsonResponse.getString("text");
+
+                            // Передаем извлеченный текст в колбэк
+                            callback.onSuccess(extractedText);
+                        } catch (Exception e) {
+                            callback.onFailure("Ошибка при извлечении текста из JSON: " + e.getMessage());
+                        }
+                    } else {
+                        callback.onFailure("Ошибка транскрипции: " + response.code());
+                    }
+                } finally {
+                    response.close();  // Закрываем ресурс, чтобы избежать утечек памяти
+                }
+            }
+        });
+    }
+
+
+
+
 
 
 
@@ -658,6 +781,23 @@ public class ChatPage extends AppCompatActivity {
 
         addToChat(response,Message.SENT_BY_BOT);
     }
+
+
+    // Счетчик слов
+    public void schetchikResponse(String response){
+        if (response == null || response.trim().isEmpty()) {
+
+        }else {
+
+            // Разделяем строку по пробелам и считаем количество слов
+            String[] words = response.trim().split("\\s+"); // Разделяем по одному или нескольким пробелам
+            schetchik_slov += words.length; // Возвращаем количество слов
+        }
+    }
+
+
+
+
     void callAPI(String question) {
         //   https://square.github.io/okhttp/  gpt-3.5-turbo-instruct
 
@@ -695,6 +835,7 @@ public class ChatPage extends AppCompatActivity {
                 intent.putExtra("id_chat", id_chat);
                 intent.putExtra("spiskiChatTitleString", spiskiChatTitleString);
                 intent.putExtra("spiskiChatImageId", getIntent().getIntExtra("spiskiChatImageId", 0));
+                intent.putExtra("schetchik_slov", schetchik_slov);
 
                 startActivity(intent);
                 finish(); // Завершаем текущую активность, чтобы пользователь не мог вернуться назад
@@ -748,10 +889,10 @@ public class ChatPage extends AppCompatActivity {
 
             RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
             Request request = new Request.Builder()
-                    .url("https://yourtalker.com/hendlers_api/get_thread_id" + testerVova + ".php")
-                    //.header("Authorization", "Bearer " + OPENAI_API_KEY)
-                    //.header("OpenAI-Beta", "assistants=v1")
-                    //.post(body)
+                    .url("https://api.openai.com/v1/threads")
+                    .header("Authorization", "Bearer " + User.openaiApiKey)
+                    .header("OpenAI-Beta", "assistants=v1")
+                    .post(body)
                     .build();
 
             client.newCall(request).enqueue(new Callback() {
@@ -794,8 +935,8 @@ public class ChatPage extends AppCompatActivity {
         try {
              jsonBody.put("role", "user");
              jsonBody.put("content", question);
-             jsonBody.put("userEmail", userEmail);
-             jsonBody.put("threadId", threadId);// Добавил, если на прямую, то этот параметр не нужен
+             //jsonBody.put("userEmail", userEmail);
+             //jsonBody.put("threadId", threadId);// Добавил, если на прямую, то этот параметр не нужен
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -807,10 +948,10 @@ public class ChatPage extends AppCompatActivity {
 
 
         Request request = new Request.Builder()
-                .url("https://yourtalker.com/hendlers_api/add_message" + testerVova + ".php")
+                .url("https://api.openai.com/v1/threads/" + threadId + "/messages")
                 .header("Content-Type", "application/json")
-                //.header("Authorization", "Bearer " + OPENAI_API_KEY)
-                //.header("OpenAI-Beta", "assistants=v1")
+                .header("Authorization", "Bearer " + User.openaiApiKey)
+                .header("OpenAI-Beta", "assistants=v1")
                 .post(body)
                 .build();
 
@@ -847,7 +988,7 @@ public class ChatPage extends AppCompatActivity {
         JSONObject jsonBody = new JSONObject();
         try {
             jsonBody.put("assistant_id", assistantId);
-            jsonBody.put("threadId", threadId);// Добавил, если на прямую, то этот параметр не нужен
+            //jsonBody.put("threadId", threadId);// Добавил, если на прямую, то этот параметр не нужен
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -855,9 +996,9 @@ public class ChatPage extends AppCompatActivity {
 
         RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
         Request request = new Request.Builder()
-                .url("https://yourtalker.com/hendlers_api/assistant_run" + testerVova + ".php")
-                //.header("Authorization", "Bearer " + OPENAI_API_KEY)
-                //.header("OpenAI-Beta", "assistants=v1")
+                .url("https://api.openai.com/v1/threads/" + threadId + "/runs")
+                .header("Authorization", "Bearer " + User.openaiApiKey)
+                .header("OpenAI-Beta", "assistants=v1")
                 .post(body)
                 .build();
 
@@ -899,14 +1040,13 @@ public class ChatPage extends AppCompatActivity {
     }
 
 
-    public void waitForResponse(String run_id, String threadId, final WaitForResponseCallback callback) {
+    public void waitForResponse(String assistant_id, String run_id, String threadId, final WaitForResponseCallback callback) {
         // Ваш код для шага 4
 
         JSONObject jsonBody = new JSONObject();
         try {
-            //jsonBody.put("assistant_id", assistantId);
-            jsonBody.put("threadId", threadId);// Добавил, если на прямую, то этот параметр не нужен
-            jsonBody.put("run_id", run_id);// Добавил, если на прямую, то этот параметр не нужен
+            jsonBody.put("assistant_id", assistant_id);
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -914,12 +1054,12 @@ public class ChatPage extends AppCompatActivity {
         RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
 
         Request request = new Request.Builder()
-                .url("https://yourtalker.com/hendlers_api/assistant_response_status" + testerVova + ".php")
-                //.url("https://api.openai.com/v1/threads/" + threadId + "/runs/" + run_id)
-                //.header("Authorization", "Bearer " + OPENAI_API_KEY)
-                //.header("OpenAI-Beta", "assistants=v1")
-                //.get()
-                .post(body)
+                //.url("https://yourtalker.com/hendlers_api/assistant_response_status" + testerVova + ".php")
+                .url("https://api.openai.com/v1/threads/" + threadId + "/runs/" + run_id)
+                .header("Authorization", "Bearer " + User.openaiApiKey)
+                .header("OpenAI-Beta", "assistants=v1")
+                .get()
+                //.post(body)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -958,14 +1098,14 @@ public class ChatPage extends AppCompatActivity {
 
     }
 
-    public void getAssistantResponse(String threadId, String run_id) {
+    public void getAssistantResponse(String assistant_id, String threadId, String run_id) {
         // Ваш код для шага 5
 
         JSONObject jsonBody = new JSONObject();
         try {
-            //jsonBody.put("assistant_id", assistantId);
-            jsonBody.put("userEmail", userEmail);
-            jsonBody.put("threadId", threadId);// Добавил, если на прямую, то этот параметр не нужен
+            jsonBody.put("assistant_id", assistant_id);
+            //jsonBody.put("userEmail", userEmail);
+            //jsonBody.put("threadId", threadId);// Добавил, если на прямую, то этот параметр не нужен
 
 
         } catch (JSONException e) {
@@ -975,12 +1115,12 @@ public class ChatPage extends AppCompatActivity {
 
 
         Request request = new Request.Builder()
-                .url("https://yourtalker.com/hendlers_api/get_assistant_response" + testerVova + ".php")
-                //.url("https://api.openai.com/v1/threads/" + threadId + "/messages")
-                //.header("Authorization", "Bearer " + OPENAI_API_KEY)
-                //.header("OpenAI-Beta", "assistants=v1")
-                //.get()
-                .post(body)
+                //.url("https://yourtalker.com/hendlers_api/get_assistant_response" + testerVova + ".php")
+                .url("https://api.openai.com/v1/threads/" + threadId + "/messages")
+                .header("Authorization", "Bearer " + User.openaiApiKey)
+                .header("OpenAI-Beta", "assistants=v1")
+                .get()
+                //.post(body)
                 .build();
 
         client.newCall(request).enqueue(new Callback() {
@@ -1019,6 +1159,8 @@ public class ChatPage extends AppCompatActivity {
                                     JSONObject textObject = contentObject.getJSONObject("text");
                                     String otvetAssistant = textObject.getString("value");
                                     addResponse(otvetAssistant);
+
+                                    schetchikResponse(otvetAssistant);
 
                                     toVoiceAssistantResponse(otvetAssistant);
 
@@ -1094,7 +1236,7 @@ public class ChatPage extends AppCompatActivity {
                                             if (runStatus.equals("completed")) {
                                                 // Если получен статус "completed", останавливаем цикл ожидания
                                                 stopWaitingLoop();
-                                                getAssistantResponse(threadId, run_id);//Последний шаг, получение ответа от Ассистента
+                                                getAssistantResponse(ASSISTANT_ID, threadId, run_id);//Последний шаг, получение ответа от Ассистента
 
                                             } else if (executionCount >= 20) { // После выполнения 20 раз
                                                 stopWaitingLoop(); // Останавливаем цикл
@@ -1165,7 +1307,7 @@ public class ChatPage extends AppCompatActivity {
         return scheduler.scheduleAtFixedRate(new Runnable() {
             @Override
             public void run() {
-                waitForResponse(run_id, threadId, callback); // Функция проверки готов ли ответ Ассистента
+                waitForResponse(ASSISTANT_ID, run_id, threadId, callback); // Функция проверки готов ли ответ Ассистента
                 executionCount++; // Увеличиваем счетчик выполнений
             }
         }, 0, 3, TimeUnit.SECONDS);// Проверка каждеы 3 секунды

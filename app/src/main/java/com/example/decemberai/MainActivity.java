@@ -375,7 +375,7 @@ public class MainActivity extends AppCompatActivity {
             User.userPhone = userDataJson.getString("phone");
             User.userLevel = userDataJson.getString("user_level");
             User.userSkill = userDataJson.getInt("user_skill");
-            //User.openaiApiKey = userDataJson.getString("openaiApiKey");
+            User.openaiApiKey = userDataJson.getString("openaiApiKey");
             User.assistantIdForTest = userDataJson.getString("assistantIdForTest");
             //User.assistantId = userDataJson.getString("assistantId");
             User.userId = userDataJson.getInt("userId");

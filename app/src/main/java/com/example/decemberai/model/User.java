@@ -157,7 +157,7 @@ public class User {
 
 
     // Функция обновления уровня пользователя
-    public static String userUpdateLevel(String userEmail, String userLevel) {
+    public static String userUpdateLevel(String userEmail, String userLevel, Integer schetchik_slov) {
         //emailRegister, String passwordRegister
         try {
             // URL для отправки запроса
@@ -173,7 +173,7 @@ public class User {
             connection.setDoOutput(true);
 
             // Формирование тела запроса
-            String postData = "email=" + userEmail + "&userLevel=" + userLevel;
+            String postData = "email=" + userEmail + "&userLevel=" + userLevel + "&schetchik_slov=" + schetchik_slov;
             byte[] postDataBytes = postData.getBytes(StandardCharsets.UTF_8);
 
             // Установка заголовков запроса
