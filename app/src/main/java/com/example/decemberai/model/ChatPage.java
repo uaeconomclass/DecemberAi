@@ -38,6 +38,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.decemberai.BuildConfig;
 import com.example.decemberai.Message;
 import com.example.decemberai.PageFinishChat;
 import com.example.decemberai.R;
@@ -393,7 +394,7 @@ public class ChatPage extends AppCompatActivity {
 
         // Создание запроса
         Request request = new Request.Builder()
-                .url("https://yourtalker.com/handlers_api/voice_response.php")
+                .url(BACKEND_BASE_URL + "/handlers_api/voice_response.php")
                 .post(body)
                 .build();
 
@@ -541,7 +542,8 @@ public class ChatPage extends AppCompatActivity {
     }
 
     private static final String TAG = "FileUploadTask";
-    private static final String UPLOAD_URL = "https://yourtalker.com/handlers_api/upload_user_voice.php";
+    private static final String BACKEND_BASE_URL = BuildConfig.BACKEND_BASE_URL;
+    private static final String UPLOAD_URL = BACKEND_BASE_URL + "/handlers_api/upload_user_voice.php";
 /*
     // Метод для загрузки файла на сервер
     private void uploadFileToServer(final String filePath, final UploadCallback callback) {
@@ -1056,7 +1058,7 @@ public class ChatPage extends AppCompatActivity {
         RequestBody body = RequestBody.create(jsonBody.toString(), JSON);
 
         Request request = new Request.Builder()
-                //.url("https://yourtalker.com/handlers_api/assistant_response_status" + testerVova + ".php")
+                //.url(BACKEND_BASE_URL + "/handlers_api/assistant_response_status" + testerVova + ".php")
                 .url("https://api.openai.com/v1/threads/" + threadId + "/runs/" + run_id)
                 .header("Authorization", "Bearer " + User.openaiApiKey)
                 .header("OpenAI-Beta", "assistants=v1")
@@ -1117,7 +1119,7 @@ public class ChatPage extends AppCompatActivity {
 
 
         Request request = new Request.Builder()
-                //.url("https://yourtalker.com/handlers_api/get_assistant_response" + testerVova + ".php")
+                //.url(BACKEND_BASE_URL + "/handlers_api/get_assistant_response" + testerVova + ".php")
                 .url("https://api.openai.com/v1/threads/" + threadId + "/messages")
                 .header("Authorization", "Bearer " + User.openaiApiKey)
                 .header("OpenAI-Beta", "assistants=v1")

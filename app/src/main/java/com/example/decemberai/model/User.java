@@ -1,5 +1,7 @@
 package com.example.decemberai.model;
 
+import com.example.decemberai.BuildConfig;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 public class User {
+    private static final String BACKEND_BASE_URL = BuildConfig.BACKEND_BASE_URL;
     public static List<SpiskiLessons> selectSpiskiLessonsList = new ArrayList<>();
     public static List<SpiskiLessons> fullSpiskiLessonsList = new ArrayList<>();
 
@@ -101,7 +104,7 @@ public class User {
         //emailRegister, String passwordRegister
         try {
             // URL для отправки запроса
-            URL url = new URL("https://yourtalker.com/handlers_api/user_update_skill.php");
+            URL url = new URL(BACKEND_BASE_URL + "/handlers_api/user_update_skill.php");
 
             // Создание соединения
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -161,7 +164,7 @@ public class User {
         //emailRegister, String passwordRegister
         try {
             // URL для отправки запроса
-            URL url = new URL("https://yourtalker.com/handlers_api/user_update_level.php");
+            URL url = new URL(BACKEND_BASE_URL + "/handlers_api/user_update_level.php");
 
             // Создание соединения
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
