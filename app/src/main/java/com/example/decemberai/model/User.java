@@ -101,7 +101,7 @@ public class User {
         //emailRegister, String passwordRegister
         try {
             // URL для отправки запроса
-            URL url = new URL("https://yourtalker.com/hendlers_api/user_update_skill.php");
+            URL url = new URL("https://yourtalker.com/handlers_api/user_update_skill.php");
 
             // Создание соединения
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -161,7 +161,7 @@ public class User {
         //emailRegister, String passwordRegister
         try {
             // URL для отправки запроса
-            URL url = new URL("https://yourtalker.com/hendlers_api/user_update_level.php");
+            URL url = new URL("https://yourtalker.com/handlers_api/user_update_level.php");
 
             // Создание соединения
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -216,3 +216,4 @@ public class User {
 
 
 }
+

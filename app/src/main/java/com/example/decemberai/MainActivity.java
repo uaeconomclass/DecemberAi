@@ -336,7 +336,7 @@ public class MainActivity extends AppCompatActivity {
         userEmail = sp.getString("email", "");
         try {
             // URL для отправки запроса
-            URL url = new URL("https://yourtalker.com//hendlers_api/userData.php");
+            URL url = new URL("https://yourtalker.com//handlers_api/userData.php");
 
             // Создание соединения
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -461,7 +461,7 @@ public class MainActivity extends AppCompatActivity {
     public static String userCheckLogin(String emailRegister, String passwordRegister) {
         try {
             // URL для отправки запроса
-            URL url = new URL("https://yourtalker.com/hendlers_api/login.php");
+            URL url = new URL("https://yourtalker.com/handlers_api/login.php");
 
             // Создание соединения
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

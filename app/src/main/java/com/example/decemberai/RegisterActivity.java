@@ -173,7 +173,7 @@ public class RegisterActivity extends AppCompatActivity {
     public static String userRegister(String name, String email, String phone, String password) {
         try {
             // URL для отправки запроса
-            URL url = new URL("https://yourtalker.com/hendlers_api/register.php");
+            URL url = new URL("https://yourtalker.com/handlers_api/register.php");
 
             // Создание соединения
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -301,7 +301,7 @@ public class RegisterActivity extends AppCompatActivity {
     public static String userLogin(String emailRegister, String passwordRegister) {
         try {
             // URL для отправки запроса
-            URL url = new URL("https://yourtalker.com/hendlers_api/login.php");
+            URL url = new URL("https://yourtalker.com/handlers_api/login.php");
 
             // Создание соединения
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();

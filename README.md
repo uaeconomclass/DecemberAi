@@ -1,65 +1,65 @@
-# DecemberAi
+п»ї# DecemberAi
 
-Android-приложение (Java, XML, Gradle) для разговорной практики с AI-ассистентом, пользовательскими уроками/практиками и базовой системой аккаунта.
+Android-РїСЂРёР»РѕР¶РµРЅРёРµ (Java, XML, Gradle) РґР»СЏ СЂР°Р·РіРѕРІРѕСЂРЅРѕР№ РїСЂР°РєС‚РёРєРё СЃ AI-Р°СЃСЃРёСЃС‚РµРЅС‚РѕРј, РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёРјРё СѓСЂРѕРєР°РјРё/РїСЂР°РєС‚РёРєР°РјРё Рё Р±Р°Р·РѕРІРѕР№ СЃРёСЃС‚РµРјРѕР№ Р°РєРєР°СѓРЅС‚Р°.
 
-## Что есть в проекте
-- Регистрация и вход пользователя (`RegisterActivity`)
-- Авто-логин через `SharedPreferences` (`MainActivity`)
-- Главный экран с подборкой уроков (`HomeFragment`)
-- Экран практик (`PracticeFragment`)
-- Профиль пользователя и смена пароля (`AccountFragment`, `ChangePasswordActivity`)
-- Входной тест уровня (`TesterUserActivity`)
-- Голосовой чат с OpenAI Assistants API (`model/ChatPage`)
-- Экран завершения диалога с обновлением прогресса (`PageFinishChat`)
+## Р§С‚Рѕ РµСЃС‚СЊ РІ РїСЂРѕРµРєС‚Рµ
+- Р РµРіРёСЃС‚СЂР°С†РёСЏ Рё РІС…РѕРґ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ (`RegisterActivity`)
+- РђРІС‚Рѕ-Р»РѕРіРёРЅ С‡РµСЂРµР· `SharedPreferences` (`MainActivity`)
+- Р“Р»Р°РІРЅС‹Р№ СЌРєСЂР°РЅ СЃ РїРѕРґР±РѕСЂРєРѕР№ СѓСЂРѕРєРѕРІ (`HomeFragment`)
+- Р­РєСЂР°РЅ РїСЂР°РєС‚РёРє (`PracticeFragment`)
+- РџСЂРѕС„РёР»СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ Рё СЃРјРµРЅР° РїР°СЂРѕР»СЏ (`AccountFragment`, `ChangePasswordActivity`)
+- Р’С…РѕРґРЅРѕР№ С‚РµСЃС‚ СѓСЂРѕРІРЅСЏ (`TesterUserActivity`)
+- Р“РѕР»РѕСЃРѕРІРѕР№ С‡Р°С‚ СЃ OpenAI Assistants API (`model/ChatPage`)
+- Р­РєСЂР°РЅ Р·Р°РІРµСЂС€РµРЅРёСЏ РґРёР°Р»РѕРіР° СЃ РѕР±РЅРѕРІР»РµРЅРёРµРј РїСЂРѕРіСЂРµСЃСЃР° (`PageFinishChat`)
 
-## Технологический стек
-- Язык: Java 8
+## РўРµС…РЅРѕР»РѕРіРёС‡РµСЃРєРёР№ СЃС‚РµРє
+- РЇР·С‹Рє: Java 8
 - Android SDK: `compileSdk 33`, `targetSdk 33`, `minSdk 21`
 - UI: AndroidX, Material Components, ConstraintLayout
-- Сеть: `HttpURLConnection`, `OkHttp 4.12.0`
-- Медиа/ресурсы: Glide, MediaRecorder, большое количество drawable-ассетов
-- Сборка: AGP `8.2.0`, Gradle wrapper
+- РЎРµС‚СЊ: `HttpURLConnection`, `OkHttp 4.12.0`
+- РњРµРґРёР°/СЂРµСЃСѓСЂСЃС‹: Glide, MediaRecorder, Р±РѕР»СЊС€РѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ drawable-Р°СЃСЃРµС‚РѕРІ
+- РЎР±РѕСЂРєР°: AGP `8.2.0`, Gradle wrapper
 
-## Архитектура (фактически)
-Проект построен как single-module Android app (`:app`) с активити + фрагментами и глобальным in-memory стейтом в `User`.
+## РђСЂС…РёС‚РµРєС‚СѓСЂР° (С„Р°РєС‚РёС‡РµСЃРєРё)
+РџСЂРѕРµРєС‚ РїРѕСЃС‚СЂРѕРµРЅ РєР°Рє single-module Android app (`:app`) СЃ Р°РєС‚РёРІРёС‚Рё + С„СЂР°РіРјРµРЅС‚Р°РјРё Рё РіР»РѕР±Р°Р»СЊРЅС‹Рј in-memory СЃС‚РµР№С‚РѕРј РІ `User`.
 
-### Ключевые компоненты
+### РљР»СЋС‡РµРІС‹Рµ РєРѕРјРїРѕРЅРµРЅС‚С‹
 - `MainActivity`
-  - Проверяет локальную авторизацию (`email/password` в `UserPreferences`)
-  - Тянет профиль и контент пользователя с backend
-  - Инициализирует bottom navigation и фрагменты
+  - РџСЂРѕРІРµСЂСЏРµС‚ Р»РѕРєР°Р»СЊРЅСѓСЋ Р°РІС‚РѕСЂРёР·Р°С†РёСЋ (`email/password` РІ `UserPreferences`)
+  - РўСЏРЅРµС‚ РїСЂРѕС„РёР»СЊ Рё РєРѕРЅС‚РµРЅС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ СЃ backend
+  - РРЅРёС†РёР°Р»РёР·РёСЂСѓРµС‚ bottom navigation Рё С„СЂР°РіРјРµРЅС‚С‹
 - `model/User`
-  - Глобальный статический стейт приложения (уровень, скилл, списки уроков/практик, api key)
-  - Методы обновления уровня/скилла на backend
+  - Р“Р»РѕР±Р°Р»СЊРЅС‹Р№ СЃС‚Р°С‚РёС‡РµСЃРєРёР№ СЃС‚РµР№С‚ РїСЂРёР»РѕР¶РµРЅРёСЏ (СѓСЂРѕРІРµРЅСЊ, СЃРєРёР»Р», СЃРїРёСЃРєРё СѓСЂРѕРєРѕРІ/РїСЂР°РєС‚РёРє, api key)
+  - РњРµС‚РѕРґС‹ РѕР±РЅРѕРІР»РµРЅРёСЏ СѓСЂРѕРІРЅСЏ/СЃРєРёР»Р»Р° РЅР° backend
 - `model/ChatPage`
-  - Запись голоса, upload файла, transcription
-  - Вызовы OpenAI Assistants API (`threads`, `messages`, `runs`, poll статуса)
-  - Озвучка ответа (`/v1/audio/speech`)
+  - Р—Р°РїРёСЃСЊ РіРѕР»РѕСЃР°, upload С„Р°Р№Р»Р°, transcription
+  - Р’С‹Р·РѕРІС‹ OpenAI Assistants API (`threads`, `messages`, `runs`, poll СЃС‚Р°С‚СѓСЃР°)
+  - РћР·РІСѓС‡РєР° РѕС‚РІРµС‚Р° (`/v1/audio/speech`)
 - `adapter/*`
-  - RecyclerView-адаптеры уроков, практик, home и сообщений
+  - RecyclerView-Р°РґР°РїС‚РµСЂС‹ СѓСЂРѕРєРѕРІ, РїСЂР°РєС‚РёРє, home Рё СЃРѕРѕР±С‰РµРЅРёР№
 
 ## User flow
-1. Старт приложения -> `MainActivity`
-2. Если нет валидных учетных данных -> `RegisterActivity`
-3. После логина/регистрации -> загрузка пользовательских данных и учебного контента
-4. Если первый запуск -> `TesterUserActivity`
-5. Пользователь открывает урок/практику -> `ChatPage`
-6. По завершению диалога -> `PageFinishChat`, обновление уровня/скилла
+1. РЎС‚Р°СЂС‚ РїСЂРёР»РѕР¶РµРЅРёСЏ -> `MainActivity`
+2. Р•СЃР»Рё РЅРµС‚ РІР°Р»РёРґРЅС‹С… СѓС‡РµС‚РЅС‹С… РґР°РЅРЅС‹С… -> `RegisterActivity`
+3. РџРѕСЃР»Рµ Р»РѕРіРёРЅР°/СЂРµРіРёСЃС‚СЂР°С†РёРё -> Р·Р°РіСЂСѓР·РєР° РїРѕР»СЊР·РѕРІР°С‚РµР»СЊСЃРєРёС… РґР°РЅРЅС‹С… Рё СѓС‡РµР±РЅРѕРіРѕ РєРѕРЅС‚РµРЅС‚Р°
+4. Р•СЃР»Рё РїРµСЂРІС‹Р№ Р·Р°РїСѓСЃРє -> `TesterUserActivity`
+5. РџРѕР»СЊР·РѕРІР°С‚РµР»СЊ РѕС‚РєСЂС‹РІР°РµС‚ СѓСЂРѕРє/РїСЂР°РєС‚РёРєСѓ -> `ChatPage`
+6. РџРѕ Р·Р°РІРµСЂС€РµРЅРёСЋ РґРёР°Р»РѕРіР° -> `PageFinishChat`, РѕР±РЅРѕРІР»РµРЅРёРµ СѓСЂРѕРІРЅСЏ/СЃРєРёР»Р»Р°
 
-## Сетевые интеграции
+## РЎРµС‚РµРІС‹Рµ РёРЅС‚РµРіСЂР°С†РёРё
 ### Backend (`yourtalker.com`)
-Используются endpoint'ы:
-- `hendlers_api/register.php`
-- `hendlers_api/login.php`
-- `hendlers_api/userData.php`
-- `hendlers_api/change_password.php`
-- `hendlers_api/user_update_level.php`
-- `hendlers_api/user_update_skill.php`
-- `hendlers_api/voice_response.php`
-- `hendlers_api/upload_user_voiсe.php`
+РСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ endpoint'С‹:
+- `handlers_api/register.php`
+- `handlers_api/login.php`
+- `handlers_api/userData.php`
+- `handlers_api/change_password.php`
+- `handlers_api/user_update_level.php`
+- `handlers_api/user_update_skill.php`
+- `handlers_api/voice_response.php`
+- `handlers_api/upload_user_voice.php`
 
 ### OpenAI API
-В `ChatPage` используются:
+Р’ `ChatPage` РёСЃРїРѕР»СЊР·СѓСЋС‚СЃСЏ:
 - `POST /v1/threads`
 - `POST /v1/threads/{threadId}/messages`
 - `POST /v1/threads/{threadId}/runs`
@@ -68,49 +68,51 @@ Android-приложение (Java, XML, Gradle) для разговорной практики с AI-ассистентом
 - `POST /v1/audio/transcriptions`
 - `POST /v1/audio/speech`
 
-Ключ OpenAI приходит с backend в `userData.php` и сохраняется в `User.openaiApiKey`.
+РљР»СЋС‡ OpenAI РїСЂРёС…РѕРґРёС‚ СЃ backend РІ `userData.php` Рё СЃРѕС…СЂР°РЅСЏРµС‚СЃСЏ РІ `User.openaiApiKey`.
 
-## Локальное хранение
+## Р›РѕРєР°Р»СЊРЅРѕРµ С…СЂР°РЅРµРЅРёРµ
 `SharedPreferences("UserPreferences")`:
 - `email`, `password`
 - `userViewPageTesterUserActivity`
 - `errorUserUpdateSkill`, `errorUserUpdateSchetchikSlov`
 
-## Как запустить
+## РљР°Рє Р·Р°РїСѓСЃС‚РёС‚СЊ
 ### Android Studio
-1. Открыть папку проекта.
-2. Дождаться sync Gradle.
-3. Запустить `app` на эмуляторе/устройстве (Android 5.0+).
+1. РћС‚РєСЂС‹С‚СЊ РїР°РїРєСѓ РїСЂРѕРµРєС‚Р°.
+2. Р”РѕР¶РґР°С‚СЊСЃСЏ sync Gradle.
+3. Р—Р°РїСѓСЃС‚РёС‚СЊ `app` РЅР° СЌРјСѓР»СЏС‚РѕСЂРµ/СѓСЃС‚СЂРѕР№СЃС‚РІРµ (Android 5.0+).
 
 ### CLI
 ```bash
 ./gradlew assembleDebug
 ```
-(на Windows: `gradlew.bat assembleDebug`)
+(РЅР° Windows: `gradlew.bat assembleDebug`)
 
-## Текущее состояние кода
-Проект рабочий по сценарию MVP, но с выраженным technical debt.
+## РўРµРєСѓС‰РµРµ СЃРѕСЃС‚РѕСЏРЅРёРµ РєРѕРґР°
+РџСЂРѕРµРєС‚ СЂР°Р±РѕС‡РёР№ РїРѕ СЃС†РµРЅР°СЂРёСЋ MVP, РЅРѕ СЃ РІС‹СЂР°Р¶РµРЅРЅС‹Рј technical debt.
 
-### Основные риски
-- Сильная связность и глобальный mutable state (`User` static fields)
-- Сетевая логика размазана по Activity/Fragment
-- Дублирование HTTP-кода
-- Хранение пароля в `SharedPreferences` в открытом виде
-- Закомментированные/устаревшие куски логики
-- Часть UI/комментариев и строк имеет проблемы с кодировкой
+### РћСЃРЅРѕРІРЅС‹Рµ СЂРёСЃРєРё
+- РЎРёР»СЊРЅР°СЏ СЃРІСЏР·РЅРѕСЃС‚СЊ Рё РіР»РѕР±Р°Р»СЊРЅС‹Р№ mutable state (`User` static fields)
+- РЎРµС‚РµРІР°СЏ Р»РѕРіРёРєР° СЂР°Р·РјР°Р·Р°РЅР° РїРѕ Activity/Fragment
+- Р”СѓР±Р»РёСЂРѕРІР°РЅРёРµ HTTP-РєРѕРґР°
+- РҐСЂР°РЅРµРЅРёРµ РїР°СЂРѕР»СЏ РІ `SharedPreferences` РІ РѕС‚РєСЂС‹С‚РѕРј РІРёРґРµ
+- Р—Р°РєРѕРјРјРµРЅС‚РёСЂРѕРІР°РЅРЅС‹Рµ/СѓСЃС‚Р°СЂРµРІС€РёРµ РєСѓСЃРєРё Р»РѕРіРёРєРё
+- Р§Р°СЃС‚СЊ UI/РєРѕРјРјРµРЅС‚Р°СЂРёРµРІ Рё СЃС‚СЂРѕРє РёРјРµРµС‚ РїСЂРѕР±Р»РµРјС‹ СЃ РєРѕРґРёСЂРѕРІРєРѕР№
 
-### Что стоит сделать первым
-1. Вынести сетевой слой в отдельные репозитории/сервисы.
-2. Перейти на безопасное хранение токенов/сессии (EncryptedSharedPreferences).
-3. Убрать хранение plaintext-пароля.
-4. Ввести ViewModel + state holder (минимум для `MainActivity` и `ChatPage`).
-5. Добавить базовые unit/instrumentation тесты на auth и chat flow.
+### Р§С‚Рѕ СЃС‚РѕРёС‚ СЃРґРµР»Р°С‚СЊ РїРµСЂРІС‹Рј
+1. Р’С‹РЅРµСЃС‚Рё СЃРµС‚РµРІРѕР№ СЃР»РѕР№ РІ РѕС‚РґРµР»СЊРЅС‹Рµ СЂРµРїРѕР·РёС‚РѕСЂРёРё/СЃРµСЂРІРёСЃС‹.
+2. РџРµСЂРµР№С‚Рё РЅР° Р±РµР·РѕРїР°СЃРЅРѕРµ С…СЂР°РЅРµРЅРёРµ С‚РѕРєРµРЅРѕРІ/СЃРµСЃСЃРёРё (EncryptedSharedPreferences).
+3. РЈР±СЂР°С‚СЊ С…СЂР°РЅРµРЅРёРµ plaintext-РїР°СЂРѕР»СЏ.
+4. Р’РІРµСЃС‚Рё ViewModel + state holder (РјРёРЅРёРјСѓРј РґР»СЏ `MainActivity` Рё `ChatPage`).
+5. Р”РѕР±Р°РІРёС‚СЊ Р±Р°Р·РѕРІС‹Рµ unit/instrumentation С‚РµСЃС‚С‹ РЅР° auth Рё chat flow.
 
-## Структура каталогов
+## РЎС‚СЂСѓРєС‚СѓСЂР° РєР°С‚Р°Р»РѕРіРѕРІ
 - `app/src/main/java/com/example/decemberai/` - Activity/Fragment/adapter/model
-- `app/src/main/res/layout/` - XML разметки экранов и элементов списков
-- `app/src/main/res/drawable/` - визуальные ассеты
-- `app/src/main/res/values*` - строки/темы/локализация
+- `app/src/main/res/layout/` - XML СЂР°Р·РјРµС‚РєРё СЌРєСЂР°РЅРѕРІ Рё СЌР»РµРјРµРЅС‚РѕРІ СЃРїРёСЃРєРѕРІ
+- `app/src/main/res/drawable/` - РІРёР·СѓР°Р»СЊРЅС‹Рµ Р°СЃСЃРµС‚С‹
+- `app/src/main/res/values*` - СЃС‚СЂРѕРєРё/С‚РµРјС‹/Р»РѕРєР°Р»РёР·Р°С†РёСЏ
 
-## Примечание
-Документация отражает текущее фактическое состояние репозитория и может отличаться от изначального архитектурного замысла.
+## РџСЂРёРјРµС‡Р°РЅРёРµ
+Р”РѕРєСѓРјРµРЅС‚Р°С†РёСЏ РѕС‚СЂР°Р¶Р°РµС‚ С‚РµРєСѓС‰РµРµ С„Р°РєС‚РёС‡РµСЃРєРѕРµ СЃРѕСЃС‚РѕСЏРЅРёРµ СЂРµРїРѕР·РёС‚РѕСЂРёСЏ Рё РјРѕР¶РµС‚ РѕС‚Р»РёС‡Р°С‚СЊСЃСЏ РѕС‚ РёР·РЅР°С‡Р°Р»СЊРЅРѕРіРѕ Р°СЂС…РёС‚РµРєС‚СѓСЂРЅРѕРіРѕ Р·Р°РјС‹СЃР»Р°.
+
+

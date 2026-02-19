@@ -113,7 +113,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     public static String userChangePassword(String email, String password, String newPassword) {
         try {
             // URL для отправки запроса
-            URL url = new URL("https://yourtalker.com/hendlers_api/change_password.php");
+            URL url = new URL("https://yourtalker.com/handlers_api/change_password.php");
 
             // Создание соединения
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
